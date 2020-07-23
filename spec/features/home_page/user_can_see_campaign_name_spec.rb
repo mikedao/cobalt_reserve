@@ -8,7 +8,7 @@ RSpec.describe "home page", type: :feature do
 
       visit root_path
 
-      expect(page).to have_content("campaign.name")
+      expect(page).to have_content(campaign.name)
     end
   end
 end
