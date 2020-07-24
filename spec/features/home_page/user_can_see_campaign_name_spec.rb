@@ -7,7 +7,6 @@ RSpec.describe "home page", type: :feature do
       campaign = Campaign.create(name: "Turing West Marches", status: "active")
 
       visit root_path
-
       expect(page).to have_content(campaign.name)
     end
   end
