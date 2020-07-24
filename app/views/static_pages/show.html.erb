@@ -1,5 +1,5 @@
 <% if current_user %>
-  <%= link_to "Log out" %>
+  <%= link_to "Log Out", "/login", method: "delete" %>
 <% else %>
   <%= link_to "Register", "/users/new" %>
   <%= link_to "Log In", "/login" %>
