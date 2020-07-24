@@ -11,14 +11,14 @@ RSpec.describe "Logging In", type: :feature do
 
     click_on "Log In"
 
-    expect(current_path).to eq('/login')
+    expect(current_path).to eq("/login")
 
     fill_in :username, with: user.username
     fill_in :password, with: user.password
 
     click_on "Log In"
 
-    expect(current_path).to eq('/')
+    expect(current_path).to eq("/")
 
     expect(page).to have_content("Welcome, #{user.username}")
     expect(page).to have_link("Log out")
@@ -37,16 +37,15 @@ RSpec.describe "Logging In", type: :feature do
 
     click_on "Log In"
 
-    expect(current_path).to eq('/login')
+    expect(current_path).to eq("/login")
 
     fill_in :username, with: user.username
     fill_in :password, with: "Clearly incorrect"
 
     click_on "Log In"
 
-    expect(current_path).to eq('/login')
+    expect(current_path).to eq("/login")
 
     expect(page).to have_content("Sorry, your credentials are bad.")
   end
 end
-
