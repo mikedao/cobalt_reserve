@@ -3,13 +3,13 @@ require "rails_helper"
 RSpec.describe "User registration form", type: :feature do
   context "as a visitor" do
     it "creates a new user" do
-      campaign = Campaign.create(name: "Turing West Marches", status: "active")
+      Campaign.create(name: "Turing West Marches", status: "active")
 
       visit root_path
 
       click_on "Register"
 
-      expect(current_path).to eq ("/users/new")
+      expect(current_path).to eq "/users/new"
 
       username = "BurtReynolds"
       password = "hamburger1"
