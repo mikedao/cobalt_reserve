@@ -25,7 +25,7 @@ RSpec.describe "Logging In", type: :feature do
     expect(page).to_not have_link("Register")
     expect(page).to_not have_link("I already have an account")
 
-    click_on "Log In"
+    click_on "Log Out"
 
     expect(current_path).to eq root_path
     expect(page).to have_content("You have successfully logged out.")
