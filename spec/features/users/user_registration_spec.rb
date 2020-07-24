@@ -26,7 +26,6 @@ RSpec.describe "User registration form", type: :feature do
       click_on "Create User"
 
       expect(page).to have_content "Welcome, #{username}!"
-      expect(current_path).to eq(root_path)
     end
   end
 end
