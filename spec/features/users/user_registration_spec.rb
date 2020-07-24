@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "User registration form", type: :feature do
   context "as a visitor" do
-    it "creates a new user when I visit the user registration from a link on the home page" do
+    it "creates a new user" do
       campaign = Campaign.create(name: "Turing West Marches", status: "active")
 
       visit root_path
