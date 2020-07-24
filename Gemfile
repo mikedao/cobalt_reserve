@@ -10,6 +10,7 @@ gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 4.0'
 gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'bcrypt'
 
 group :development, :test do
   gem 'rspec-rails'
@@ -17,6 +18,7 @@ group :development, :test do
   gem 'launchy'
   gem 'pry'
   gem 'simplecov'
+  gem 'shoulda-matchers'
 end
 
 group :development do
