@@ -3,4 +3,8 @@ Rails.application.routes.draw do
 
   get "/users/new", to: "users#new"
   post "/users", to: "users#create"
+  get "/profile", to: "users#show"
+
+  get "/login", to: "sessions#new"
+  post "/login", to: "sessions#create"
 end
