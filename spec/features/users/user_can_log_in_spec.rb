@@ -18,7 +18,7 @@ RSpec.describe "Logging In", type: :feature do
 
     click_button "Log In"
 
-    expect(current_path).to eq("/")
+    expect(current_path).to eq("/profile")
 
     expect(page).to have_content("Welcome, #{user.username}")
     expect(page).to have_link("Log Out")
