@@ -10,26 +10,26 @@ RSpec.describe "As a visitor", type: :feature do
       user_2 = User.create(username: "some_user",
                            password: "test",
                            email: "someone@example.com")
-      char_1 = Character.create(name:         "Cormyn",
-                             race:            "Human",
-                             level:           3,
-                             character_class: "Ranger",
-                             campaign:        campaign,
-                             user:            user_1)
+      char_1 = Character.create(name:            "Cormyn",
+                                race:            "Human",
+                                level:           3,
+                                character_class: "Ranger",
+                                campaign:        campaign,
+                                user:            user_1)
 
-      char_2 = Character.create(name:         "Orlaq",
-                             race:            "Elven",
-                             level:           3,
-                             character_class: "Monk",
-                             campaign:        campaign,
-                             user:            user_1)
+      char_2 = Character.create(name:            "Orlaq",
+                                race:            "Elven",
+                                level:           3,
+                                character_class: "Monk",
+                                campaign:        campaign,
+                                user:            user_1)
 
-      char_3 = Character.create(name:         "Oleander",
-                             race:            "Dragonborn",
-                             level:           3,
-                             character_class: "Fighter",
-                             campaign:        campaign,
-                             user:            user_2)
+      char_3 = Character.create(name:            "Oleander",
+                                race:            "Dragonborn",
+                                level:           3,
+                                character_class: "Fighter",
+                                campaign:        campaign,
+                                user:            user_2)
 
 
       visit "/"
