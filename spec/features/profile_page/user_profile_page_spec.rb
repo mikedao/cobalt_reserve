@@ -5,11 +5,11 @@ RSpec.describe "As a visitor", type: :feature do
     it "redirects me to my profile page and I can see my characters" do
       campaign = Campaign.create(name: "Turing West Marches", status: "active")
       user1 = User.create(username: "funbucket13",
-                           password: "test",
-                           email: "bucket@example.com")
+                          password: "test",
+                          email: "bucket@example.com")
       user2 = User.create(username: "some_user",
-                           password: "test",
-                           email: "someone@example.com")
+                          password: "test",
+                          email: "someone@example.com")
       char1 = Character.create(name:            "Cormyn",
                                race:            "Human",
                                level:           3,
