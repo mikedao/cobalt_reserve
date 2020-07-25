@@ -15,22 +15,22 @@ RSpec.describe "As a visitor", type: :feature do
                              level:           3,
                              character_class: "Ranger",
                              campaign:        campaign,
-                             user:            user_1
-                            )
+                             user:            user_1)
+
       char_2 = Character.create(name:         "Orlaq",
                              race:            "Elven",
                              level:           3,
                              character_class: "Monk",
                              campaign:        campaign,
-                             user:            user_1
-                            )
+                             user:            user_1)
+
       char_3 = Character.create(name:         "Oleander",
                              race:            "Dragonborn",
                              level:           3,
                              character_class: "Fighter",
                              campaign:        campaign,
-                             user:            user_2
-                            )
+                             user:            user_2)
+
 
       visit "/"
 
@@ -43,7 +43,6 @@ RSpec.describe "As a visitor", type: :feature do
 
       click_button "Log In"
 
-      save_and_open_page
       expect(current_path).to eq("/profile")
       expect(page).to have_content(campaign.name)
       expect(page).to have_content(char_1.name)
