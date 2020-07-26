@@ -3,28 +3,28 @@ require "rails_helper"
 RSpec.describe "As a visitor", type: :feature do
   context "when I visit the monsters show page" do
     it "displays all monsters" do
-       monster = Monster.create(name: "Imp",
-                                size: "Tiny",
-                                monster_type: "Fiend",
-                                alignment: "LE",
-                                ac: 13,
-                                hp: 10,
-                                speed: "20, 40 fly",
-                                str: 6,
-                                dex: 17,
-                                con: 13,
-                                int: 11,
-                                wis: 12,
-                                cha: 14,
-                                saving_throws: nil,
-                                skills: "Deception, Insight, Persuasion, Stealth",
-                                weaknesses_resistances_immunities: "Coldres, nonmagicalres, nonsilveredres, fireimmu, poisonimmu, poisonedimmu",
-                                senses: "Darkvision 120",
-                                languages: "Infernal, Common",
-                                challenge_rating: 1.0,
-                                additional_abilities: "Shapechanger, Devil's Sight, Magic Resistance",
-                                source: "Monster Manual",
-                                author: "Wizards of the Coast")
+      monster = Monster.create(name: "Imp",
+                               size: "Tiny",
+                               monster_type: "Fiend",
+                               alignment: "LE",
+                               ac: 13,
+                               hp: 10,
+                               speed: "20, 40 fly",
+                               str: 6,
+                               dex: 17,
+                               con: 13,
+                               int: 11,
+                               wis: 12,
+                               cha: 14,
+                               saving_throws: nil,
+                               skills: "Deception, Insight, Persuasion, Stealth",
+                               weaknesses_resistances_immunities: "Coldres, nonmagicalres, nonsilveredres, fireimmu, poisonimmu, poisonedimmu",
+                               senses: "Darkvision 120",
+                               languages: "Infernal, Common",
+                               challenge_rating: 1.0,
+                               additional_abilities: "Shapechanger, Devil's Sight, Magic Resistance",
+                               source: "Monster Manual",
+                               author: "Wizards of the Coast")
 
       visit monster_path(monster)
 
@@ -49,4 +49,3 @@ RSpec.describe "As a visitor", type: :feature do
     end
   end
 end
-
