@@ -1,4 +1,4 @@
-require 'CSV'
+require 'csv'
 array = CSV.read("./data/monsters.csv", headers: true)
 
 array.each do |row|
