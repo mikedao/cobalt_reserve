@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_25_003913) do
+ActiveRecord::Schema.define(version: 2020_07_26_154137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,33 @@ ActiveRecord::Schema.define(version: 2020_07_25_003913) do
     t.bigint "user_id", null: false
     t.index ["campaign_id"], name: "index_characters_on_campaign_id"
     t.index ["user_id"], name: "index_characters_on_user_id"
+  end
+
+  create_table "monsters", force: :cascade do |t|
+    t.string "name"
+    t.string "size"
+    t.string "monster_type"
+    t.string "alignment"
+    t.integer "ac"
+    t.integer "hp"
+    t.string "speed"
+    t.integer "str"
+    t.integer "dex"
+    t.integer "con"
+    t.integer "int"
+    t.integer "wis"
+    t.integer "cha"
+    t.string "saving_throws"
+    t.string "skills"
+    t.string "weaknesses_resistances_immunities"
+    t.string "senses"
+    t.string "languages"
+    t.float "challenge_rating"
+    t.string "additional_abilities"
+    t.string "source"
+    t.string "author"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
