@@ -1,4 +1,5 @@
 require 'csv'
+Campaign.create(name: "Turing West Marches", status: "active")
 array = CSV.read("./data/monsters.csv", headers: true)
 
 array.each do |row|
