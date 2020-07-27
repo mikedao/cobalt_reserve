@@ -4,5 +4,7 @@ RSpec.describe Character, type: :model do
   describe "relationships" do
     it { should belong_to :campaign }
     it { should belong_to :user }
+    it { should have_many :game_session_characters }
+    it { should have_many(:game_sessions).through(:game_session_characters) }
   end
 end
