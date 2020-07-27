@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_27_201753) do
+ActiveRecord::Schema.define(version: 2020_07_27_205816) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,15 @@ ActiveRecord::Schema.define(version: 2020_07_27_201753) do
     t.bigint "user_id", null: false
     t.index ["campaign_id"], name: "index_characters_on_campaign_id"
     t.index ["user_id"], name: "index_characters_on_user_id"
+  end
+
+  create_table "item_characters", force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.bigint "character_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["character_id"], name: "index_item_characters_on_character_id"
+    t.index ["item_id"], name: "index_item_characters_on_item_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -85,4 +94,6 @@ ActiveRecord::Schema.define(version: 2020_07_27_201753) do
 
   add_foreign_key "characters", "campaigns"
   add_foreign_key "characters", "users"
+  add_foreign_key "item_characters", "characters"
+  add_foreign_key "item_characters", "items"
 end
