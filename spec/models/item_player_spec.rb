@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe ItemPlayer, type: :model do
   describe "relationships" do
-    belongs_to :item
-    belongs_to :player
+    it { should belong_to :item }
+    it { should belong_to :player }
   end
 end
