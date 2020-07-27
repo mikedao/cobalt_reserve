@@ -6,5 +6,7 @@ RSpec.describe Character, type: :model do
     it { should belong_to :user }
     it { should have_many :game_session_characters }
     it { should have_many(:game_sessions).through(:game_session_characters) }
+    it { should have_many :item_characters }
+    it { should have_many(:items).through(:item_characters) }
   end
 end
