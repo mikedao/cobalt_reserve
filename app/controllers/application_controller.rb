@@ -7,6 +7,6 @@ class ApplicationController < ActionController::Base
   end
 
   def current_campaign
-    @current_campaign ||= Campaign.find_by(status: "active")
+    @current_campaign ||= Campaign.current
   end
 end
