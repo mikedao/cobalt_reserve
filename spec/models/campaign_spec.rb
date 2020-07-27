@@ -3,6 +3,7 @@ require "rails_helper"
 RSpec.describe Campaign, type: :model do
   describe "relationships" do
     it { should have_many :characters }
+    it { should have_many :game_sessions }
   end
 
   describe "class methods" do
