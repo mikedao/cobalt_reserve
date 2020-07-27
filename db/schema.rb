@@ -71,6 +71,9 @@ ActiveRecord::Schema.define(version: 2020_07_26_154137) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "login_uuid"
+    t.datetime "login_timestamp"
+    t.index ["login_uuid"], name: "index_users_on_login_uuid"
   end
 
   add_foreign_key "characters", "campaigns"

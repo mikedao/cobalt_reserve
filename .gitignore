@@ -13,6 +13,11 @@
 !/log/.keep
 !/tmp/.keep
 
+# IDE related files
+.idea
+.rakeTasks
+.generators
+
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
 !/tmp/pids/
@@ -38,3 +43,7 @@ yarn-debug.log*
 
 #simplecov
 /coverage/*
+
+# Ignore application configuration
+/config/application.yml
+sendgrid.env
