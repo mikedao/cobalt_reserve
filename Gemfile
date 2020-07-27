@@ -11,6 +11,8 @@ gem 'puma', '~> 4.1'
 gem 'rails', '~> 6.0.3', '>= 6.0.3.2'
 gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 4.0'
+gem 'figaro'
+gem 'sendgrid-actionmailer'
 
 group :development, :test do
   gem 'capybara'

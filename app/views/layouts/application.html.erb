@@ -18,6 +18,7 @@
     <% else %>
       <%= link_to "Register", "/users/new" %>
       <%= link_to "Log In", "/login" %>
+      <%= link_to "Passwordless Login", passwordless_login_path %>
     <% end %>
 
     <%= yield %>

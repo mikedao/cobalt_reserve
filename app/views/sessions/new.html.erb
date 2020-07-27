@@ -5,3 +5,16 @@
   <%= password_field_tag :password %>
   <%= submit_tag "Log In" %>
 <% end %>
+
+<% unless @characters.nil? %>
+  <%= form_tag :passwordless_login_post, method: :post do %>
+    <hr>
+    <p>New and Improved Passwordless Login.</p>
+      <label>
+        Character:
+        <%= select_tag "character-select", options_from_collection_for_select(@characters, "id", "name") %>
+      </label>
+    <%= submit_tag "Auth by Email" %>
+  <% end %>
+<% end %>
+
