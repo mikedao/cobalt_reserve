@@ -6,13 +6,13 @@
   <%= submit_tag 'Log In' %>
 <% end %>
 
-<% unless @characters.nil? %>
+<% unless @users.nil? %>
   <%= form_tag :passwordless_login_post, method: :post do %>
     <hr>
     <p>New and Improved Passwordless Login.</p>
       <label>
-        Character:
-        <%= select_tag 'character-select', options_from_collection_for_select(@characters, 'id', 'name') %>
+        Username:
+        <%= select_tag 'user-select', options_from_collection_for_select(@users, 'id', 'username') %>
       </label>
     <%= submit_tag 'Auth by Email' %>
   <% end %>

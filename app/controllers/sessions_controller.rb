@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
       if user.admin?
         redirect_to admin_dashboard_path
       else
-         redirect_to '/profile'
+        redirect_to '/profile'
       end
     else
       flash[:error] = 'Sorry, your credentials are bad.'
@@ -21,15 +21,15 @@ class SessionsController < ApplicationController
   end
 
   def passwordless_login
-    @characters = Character.select(:id, :name).where(active: true).order(:name)
+    @users = User.select(:id, :username).where.not(status: 'inactive').order(:username)
     render :new
   end
 
   def passwordless_create
-    character = Character.includes(:user).where(id: params['character-select'], active: true).first
-    if !character.nil?
-      character.user.update!(login_uuid: SecureRandom.uuid, login_timestamp: DateTime.now)
-      AuthenticationMailer.with(character: character).send_login_email.deliver_now
+    user = User.where(id: params['user-select']).where.not(status: 'inactive').first
+    if !user.nil?
+      user.update!(login_uuid: SecureRandom.uuid, login_timestamp: DateTime.now)
+      AuthenticationMailer.with(user: user).send_login_email.deliver_now
       render :passwordless_check_email and return
     else
       redirect_to :passwordless_login and return
@@ -37,7 +37,7 @@ class SessionsController < ApplicationController
   end
 
   def passwordless_return
-    @user = User.where(login_uuid: params[:character_uuid]).first
+    @user = User.where(login_uuid: params[:login_uuid]).first
 
     if @user
       if uuid_timestamp_valid
@@ -45,10 +45,10 @@ class SessionsController < ApplicationController
         flash[:success] = "Welcome, #{@user.username}!"
         redirect_to profile_path and return
       else
-        flash[:error] = 'Sorry, that login link has expired. Please try to log in again.'
+        flash[:error] = 'Sorry, that login link has expired. Please log in again.'
       end
     else
-      flash[:error] = 'Sorry, I have no idea who you are. Please try to log in again.'
+      flash[:error] = 'Sorry, I have no idea who you are. Please log in again.'
     end
     render :new
   end

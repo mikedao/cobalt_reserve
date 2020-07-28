@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   get '/passwordless-login', to: 'sessions#passwordless_login', as: :passwordless_login
   post '/passwordless-login', to: 'sessions#passwordless_create', as: :passwordless_login_post
-  get '/auth/:character_uuid', to: 'sessions#passwordless_return', as: :passwordless_return
+  get '/auth/:login_uuid', to: 'sessions#passwordless_return', as: :passwordless_return
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
