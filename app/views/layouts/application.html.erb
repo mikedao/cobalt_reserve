@@ -14,11 +14,11 @@
       <p><%= message %></p>
     <% end %>
     <% if current_user %>
-      <%= link_to "Log Out", "/logout", method: "delete" %>
+      <%= link_to 'Log Out', '/logout', method: 'delete' %>
     <% else %>
-      <%= link_to "Register", "/users/new" %>
-      <%= link_to "Log In", "/login" %>
-      <%= link_to "Passwordless Login", passwordless_login_path %>
+      <%= link_to 'Register', '/users/new' %>
+      <%= link_to 'Log In', '/login' %>
+      <%= link_to 'Passwordless Login', passwordless_login_path %>
     <% end %>
 
     <%= yield %>

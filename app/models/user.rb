@@ -8,6 +8,6 @@ class User < ApplicationRecord
   has_many :characters
 
   def admin?
-    self.status == "admin"
+    self.status == 'admin'
   end
 end
