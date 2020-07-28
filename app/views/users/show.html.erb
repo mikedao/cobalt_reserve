@@ -1,7 +1,5 @@
 <h1>Current Campaign: <%= current_campaign.name %></h1>
 
-<h2>Characters</h2>
+<h2>Your Characters</h2>
 
-<ul><% @user.characters.each do |character| %>
-  <li><%= character.name %></li>
-<% end %></ul>
+<%= render(partial: "character", collection: @character_list) || render(partial: "empty_list") %>

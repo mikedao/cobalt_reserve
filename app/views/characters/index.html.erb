@@ -1,8 +1,3 @@
-<h1>Characters</h1>
+<h1>Campaign Characters</h1>
 
-<% @characters.each do |character| %>
-  <p>Name: <%= character.name %></p>
-  <p>Race: <%= character.race %></p>
-  <p>Level: <%= character.level %></p>
-  <p>Class: <%= character.character_class %></p>
-<% end %>
+<%= render(partial: "character", collection: @character_list) || render(partial: "empty_list") %>

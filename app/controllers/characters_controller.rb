@@ -1,5 +1,5 @@
 class CharactersController < ApplicationController
   def index
-    @characters = Character.where(campaign: Campaign.current)
+    @character_list = Character.distinct.where(active: true, campaign: Campaign.current)
   end
 end
