@@ -14,7 +14,7 @@ RSpec.describe 'home page', type: :feature do
       expect(page).to have_content(campaign.name)
     end
 
-    it "can see a link which navigates to character index" do
+    it 'can see a link which navigates to character index' do
       visit root_path
       click_link('Character Index')
 

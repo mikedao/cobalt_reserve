@@ -6,3 +6,6 @@ Layout/TrailingEmptyLines:
 
 Style/StringLiterals:
   EnforcedStyle: single_quotes
+
+Layout/TrailingBlankLines:
+  Enabled: false

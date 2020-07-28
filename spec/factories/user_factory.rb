@@ -6,7 +6,7 @@ FactoryBot.define do
   end
 
   factory :user do
-    username { Faker::Games::Witcher.unique.character.gsub(' ','') } 
+    username { Faker::Games::Witcher.unique.character.delete(' ') }
     email
     password { 'password' }
   end
