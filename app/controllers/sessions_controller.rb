@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       session[:user_id] = user.id
       flash[:success] = "Welcome, #{user.username}!"
       if user.admin?
-        redirect_to '/admin'
+        redirect_to admin_dashboard_path
       else
         redirect_to '/profile'
       end

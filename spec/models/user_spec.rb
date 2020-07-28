@@ -13,18 +13,25 @@ RSpec.describe User, type: :model do
     it { should validate_presence_of(:password) }
   end
 
-  describe 'instance methods' do
-    it '#admin?' do
-      user1 = User.create(username: 'admin',
-                          password: 'test',
-                          email: 'admin@example.com',
-                          status: 'admin')
-      user2 = User.create(username: 'notadmin',
-                          password: 'password',
-                          email: 'not_admin@example.com')
+  describe 'roles' do
+    it 'can be created as an admin' do
+      user = User.create(username: 'admin',
+                         password: 'adminpass',
+                         email:    'admin@example.com',
+                         role:     1)
 
-      expect(user1.admin?).to be true
-      expect(user2.admin?).to be false
+      expect(user.role).to eq('admin')
+      expect(user.admin?).to be_truthy
+    end
+
+    it 'can be created as a default user' do
+      user = User.create(username: 'admin',
+                         password: 'adminpass',
+                         email:    'admin@example.com',
+                         role:     0)
+
+      expect(user.role).to eq('default')
+      expect(user.default?).to be_truthy
     end
   end
 end

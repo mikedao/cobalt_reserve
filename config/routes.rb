@@ -4,7 +4,10 @@ Rails.application.routes.draw do
   get '/users/new', to: 'users#new'
   post '/users', to: 'users#create'
   get '/profile', to: 'users#show'
-  get '/admin', to: 'admin_dashboard#show'
+
+  namespace :admin do
+    get '/dashboard', to: 'dashboard#show'
+  end
 
   get '/passwordless-login', to: 'sessions#passwordless_login', as: :passwordless_login
   post '/passwordless-login', to: 'sessions#passwordless_create', as: :passwordless_login_post
