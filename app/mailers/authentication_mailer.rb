@@ -2,12 +2,13 @@
 class AuthenticationMailer < ApplicationMailer
 
   def send_login_email
-    @character = params[:character]
-    @user = @character.user
+    @user = params[:user]
     @uuid = SecureRandom.uuid
     t = DateTime.now
     @user.update(login_uuid: @uuid, login_timestamp: t + 10.minutes)
-    mail(to: @character.user.email,
-         subject: "Action Required: The Cobalt Reserve is waiting for the return of #{@character.name}")
+    mail(
+      to: @user.email,
+      subject: "Action Required: #{@user.username}, the Cobalt Reserve awaits your return!"
+    )
   end
 end
