@@ -4,9 +4,9 @@ RSpec.describe 'Admin Dashboard', type: :feature do
   it 'redirects to admin dashboard when admin logs in' do
     Campaign.create(name: 'test_campaign', status: 'active')
     user = User.create(username: 'admin',
-                        password: 'test',
-                        email: 'admin@example.com',
-                        status: 'admin')
+                       password: 'test',
+                       email: 'admin@example.com',
+                       status: 'admin')
 
     visit '/'
 
