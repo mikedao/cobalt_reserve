@@ -8,6 +8,6 @@ FactoryBot.define do
   factory :user do
     username { Faker::Games::Witcher.unique.character.gsub(' ','') } 
     email
-    password { "password" }
+    password { 'password' }
   end
 end

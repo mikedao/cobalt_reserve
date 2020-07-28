@@ -1,6 +1,6 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.describe "character index", type: :feature do
+RSpec.describe 'character index', type: :feature do
   before(:each) do
     @active_campaign = create(:campaign)
     @old_campaign = create(:campaign, status: 'inactive')
@@ -12,13 +12,13 @@ RSpec.describe "character index", type: :feature do
     @character_4 = create(:character, campaign: @newer_campaign)  # not expected
   end
 
-  context "as a visitor" do
-    context "when I visit /characters" do
+  context 'as a visitor' do
+    context 'when I visit /characters' do
       before(:each) do
-        visit "/characters"
+        visit '/characters'
       end
 
-      it "I see a list of all the characters for the active campaign" do
+      it 'I see a list of all the characters for the active campaign' do
         expect(page).to have_content(@character_1.name)
         expect(page).to have_content(@character_2.name)
         expect(page).not_to have_content(@character_3.name)
