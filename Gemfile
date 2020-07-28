@@ -16,6 +16,8 @@ gem 'sendgrid-actionmailer'
 
 group :development, :test do
   gem 'capybara'
+  gem 'factory_bot_rails'
+  gem 'faker'
   gem 'launchy'
   gem 'pry'
   gem 'rspec-rails'
