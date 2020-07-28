@@ -1,5 +1,9 @@
-<h1>Current Campaign: <%= current_campaign.name %></h1>
+<h1>Current Campaign: <% if current_campaign %><%= current_campaign.name %><% else %>(None Active)<% end %></h1>
 
 <h2>Your Characters</h2>
+
+<% if current_campaign %>
+  <%= button_to 'Create Character', new_user_character_path(current_user), method: :get %>
+<% end %>
 
 <%= render(partial: "character", collection: @character_list) || render(partial: "empty_list") %>

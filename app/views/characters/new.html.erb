@@ -1,0 +1,38 @@
+<%= form_for [@user, @character] do |f| %>
+  <% if @character.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@character.errors.count, "error") %> prohibited this character from being saved:</h2>
+
+      <ul>
+        <% @character.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name, {required: true} %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Species' %>
+    <%= f.select 'species', options_for_select(@species), {required: true} %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Class' %>
+    <%= f.select 'character_class', options_for_select(@classes), {required: true} %>
+  </div>
+
+  <div class="field">
+    <%= f.label :level %>
+    <%= f.number_field :level, {required: true, min: 1, max: 20} %>
+  </div>
+
+  <div class="field">
+    <%= f.submit %>
+  </div>
+<% end %>
+

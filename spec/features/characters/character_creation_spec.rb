@@ -21,12 +21,12 @@ RSpec.feature 'Character creation' do
         expect(page).to have_button('Create Character')
         click_button 'Create Character'
 
-        expect(current_path).to eq(new_user_character_path)
+        expect(current_path).to eq(new_user_character_path(@user))
 
-        fill_in :name, with: 'Cormyn'
-        select 'Human', from: 'species'
-        select 'Hunter', from: 'character-class'
-        fill_in :level, with: 4
+        fill_in :character_name, with: 'Cormyn'
+        select 'Human', from: :character_species
+        select 'Hunter', from: :character_character_class
+        fill_in :character_level, with: 4
         click_button 'Create Character'
 
         # db lookup for expectations below
@@ -72,7 +72,7 @@ RSpec.feature 'Character creation' do
       expect(page).to have_button('Create Character')
       click_button 'Create Character'
 
-      expect(current_path).to eq(new_user_character_path)
+      expect(current_path).to eq(new_user_character_path(@user))
 
       # while on this page, the campaign is made inactive
       @campaign.update!(status: 'inactive')
@@ -80,7 +80,7 @@ RSpec.feature 'Character creation' do
       # fill in form
       click_button 'Create Character'
 
-      expect(current_path).to eq(new_user_character_path)
+      expect(current_path).to eq(new_user_character_path(@user))
       expect(page).to have_content('Sorry, that campaign is not active.')
     end
 
@@ -88,7 +88,7 @@ RSpec.feature 'Character creation' do
       expect(page).to have_button('Create Character')
       click_button 'Create Character'
 
-      expect(current_path).to eq(new_user_character_path)
+      expect(current_path).to eq(new_user_character_path(@user))
 
       # while on this page, the campaign is deleted outright
       @campaign.delete
