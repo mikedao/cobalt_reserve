@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     get '/dashboard', to: 'dashboard#show'
   end
 
-  get '/passwordless-login', to: 'sessions#passwordless_login', as: :passwordless_login
+  get '/passwordless-login', to: 'sessions#passwordless_new', as: :passwordless_login
   post '/passwordless-login', to: 'sessions#passwordless_create', as: :passwordless_login_post
   get '/auth/:login_uuid', to: 'sessions#passwordless_return', as: :passwordless_return
 

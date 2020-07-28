@@ -20,9 +20,8 @@ class SessionsController < ApplicationController
     end
   end
 
-  def passwordless_login
+  def passwordless_new
     @users = User.select(:id, :username).where.not(status: 'inactive').order(:username)
-    render :new
   end
 
   def passwordless_create
