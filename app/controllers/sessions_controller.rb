@@ -21,15 +21,19 @@ class SessionsController < ApplicationController
   end
 
   def passwordless_login
-    @characters = Character.select(:id, :name).order(:name)
+    @characters = Character.select(:id, :name).where(active: true).order(:name)
     render :new
   end
 
   def passwordless_create
-    character = Character.includes(:user).find(params['character-select'])
-    character.user.update!(login_uuid: SecureRandom.uuid, login_timestamp: DateTime.now)
-    AuthenticationMailer.with(character: character).send_login_email.deliver_now
-    render :passwordless_check_email and return
+    character = Character.includes(:user).where(id: params['character-select'], active: true).first
+    if !character.nil?
+      character.user.update!(login_uuid: SecureRandom.uuid, login_timestamp: DateTime.now)
+      AuthenticationMailer.with(character: character).send_login_email.deliver_now
+      render :passwordless_check_email and return
+    else
+      redirect_to :passwordless_login and return
+    end
   end
 
   def passwordless_return
