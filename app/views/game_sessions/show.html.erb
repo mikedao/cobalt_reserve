@@ -1,0 +1,10 @@
+<h2> <%= @game_session.name %> </h2>
+
+<h3> Participating Characters </h3>
+
+<ul>
+  <% @game_session.characters.each do |character| %>
+    <li> <%= character.name %> </li>
+
+  <% end %>
+</ul>
