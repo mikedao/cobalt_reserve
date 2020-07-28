@@ -1,52 +1,52 @@
-require "rails_helper"
+require 'rails_helper'
 
-RSpec.describe "Logging In", type: :feature do
-  it "can log in with valid credentials" do
-    Campaign.create(name: "Turing West Marches", status: "active")
-    user = User.create(username: "funbucket13",
-                       password: "test",
-                       email: "bucket@example.com")
+RSpec.describe 'Logging In', type: :feature do
+  it 'can log in with valid credentials' do
+    Campaign.create(name: 'Turing West Marches', status: 'active')
+    user = User.create(username: 'funbucket13',
+                       password: 'test',
+                       email: 'bucket@example.com')
 
-    visit "/"
+    visit '/'
 
-    click_on "Log In"
+    click_on 'Log In'
 
-    expect(current_path).to eq("/login")
+    expect(current_path).to eq('/login')
 
     fill_in :username, with: user.username
     fill_in :password, with: user.password
 
-    click_button "Log In"
+    click_button 'Log In'
 
-    expect(current_path).to eq("/profile")
+    expect(current_path).to eq('/profile')
 
     expect(page).to have_content("Welcome, #{user.username}")
-    expect(page).to have_link("Log Out")
-    expect(page).to_not have_link("Register")
-    expect(page).to_not have_link("I already have an account")
+    expect(page).to have_link('Log Out')
+    expect(page).to_not have_link('Register')
+    expect(page).to_not have_link('I already have an account')
   end
 
-  it "cannot log in with bad credentials" do
-    Campaign.create(name: "Turing West Marches", status: "active")
+  it 'cannot log in with bad credentials' do
+    Campaign.create(name: 'Turing West Marches', status: 'active')
 
-    user = User.create(username: "funbucket13",
-                       password: "test",
-                       email: "bucket@example.com")
+    user = User.create(username: 'funbucket13',
+                       password: 'test',
+                       email: 'bucket@example.com')
 
-    visit "/"
+    visit '/'
 
-    click_on "Log In"
+    click_on 'Log In'
 
-    expect(current_path).to eq("/login")
+    expect(current_path).to eq('/login')
 
     fill_in :username, with: user.username
-    fill_in :password, with: "Clearly incorrect"
+    fill_in :password, with: 'Clearly incorrect'
 
-    click_button "Log In"
+    click_button 'Log In'
 
-    expect(current_path).to eq("/login")
+    expect(current_path).to eq('/login')
 
-    expect(page).to have_content("Sorry, your credentials are bad.")
+    expect(page).to have_content('Sorry, your credentials are bad.')
   end
 
   describe 'with passwordless authentication' do
@@ -57,7 +57,8 @@ RSpec.describe "Logging In", type: :feature do
       @user = User.create!(username: 'funbucket13',
                           password: 'test',
                           email: 'bucket@example.com')
-      @character = Character.create!(user: @user, campaign: campaign, name: 'Cormyn')
+      @character = Character.create!(user: @user, campaign: campaign, name: 'Cormyn', active: true)
+      @inactive_character = Character.create!(user: @user, campaign: campaign, name: 'Nymroc', active: false)
     end
 
     it 'follows the auth process successfully' do
@@ -65,6 +66,10 @@ RSpec.describe "Logging In", type: :feature do
 
       click_on 'Passwordless Login'
       expect(current_path).to eq('/passwordless-login')
+
+      within('#character-select') do
+        expect(page).to_not have_content('Nymroc')
+      end
 
       select @character.name, from: 'character-select'
       click_button 'Auth by Email'
@@ -100,6 +105,14 @@ RSpec.describe "Logging In", type: :feature do
       page.driver.post('/passwordless-login', { params: { 'character-select': '-1' } })
 
       expect(page).to have_content('You are being redirected')
+    end
+
+    it 'fails if character is not active' do
+      @character.update!(active: false)
+
+      visit "/auth/#{@fake_uuid}"
+
+      expect(page).to have_content('Sorry, I have no idea who you are. Please try to log in again.')
     end
 
     it 'fails if uuid is invalid' do
