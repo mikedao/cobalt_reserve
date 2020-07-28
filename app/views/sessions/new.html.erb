@@ -3,7 +3,7 @@
   <%= text_field_tag :username %>
   <%= label_tag :password %>
   <%= password_field_tag :password %>
-  <%= submit_tag "Log In" %>
+  <%= submit_tag 'Log In' %>
 <% end %>
 
 <% unless @characters.nil? %>
@@ -12,9 +12,9 @@
     <p>New and Improved Passwordless Login.</p>
       <label>
         Character:
-        <%= select_tag "character-select", options_from_collection_for_select(@characters, "id", "name") %>
+        <%= select_tag 'character-select', options_from_collection_for_select(@characters, 'id', 'name') %>
       </label>
-    <%= submit_tag "Auth by Email" %>
+    <%= submit_tag 'Auth by Email' %>
   <% end %>
 <% end %>
 

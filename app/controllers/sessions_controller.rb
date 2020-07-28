@@ -9,9 +9,13 @@ class SessionsController < ApplicationController
     if user.authenticate(params[:password])
       session[:user_id] = user.id
       flash[:success] = "Welcome, #{user.username}!"
-      redirect_to "/profile"
+      if user.admin?
+        redirect_to '/admin'
+      else
+         redirect_to '/profile'
+      end
     else
-      flash[:error] = "Sorry, your credentials are bad."
+      flash[:error] = 'Sorry, your credentials are bad.'
       render :new
     end
   end
@@ -47,7 +51,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    flash[:success] = "You have successfully logged out."
+    flash[:success] = 'You have successfully logged out.'
     redirect_to root_path
   end
 
