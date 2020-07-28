@@ -9,3 +9,18 @@ Style/StringLiterals:
 
 Metrics/LineLength:
   Max: 120
+
+Metrics/BlockLength:
+  Max: 250
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
+Naming/VariableNumber:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false

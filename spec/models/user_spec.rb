@@ -24,5 +24,14 @@ RSpec.describe User, type: :model do
       expect(user.admin?).to be_truthy
     end
 
+    it 'can be created as a default user' do
+      user = User.create(username: 'admin',
+                         password: 'adminpass',
+                         email:    'admin@example.com',
+                         role:     0)
+
+      expect(user.role).to eq('default')
+      expect(user.default?).to be_truthy
+    end
   end
 end
