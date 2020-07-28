@@ -7,7 +7,5 @@ class User < ApplicationRecord
 
   has_many :characters
 
-  def admin?
-    status == 'admin'
-  end
+  enum role: %w(default admin)
 end
