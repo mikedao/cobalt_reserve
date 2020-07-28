@@ -10,7 +10,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(session[:user_id])
+    @user = User.includes(:characters).find(session[:user_id])
+    @character_list = @user.characters
   end
 
   private
