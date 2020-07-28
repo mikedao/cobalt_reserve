@@ -23,7 +23,6 @@ RSpec.describe 'Logging In', type: :feature do
     expect(page).to have_content("Welcome, #{user.username}")
     expect(page).to have_link('Log Out')
     expect(page).to_not have_link('Register')
-    expect(page).to_not have_link('I already have an account')
 
     click_on 'Log Out'
 

@@ -1,18 +1,31 @@
 <%= form_tag "/users", method: :post do %>
-  <%= label_tag :username %>
-  <%= text_field_tag :username %>
+  <p>
+    <%= label_tag :username %>
+    <%= text_field_tag :username %>
+  </p>
 
+  <p>
   <%= label_tag :password %>
   <%= text_field_tag :password %>
+  </p>
 
+  <p>
   <%= label_tag :first_name %>
   <%= text_field_tag :first_name %>
+  </p>
 
+  <p>
   <%= label_tag :last_name %>
   <%= text_field_tag :last_name %>
+  </p>
 
+  <p>
   <%= label_tag :email %>
   <%= text_field_tag :email %>
+  </p>
+
+  <p>
   <%= submit_tag 'Create User' %>
+  </p>
 <% end %>
 

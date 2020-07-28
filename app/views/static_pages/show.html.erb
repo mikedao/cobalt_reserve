@@ -1,5 +1,10 @@
 <h1><% if current_campaign %><%= current_campaign.name %><% else %>Welcome to the Cobalt Reserve!<% end %></h1>
 
-<%= link_to 'Monster Database', monsters_path %>
-
-<%= link_to 'Character Index', characters_path %>
+<ul>
+  <li>
+    <%= link_to 'Monster Database', monsters_path %>
+  </li>
+  <li>
+    <%= link_to 'Character Index', characters_path %>
+  </li>
+</ul>
