@@ -10,11 +10,18 @@ RSpec.describe Character, type: :model do
     it { should have_many(:items).through(:item_characters) }
   end
 
+  describe 'validations' do
+    it { should validate_presence_of :name }
+    it { should validate_presence_of :species }
+    it { should validate_presence_of :character_class }
+    it { should validate_presence_of :level }
+  end
+
   describe 'default properties' do
     it 'sets appropriate default values when creating a character' do
       user = User.new(username: 'Taylor Swift', email: 't@swift.com', password: 'cardigan', status: 'active')
       campaign = Campaign.new(name: 'Test Campaign', status: 'active')
-      char = Character.new(name: 'Melodia', character_class: 'Bard', user: user, campaign: campaign)
+      char = Character.new(name: 'Melodia', character_class: 'Bard', level: 5, user: user, campaign: campaign)
 
       expect(char.active).to eq(false)
     end
