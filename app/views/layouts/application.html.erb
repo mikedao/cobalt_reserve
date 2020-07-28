@@ -22,6 +22,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <% if current_user %>
+            <li class="nav-item"><%= link_to 'Profile', profile_path, class: 'nav-link' %></li>
             <li class="nav-item"><%= link_to 'Log Out', logout_path, method: 'delete', class: 'nav-link' %></li>
           <% else %>
             <li class="nav-item"><%= link_to 'Register', users_new_path, class: 'nav-link' %></li>

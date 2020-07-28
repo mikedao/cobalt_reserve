@@ -1,0 +1,4 @@
+my list:
+<% @character_list.each do |ch| %>
+  <%= render partial: "partials/character", locals: { character: ch } %>
+<% end %>
