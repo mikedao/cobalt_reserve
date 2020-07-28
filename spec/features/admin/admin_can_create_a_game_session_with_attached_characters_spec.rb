@@ -13,7 +13,6 @@ RSpec.describe 'admin dashboard index', type: :feature do
                            email:    'admin@example.com',
                            role:     1)
 
-
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
 
         visit admin_dashboard_path

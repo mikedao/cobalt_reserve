@@ -19,7 +19,7 @@ class Admin::GameSessionsController < Admin::BaseController
   private
 
   def game_session_params
-    {name: params[:game_session][:name],
-     characters: params[:game_session][:characters].map(&:to_i)}
+    { name: params[:game_session][:name],
+      characters: params[:game_session][:characters].map(&:to_i) }
   end
 end
