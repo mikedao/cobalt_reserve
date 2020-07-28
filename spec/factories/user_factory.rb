@@ -1,3 +1,5 @@
+require "faker"
+
 FactoryBot.define do
   sequence :email do |n|
     "adventurer#{n}@cobalt-reserve.com"
