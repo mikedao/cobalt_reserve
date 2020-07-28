@@ -9,4 +9,14 @@ RSpec.describe Character, type: :model do
     it { should have_many :item_characters }
     it { should have_many(:items).through(:item_characters) }
   end
+
+  describe 'default properties' do
+    it 'sets appropriate default values when creating a character' do
+      user = User.new(username: 'Taylor Swift', email: 't@swift.com', password: 'cardigan', status: 'active')
+      campaign = Campaign.new(name: 'Test Campaign', status: 'active')
+      char = Character.new(name: 'Melodia', character_class: 'Bard', user: user, campaign: campaign)
+
+      expect(char.active).to eq(false)
+    end
+  end
 end
