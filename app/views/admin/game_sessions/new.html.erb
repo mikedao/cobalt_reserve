@@ -5,8 +5,10 @@
   <%= form.text_field :name %>
 
   <% current_campaign.characters.each do |character| %>
-    <%= form.label 'character.name' %>
-    <%= form.check_box 'characters', {:multiple => true}, character.id, nil%>
+    <p>
+      <%= form.label 'character.name' %>
+      <%= form.check_box 'characters', {:multiple => true}, character.id, nil%>
+    </p>
   <% end %>
 
   <%= form.submit 'Create Game Session' %>
