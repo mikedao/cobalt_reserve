@@ -53,6 +53,22 @@ ActiveRecord::Schema.define(version: 2020_07_27_211546) do
     t.index ["campaign_id"], name: "index_game_sessions_on_campaign_id"
   end
 
+  create_table "item_characters", force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.bigint "character_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["character_id"], name: "index_item_characters_on_character_id"
+    t.index ["item_id"], name: "index_item_characters_on_item_id"
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "monsters", force: :cascade do |t|
     t.string "name"
     t.string "size"
@@ -99,4 +115,6 @@ ActiveRecord::Schema.define(version: 2020_07_27_211546) do
   add_foreign_key "game_session_characters", "characters"
   add_foreign_key "game_session_characters", "game_sessions"
   add_foreign_key "game_sessions", "campaigns"
+  add_foreign_key "item_characters", "characters"
+  add_foreign_key "item_characters", "items"
 end
