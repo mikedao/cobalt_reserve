@@ -9,5 +9,10 @@ FactoryBot.define do
     username { Faker::Games::Witcher.unique.character.delete(' ') }
     email
     password { 'password' }
+    role { 0 }
+  end
+
+  factory :admin_user, parent: :user do
+    role { 1 }
   end
 end

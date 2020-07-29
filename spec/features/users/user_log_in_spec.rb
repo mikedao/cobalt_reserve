@@ -21,17 +21,16 @@ RSpec.describe 'Logging In', type: :feature do
   describe 'traditional username/password login' do
     describe 'happy path' do
       it 'allows user log in with valid credentials' do
-        visit '/'
+        visit root_path
         click_on 'Log In'
 
-        expect(current_path).to eq('/login')
+        expect(current_path).to eq(login_path)
 
         fill_in :username, with: @user.username
         fill_in :password, with: @user.password
-
         click_button 'Log In'
 
-        expect(current_path).to eq('/profile')
+        expect(current_path).to eq(profile_path)
 
         expect(page).to have_content("Welcome, #{@user.username}")
         expect(page).to have_link('Log Out')
@@ -41,29 +40,26 @@ RSpec.describe 'Logging In', type: :feature do
 
     describe 'sad path' do
       it 'cannot log in with bad credentials' do
-        visit '/'
+        visit root_path
         click_on 'Log In'
 
-        expect(current_path).to eq('/login')
+        expect(current_path).to eq(login_path)
 
         fill_in :username, with: @user.username
         fill_in :password, with: 'Clearly incorrect'
-
         click_button 'Log In'
 
-        expect(current_path).to eq('/login')
-
+        expect(current_path).to eq(login_path)
         expect(page).to have_content('Sorry, your credentials are bad.')
       end
       it 'cannot log in with blank credentials' do
-        visit '/'
+        visit root_path
         click_on 'Log In'
 
-        expect(current_path).to eq('/login')
+        expect(current_path).to eq(login_path)
         click_button 'Log In'
 
-        expect(current_path).to eq('/login')
-
+        expect(current_path).to eq(login_path)
         expect(page).to have_content('Sorry, your credentials are bad.')
       end
 
@@ -74,17 +70,17 @@ RSpec.describe 'Logging In', type: :feature do
         end
 
         it 'shows a friendly error message instead of a crash error' do
-          visit '/'
+          visit root_path
           click_on 'Log In'
 
-          expect(current_path).to eq('/login')
+          expect(current_path).to eq(login_path)
 
           fill_in :username, with: @user.username
           fill_in :password, with: 'Clearly incorrect'
 
           click_button 'Log In'
 
-          expect(current_path).to eq('/login')
+          expect(current_path).to eq(login_path)
 
           expect(page).to have_content('Sorry, your credentials are bad.')
         end
@@ -100,10 +96,10 @@ RSpec.describe 'Logging In', type: :feature do
       end
 
       it 'follows the auth process successfully' do
-        visit '/'
+        visit root_path
 
         click_on 'Passwordless Log In'
-        expect(current_path).to eq('/passwordless-login')
+        expect(current_path).to eq(passwordless_login_path)
 
         within('#user-select') do
           expect(page).to_not have_content(@inactive_user.username)
@@ -112,22 +108,22 @@ RSpec.describe 'Logging In', type: :feature do
         select @user.username, from: 'user-select'
         click_button 'Auth by Email'
 
-        expect(current_path).to eq('/passwordless-login')
+        expect(current_path).to eq(passwordless_login_path)
         expect(page).to have_content('Thank you, you will receive an email with a link to return to the Cobalt Reserve.')
         expect(page).to have_content('This link will expire in 10 minutes')
 
         visit "/auth/#{@fake_uuid}"
 
-        expect(current_path).to eq('/profile')
+        expect(current_path).to eq(profile_path)
         expect(page).to have_link('Log Out')
         expect(page).to have_content("Welcome, #{@user.username}")
       end
 
       it 'fails if uuid is too old' do
-        visit '/'
+        visit root_path
 
         click_on 'Passwordless Log In'
-        expect(current_path).to eq('/passwordless-login')
+        expect(current_path).to eq(passwordless_login_path)
 
         select @user.username, from: 'user-select'
         click_button 'Auth by Email'
@@ -140,7 +136,7 @@ RSpec.describe 'Logging In', type: :feature do
       end
 
       it 'fails if an invalid user is forced into the form' do
-        page.driver.post('/passwordless-login', { params: { 'user-select': '-1' } })
+        page.driver.post(passwordless_login_path, { params: { 'user-select': '-1' } })
 
         expect(page).to have_content('You are being redirected')
       end
@@ -148,13 +144,13 @@ RSpec.describe 'Logging In', type: :feature do
       it 'fails if user is deactivated between trying to login and clicking the auth link' do
         @user.update!(status: 'inactive')
 
-        visit "/auth/#{@fake_uuid}"
+        visit passwordless_return_path(@fake_uuid)
 
         expect(page).to have_content('Sorry, I have no idea who you are. Please log in again.')
       end
 
       it 'fails if uuid is invalid' do
-        visit '/auth/ljadflkjoja09wjf3f'
+        visit passwordless_return_path('ljadflkjoja09wjf3f')
 
         expect(page).to have_content('Sorry, I have no idea who you are. Please log in again.')
       end
@@ -167,10 +163,10 @@ RSpec.describe 'Logging In', type: :feature do
       end
 
       it 'should show that passwordless auth is not available' do
-        visit '/'
+        visit root_path
 
         click_on 'Passwordless Log In'
-        expect(current_path).to eq('/passwordless-login')
+        expect(current_path).to eq(passwordless_login_path)
 
         expect(page).to have_content('There are no users; passwordless authentication will not work')
         expect(page).to_not have_css('#user-select')

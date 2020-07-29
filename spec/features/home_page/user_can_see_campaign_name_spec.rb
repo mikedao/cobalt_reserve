@@ -18,7 +18,7 @@ RSpec.describe 'home page', type: :feature do
       visit root_path
       click_link('Character Index')
 
-      expect(current_path).to eq('/characters')
+      expect(current_path).to eq(characters_path)
     end
   end
 end

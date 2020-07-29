@@ -15,18 +15,10 @@ RSpec.describe 'As a visitor', type: :feature do
       @character_3 = create(:character, user: @user, campaign: @old_campaign, active: false)   # expected
       @character_4 = create(:character, user: @user_2, campaign: @old_campaign)                # not expected
 
-      visit '/'
+      login_as_user(@user.username, @user.password)
+      visit profile_path
 
-      click_on 'Log In'
-
-      expect(current_path).to eq('/login')
-
-      fill_in :username, with: @user.username
-      fill_in :password, with: @user.password
-
-      click_button 'Log In'
-
-      expect(current_path).to eq('/profile')
+      expect(current_path).to eq(profile_path)
       expect(page).to have_content(@active_campaign.name)
 
       within "#char-#{@character_1.id}" do
@@ -54,18 +46,10 @@ RSpec.describe 'As a visitor', type: :feature do
     end
 
     it 'should show clearly that no active campaign is present if there is none' do
-      visit '/'
+      login_as_user(@user.username, @user.password)
+      visit profile_path
 
-      click_on 'Log In'
-
-      expect(current_path).to eq('/login')
-
-      fill_in :username, with: @user.username
-      fill_in :password, with: @user.password
-
-      click_button 'Log In'
-
-      expect(current_path).to eq('/profile')
+      expect(current_path).to eq(profile_path)
       expect(page).to have_content('Current Campaign: (None Active)')
     end
   end

@@ -17,7 +17,7 @@ RSpec.describe 'character index', type: :feature do
     context 'as a visitor' do
       context 'when I visit /characters' do
         it 'I see a list of all the characters for the active campaign' do
-          visit '/characters'
+          visit characters_path
 
           within "#char-#{@character_1.id}" do
             expect(page).to have_content(@character_1.name)
@@ -44,7 +44,7 @@ RSpec.describe 'character index', type: :feature do
     context 'as a visitor' do
       context 'when I visit /characters' do
         before(:each) do
-          visit '/characters'
+          visit characters_path
         end
 
         it 'I see a message that there are no characters yet' do
