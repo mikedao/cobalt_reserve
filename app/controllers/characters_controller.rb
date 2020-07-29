@@ -7,6 +7,12 @@ class CharactersController < ApplicationController
     prep_form_data
   end
 
+  def edit
+    prep_form_data
+    @character = Character.find(params[:id])
+    @form_submission_url = user_character_path(@user, @character)
+  end
+
   def create
     p = character_params
     p[:user] = current_user
@@ -27,11 +33,26 @@ class CharactersController < ApplicationController
     end
   end
 
+  def update
+    p = character_params
+    p[:user] = current_user
+    p[:campaign] = Campaign.current
+
+    # prep_form_data
+    @character = current_user.characters.update(p)
+    # if @character.save
+      redirect_to profile_path and return
+    # else
+    #   render :new and return
+    # end
+  end
+
   private
 
   def prep_form_data
     @character = Character.new
     @user = current_user
+    @form_submission_url = user_characters_path(@user, @character)
     @species = Character.species
     @classes = Character.classes
   end

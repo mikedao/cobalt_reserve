@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
   get '/profile', to: 'users#show'
   resources :users, only: [:new, :create] do
-    resources :characters, only: [:new, :create]
+    resources :characters, only: [:new, :create, :edit, :update]
   end
 
   resources :game_sessions, only: [:show]
