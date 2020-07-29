@@ -17,6 +17,11 @@
   </div>
 
   <div class="field">
+    <%= f.label :dndbeyond_url %>
+    <%= f.url_field :dndbeyond_url, {required: true} %>
+  </div>
+
+  <div class="field">
     <%= f.label 'Species' %>
     <%= f.select 'species', options_for_select(@species), {required: true} %>
   </div>
@@ -28,7 +33,7 @@
 
   <div class="field">
     <%= f.label :level %>
-    <%= f.number_field :level, {required: true, min: 1, max: 20} %>
+    <%= f.number_field :level, {required: true, min: 1, max: 20, step: 1} %>
   </div>
 
   <div class="field">

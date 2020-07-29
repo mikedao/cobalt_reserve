@@ -72,6 +72,6 @@ class CharactersController < ApplicationController
   end
 
   def character_params
-    params.require(:character).permit(:name, :level, :character_class, :species)
+    params.require(:character).permit(:name, :level, :character_class, :species, :dndbeyond_url)
   end
 end
