@@ -24,6 +24,7 @@ RSpec.feature 'Character creation' do
         select 'Human', from: :character_species
         select 'Hunter', from: :character_character_class
         fill_in :character_level, with: 4
+        fill_in :character_dndbeyond_url, with: 'http://dndbeyond.com/1234'
         click_button 'Create Character'
 
         # db lookup for expectations below
@@ -71,10 +72,12 @@ RSpec.feature 'Character creation' do
       click_button 'Create Character'
 
       expect(current_path).to eq(user_characters_path(@user))
-      expect(page).to have_content('7 errors prohibited this character from being saved')
+      expect(page).to have_content('9 errors prohibited this character from being saved')
       expect(page).to have_content("Name can't be blank")
-      expect(page).to have_content("Name is too short (minimum is 2 characters)")
+      expect(page).to have_content('Name is too short (minimum is 2 characters)')
+      expect(page).to have_content("Dndbeyond url can't be blank")
       expect(page).to have_content("Level can't be blank")
+      expect(page).to have_content('Level is not a number')
       expect(page).to have_content("Character class can't be blank")
       expect(page).to have_content('Character class is too short (minimum is 4 characters)')
       expect(page).to have_content("Species can't be blank")

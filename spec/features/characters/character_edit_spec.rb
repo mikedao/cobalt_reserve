@@ -65,13 +65,16 @@ RSpec.feature 'Character updating' do
       select '', from: :character_species
       select '', from: :character_character_class
       fill_in :character_level, with: ''
+      fill_in :character_dndbeyond_url, with: ''
       click_button 'Update Character'
 
       expect(current_path).to eq(user_character_path(@user, @character))
-      expect(page).to have_content('7 errors prohibited this character from being saved')
+      expect(page).to have_content('9 errors prohibited this character from being saved')
       expect(page).to have_content("Name can't be blank")
       expect(page).to have_content('Name is too short (minimum is 2 characters)')
+      expect(page).to have_content("Dndbeyond url can't be blank")
       expect(page).to have_content("Level can't be blank")
+      expect(page).to have_content('Level is not a number')
       expect(page).to have_content("Character class can't be blank")
       expect(page).to have_content('Character class is too short (minimum is 4 characters)')
       expect(page).to have_content("Species can't be blank")

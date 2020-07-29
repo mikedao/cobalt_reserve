@@ -12,21 +12,69 @@ RSpec.describe Character, type: :model do
 
   describe 'validations' do
     it { should validate_presence_of(:name) }
+    it { should validate_presence_of(:dndbeyond_url) }
     it { should validate_presence_of :species }
     it { should validate_presence_of :character_class }
     it { should validate_presence_of :level }
+    it { should validate_numericality_of(:level).only_integer }
 
-    it 'should validate uniqueness of name the hard way because shoulda_matchers is being a jerk' do
-      user = create(:user)
-      campaign = create(:campaign)
-      create(:character, user: user, campaign: campaign, character_class: 'Bard', name: 'Taylor Swift')
-      c2 = nil
-      begin
-        c2 = create(:character, user: user, campaign: campaign, character_class: 'Bard', name: 'Taylor Swift')
-      rescue ActiveRecord::RecordInvalid => error
-        expect(error.message).to eq('Validation failed: Name has already been taken')
+    describe 'doing things the hard way' do
+      before :each do
+        @user = create(:user)
+        @campaign = create(:campaign)
+        @c1 = create(
+          :character,
+          user: @user,
+          campaign: @campaign,
+          character_class: 'Bard',
+          name: 'Taylor Swift',
+          dndbeyond_url: 'http://dndbeyond.com/1234'
+        )
+        @c2 = nil
       end
-      expect(c2).to be_a(NilClass)
+
+      it 'should validate uniqueness of name the hard way because shoulda_matchers is being a jerk' do
+        begin
+          @c2 = create(
+            :character,
+            user: @user,
+            campaign: @campaign,
+            character_class: 'Bard',
+            name: 'Taylor Swift',
+            dndbeyond_url: 'http://dndbeyond.com/123456'
+          )
+        rescue ActiveRecord::RecordInvalid => e
+          expect(e.message).to eq('Validation failed: Name has already been taken')
+        end
+        expect(@c2).to be_a(NilClass)
+      end
+
+      it 'should validate uniqueness of dndbeyond_url the hard way because shoulda_matchers is being a jerk' do
+        begin
+          @c3 = create(:character, user: @user, campaign: @campaign, dndbeyond_url: 'http://dndbeyond.com/1234')
+        rescue ActiveRecord::RecordInvalid => e
+          expect(e.message).to eq('Validation failed: Dndbeyond url has already been taken')
+        end
+        expect(@c3).to be_a(NilClass)
+      end
+
+      it 'validates that level is an integer between 1 and 20 because shoulda_matchers is being a jerk' do
+        begin
+          @c3 = create(:character, user: @user, campaign: @campaign, name: 'foo', character_class: 'yeah',
+                       species: 'nope', dndbeyond_url: 'whatever', level: -1)
+        rescue ActiveRecord::RecordInvalid => e
+          expect(e.message).to eq('Validation failed: Level must be greater than 1')
+        end
+        expect(@c3).to be_a(NilClass)
+
+        begin
+          @c3 = create(:character, user: @user, campaign: @campaign, name: 'foo', character_class: 'yeah',
+                       species: 'nope', dndbeyond_url: 'whatever', level: 21)
+        rescue ActiveRecord::RecordInvalid => e
+          expect(e.message).to eq('Validation failed: Level must be less than or equal to 20')
+        end
+        expect(@c3).to be_a(NilClass)
+      end
     end
   end
 
