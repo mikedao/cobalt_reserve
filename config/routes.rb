@@ -26,4 +26,4 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create] do
     resources :characters, only: [:new, :create]
   end
-
+end
