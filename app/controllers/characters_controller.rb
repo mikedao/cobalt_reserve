@@ -7,6 +7,17 @@ class CharactersController < ApplicationController
     prep_form_data
   end
 
+  def edit
+    prep_form_data
+    @character = Character.find(params[:id])
+    if @character&.user != current_user
+      flash[:error] = 'The character you tried to edit is invalid'
+      redirect_to profile_path and return
+    end
+
+    @form_submission_url = user_character_path(@user, @character)
+  end
+
   def create
     p = character_params
     p[:user] = current_user
@@ -27,11 +38,35 @@ class CharactersController < ApplicationController
     end
   end
 
+  def update
+    character = Character.find(params[:id])
+    if character&.user != current_user
+      flash[:error] = 'The character you tried to edit is invalid'
+      redirect_to profile_path and return
+    end
+    @user = character.user
+
+    p = character_params
+    p[:user] = current_user
+    p[:campaign] = Campaign.current
+
+    prep_form_data
+    character.update(p)
+    if character.save
+      redirect_to profile_path and return
+    else
+      @character = character
+      @form_submission_url = user_character_path(@user, @character)
+      render :edit and return
+    end
+  end
+
   private
 
   def prep_form_data
     @character = Character.new
     @user = current_user
+    @form_submission_url = user_characters_path(@user, @character)
     @species = Character.species
     @classes = Character.classes
   end

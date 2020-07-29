@@ -8,5 +8,8 @@
     </h6>
     <p>Level: <%= character.level %></p>
     <p>Active: <%= character.active %></p>
+    <% if current_user == character.user %>
+    <p><%= button_to 'Edit Character', edit_user_character_path(character.user, character.id), method: 'get', class: 'card-link' %></p>
+    <% end %>
   </div>
 </div>

@@ -7,18 +7,16 @@ RSpec.describe 'Logging In', type: :feature do
                        password: 'test',
                        email: 'bucket@example.com')
 
-    visit '/'
-
+    visit root_path
     click_on 'Log In'
 
-    expect(current_path).to eq('/login')
+    expect(current_path).to eq(login_path)
 
     fill_in :username, with: user.username
     fill_in :password, with: user.password
-
     click_button 'Log In'
 
-    expect(current_path).to eq('/profile')
+    expect(current_path).to eq(profile_path)
 
     expect(page).to have_content("Welcome, #{user.username}")
     expect(page).to have_link('Log Out')

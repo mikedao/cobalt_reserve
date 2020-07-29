@@ -8,11 +8,8 @@ RSpec.feature 'Character creation' do
 
   describe 'happy path' do
     before :each do
-      visit root_path
-      click_link 'Log In'
-      fill_in :username, with: @user.username
-      fill_in :password, with: @user.password
-      click_button 'Log In'
+      login_as_user(@user.username, @user.password)
+      visit profile_path
       expect(current_path).to eq(profile_path)
     end
 
@@ -60,11 +57,8 @@ RSpec.feature 'Character creation' do
 
   describe 'sad path' do
     before :each do
-      visit root_path
-      click_link 'Log In'
-      fill_in :username, with: @user.username
-      fill_in :password, with: @user.password
-      click_button 'Log In'
+      login_as_user(@user.username, @user.password)
+      visit profile_path
       expect(current_path).to eq(profile_path)
     end
 

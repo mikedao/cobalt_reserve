@@ -77,3 +77,7 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
+
+def login_as_user(username, password)
+  page.driver.post(login_path, { 'username': username, 'password': password } )
+end

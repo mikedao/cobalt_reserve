@@ -8,18 +8,14 @@ RSpec.describe 'admin dashboard index', type: :feature do
         char1 = create(:character, campaign: campaign)
         char2 = create(:character, campaign: campaign)
         char3 = create(:character, campaign: campaign)
-        user = User.create(username: 'admin',
-                           password: 'adminpass',
-                           email:    'admin@example.com',
-                           role:     1)
+        user = create(:admin_user)
 
-        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-
+        login_as_user(user.username, user.password)
         visit admin_dashboard_path
 
         click_on 'Create Session'
 
-        expect(current_path).to eq('/admin/game_sessions/new')
+        expect(current_path).to eq(admin_game_sessions_new_path)
 
         fill_in 'Name', with: 'Super Great Fun'
         check "game_session_characters_#{char1.id}"
