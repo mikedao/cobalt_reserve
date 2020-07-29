@@ -11,10 +11,23 @@ RSpec.describe Character, type: :model do
   end
 
   describe 'validations' do
-    it { should validate_presence_of :name }
+    it { should validate_presence_of(:name) }
     it { should validate_presence_of :species }
     it { should validate_presence_of :character_class }
     it { should validate_presence_of :level }
+
+    it 'should validate uniqueness of name the hard way because shoulda_matchers is being a jerk' do
+      user = create(:user)
+      campaign = create(:campaign)
+      create(:character, user: user, campaign: campaign, character_class: 'Bard', name: 'Taylor Swift')
+      c2 = nil
+      begin
+        c2 = create(:character, user: user, campaign: campaign, character_class: 'Bard', name: 'Taylor Swift')
+      rescue ActiveRecord::RecordInvalid => error
+        expect(error.message).to eq('Validation failed: Name has already been taken')
+      end
+      expect(c2).to be_a(NilClass)
+    end
   end
 
   describe 'default properties' do
