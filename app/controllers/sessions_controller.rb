@@ -1,12 +1,10 @@
 class SessionsController < ApplicationController
-  rescue_from (ActiveRecord::RecordNotFound) { |exception| handle_exception(exception, 404) }
-
   def new
   end
 
   def create
     user = User.find_by(username: params[:username])
-    if user.authenticate(params[:password])
+    if user&.authenticate(params[:password])
       session[:user_id] = user.id
       flash[:success] = "Welcome, #{user.username}!"
       if user.admin?
@@ -60,12 +58,5 @@ class SessionsController < ApplicationController
 
   def uuid_timestamp_valid
     DateTime.now <= @user.login_timestamp + 10.minutes
-  end
-
-  protected
-
-  def handle_exception(ex, status)
-    flash[:error] = 'Oops, try again.'
-    redirect_to passwordless_login_path
   end
 end

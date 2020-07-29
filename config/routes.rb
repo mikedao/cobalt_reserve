@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get '/dashboard', to: 'dashboard#show'
+    get '/game_sessions/new', to: 'game_sessions#new'
+    post '/game_sessions', to: 'game_sessions#create'
   end
 
   get '/passwordless-login', to: 'sessions#passwordless_new', as: :passwordless_login
@@ -20,4 +22,6 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create] do
     resources :characters, only: [:new, :create]
   end
+
+  resources :game_sessions, only: [:show]
 end

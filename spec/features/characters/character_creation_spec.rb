@@ -68,6 +68,24 @@ RSpec.feature 'Character creation' do
       expect(current_path).to eq(profile_path)
     end
 
+    it 'fails when user is missing required data on the form' do
+      expect(page).to have_button('Create Character')
+      click_button 'Create Character'
+
+      expect(current_path).to eq(new_user_character_path(@user))
+      # fill in no data
+      click_button 'Create Character'
+
+      expect(current_path).to eq(user_characters_path(@user))
+      expect(page).to have_content('6 errors prohibited this character from being saved')
+      expect(page).to have_content("Name can't be blank")
+      expect(page).to have_content("Level can't be blank")
+      expect(page).to have_content("Character class can't be blank")
+      expect(page).to have_content('Character class is too short (minimum is 4 characters)')
+      expect(page).to have_content("Species can't be blank")
+      expect(page).to have_content('Species is too short (minimum is 4 characters)')
+    end
+
     it 'fails when campaign is made inactive during the character creation' do
       expect(page).to have_button('Create Character')
       click_button 'Create Character'
@@ -77,11 +95,14 @@ RSpec.feature 'Character creation' do
       # while on this page, the campaign is made inactive
       @campaign.update!(status: 'inactive')
 
-      # fill in form
+      fill_in :character_name, with: 'Cormyn'
+      select 'Human', from: :character_species
+      select 'Hunter', from: :character_character_class
+      fill_in :character_level, with: 4
       click_button 'Create Character'
 
-      expect(current_path).to eq(new_user_character_path(@user))
-      expect(page).to have_content('Sorry, that campaign is not active.')
+      expect(current_path).to eq(user_characters_path(@user))
+      expect(page).to have_content('Sorry, there is no active campaign.')
     end
 
     it 'fails when campaign is deleted during the character creation' do
@@ -93,11 +114,14 @@ RSpec.feature 'Character creation' do
       # while on this page, the campaign is deleted outright
       @campaign.delete
 
-      # fill in form
+      fill_in :character_name, with: 'Cormyn'
+      select 'Human', from: :character_species
+      select 'Hunter', from: :character_character_class
+      fill_in :character_level, with: 4
       click_button 'Create Character'
 
-      expect(current_path).to eq(new_user_character_path)
-      expect(page).to have_content('Sorry, that campaign is not active.')
+      expect(current_path).to eq(user_characters_path(@user))
+      expect(page).to have_content('Sorry, there is no active campaign.')
     end
   end
 end

@@ -18,38 +18,78 @@ RSpec.describe 'Logging In', type: :feature do
     )
   end
 
-  it 'can log in with valid credentials' do
-    visit '/'
-    click_on 'Log In'
+  describe 'traditional username/password login' do
+    describe 'happy path' do
+      it 'allows user log in with valid credentials' do
+        visit '/'
+        click_on 'Log In'
 
-    expect(current_path).to eq('/login')
+        expect(current_path).to eq('/login')
 
-    fill_in :username, with: @user.username
-    fill_in :password, with: @user.password
+        fill_in :username, with: @user.username
+        fill_in :password, with: @user.password
 
-    click_button 'Log In'
+        click_button 'Log In'
 
-    expect(current_path).to eq('/profile')
+        expect(current_path).to eq('/profile')
 
-    expect(page).to have_content("Welcome, #{@user.username}")
-    expect(page).to have_link('Log Out')
-    expect(page).to_not have_link('Register')
-  end
+        expect(page).to have_content("Welcome, #{@user.username}")
+        expect(page).to have_link('Log Out')
+        expect(page).to_not have_link('Register')
+      end
+    end
 
-  it 'cannot log in with bad credentials' do
-    visit '/'
-    click_on 'Log In'
+    describe 'sad path' do
+      it 'cannot log in with bad credentials' do
+        visit '/'
+        click_on 'Log In'
 
-    expect(current_path).to eq('/login')
+        expect(current_path).to eq('/login')
 
-    fill_in :username, with: @user.username
-    fill_in :password, with: 'Clearly incorrect'
+        fill_in :username, with: @user.username
+        fill_in :password, with: 'Clearly incorrect'
 
-    click_button 'Log In'
+        click_button 'Log In'
 
-    expect(current_path).to eq('/login')
+        expect(current_path).to eq('/login')
 
-    expect(page).to have_content('Sorry, your credentials are bad.')
+        expect(page).to have_content('Sorry, your credentials are bad.')
+      end
+      it 'cannot log in with blank credentials' do
+        visit '/'
+        click_on 'Log In'
+
+        expect(current_path).to eq('/login')
+        click_button 'Log In'
+
+        expect(current_path).to eq('/login')
+
+        expect(page).to have_content('Sorry, your credentials are bad.')
+      end
+
+      describe 'with no users in the system' do
+        before :each do
+          @user.delete
+          @inactive_user.delete
+        end
+
+        it 'shows a friendly error message instead of a crash error' do
+          visit '/'
+          click_on 'Log In'
+
+          expect(current_path).to eq('/login')
+
+          fill_in :username, with: @user.username
+          fill_in :password, with: 'Clearly incorrect'
+
+          click_button 'Log In'
+
+          expect(current_path).to eq('/login')
+
+          expect(page).to have_content('Sorry, your credentials are bad.')
+        end
+      end
+    end
   end
 
   describe 'with passwordless authentication' do
