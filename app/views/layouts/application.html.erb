@@ -25,7 +25,7 @@
             <li class="nav-item"><%= link_to 'Profile', profile_path, class: 'nav-link' %></li>
             <li class="nav-item"><%= link_to 'Log Out', logout_path, method: 'delete', class: 'nav-link' %></li>
           <% else %>
-            <li class="nav-item"><%= link_to 'Register', users_new_path, class: 'nav-link' %></li>
+            <li class="nav-item"><%= link_to 'Register', new_user_path, class: 'nav-link' %></li>
             <li class="nav-item"><%= link_to 'Log In', login_path, class: 'nav-link' %></li>
             <li class="nav-item"><%= link_to 'Passwordless Log In', passwordless_login_path, class: 'nav-link' %></li>
           <% end %>

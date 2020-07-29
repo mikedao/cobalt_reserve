@@ -1,10 +1,6 @@
 Rails.application.routes.draw do
   root to: 'static_pages#show'
 
-  get '/users/new', to: 'users#new'
-  post '/users', to: 'users#create'
-  get '/profile', to: 'users#show'
-
   namespace :admin do
     get '/dashboard', to: 'dashboard#show'
     get '/game_sessions/new', to: 'game_sessions#new'
@@ -20,11 +16,14 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
 
   resources :monsters, only: [:index, :show]
-
   resources :characters, only: [:index]
 
   resources :game_sessions, only: [:show] do
     resources :adventure_logs, only: [:new, :create]
   end
 
-end
+  get '/profile', to: 'users#show'
+  resources :users, only: [:new, :create] do
+    resources :characters, only: [:new, :create]
+  end
+

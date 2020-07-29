@@ -2,10 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'As a visitor', type: :feature do
   context 'when I log in on the front page' do
+    before :each do
+      @user = create(:user)
+    end
     it 'redirects me to my profile page and I can see my characters' do
       @active_campaign = create(:campaign)
       @old_campaign = create(:campaign, status: 'inactive')
-      @user = create(:user)
       @user_2 = create(:user)
 
       @character_1 = create(:character, user: @user, campaign: @active_campaign)               # expected
@@ -49,6 +51,22 @@ RSpec.describe 'As a visitor', type: :feature do
       expect(page).to_not have_content(@character_4.name)
 
       expect(page).to have_css('.card-body', count: 3)
+    end
+
+    it 'should show clearly that no active campaign is present if there is none' do
+      visit '/'
+
+      click_on 'Log In'
+
+      expect(current_path).to eq('/login')
+
+      fill_in :username, with: @user.username
+      fill_in :password, with: @user.password
+
+      click_button 'Log In'
+
+      expect(current_path).to eq('/profile')
+      expect(page).to have_content('Current Campaign: (None Active)')
     end
   end
 end
