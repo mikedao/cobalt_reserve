@@ -6,7 +6,8 @@ class Character < ApplicationRecord
   has_many :item_characters
   has_many :items, through: :item_characters
 
-  validates_presence_of :name, :level
+  validates_presence_of :level
+  validates :name, uniqueness: true, presence: true, length: { minimum: 2 }
   validates :character_class, presence: true, length: { minimum: 4 }
   validates :species, presence: true, length: { minimum: 4 }
 

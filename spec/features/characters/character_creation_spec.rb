@@ -77,8 +77,9 @@ RSpec.feature 'Character creation' do
       click_button 'Create Character'
 
       expect(current_path).to eq(user_characters_path(@user))
-      expect(page).to have_content('6 errors prohibited this character from being saved')
+      expect(page).to have_content('7 errors prohibited this character from being saved')
       expect(page).to have_content("Name can't be blank")
+      expect(page).to have_content("Name is too short (minimum is 2 characters)")
       expect(page).to have_content("Level can't be blank")
       expect(page).to have_content("Character class can't be blank")
       expect(page).to have_content('Character class is too short (minimum is 4 characters)')
