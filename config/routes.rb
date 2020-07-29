@@ -18,10 +18,12 @@ Rails.application.routes.draw do
   resources :monsters, only: [:index, :show]
   resources :characters, only: [:index]
 
+  resources :game_sessions, only: [:show] do
+    resources :adventure_logs, only: [:new, :create]
+  end
+
   get '/profile', to: 'users#show'
   resources :users, only: [:new, :create] do
     resources :characters, only: [:new, :create]
   end
 
-  resources :game_sessions, only: [:show]
-end

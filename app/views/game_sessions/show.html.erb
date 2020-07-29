@@ -8,3 +8,9 @@
 
   <% end %>
 </ul>
+
+<%= link_to 'Create New Adventure Log', "/game_sessions/#{@game_session.id}/adventure_logs/new" %>
+
+<% @game_session.adventure_logs.each do |adventure_log| %>
+  <p><%= adventure_log.content %></p>
+<% end %>
