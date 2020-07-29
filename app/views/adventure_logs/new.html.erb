@@ -1,0 +1,8 @@
+<h1>Create Adventure Log</h1>
+
+<%= form_with model: [@game_session, @adventure_log] do |form| %>
+  <%= form.label :content %>
+  <%= form.text_area :content %>
+
+  <%= form.submit 'Create Adventure Log' %>
+<% end %>

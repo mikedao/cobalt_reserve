@@ -23,5 +23,8 @@ Rails.application.routes.draw do
 
   resources :characters, only: [:index]
 
-  resources :game_sessions, only: [:show]
+  resources :game_sessions, only: [:show] do
+    resources :adventure_logs, only: [:new, :create]
+  end
+
 end

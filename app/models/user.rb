@@ -6,6 +6,7 @@ class User < ApplicationRecord
   has_secure_password
 
   has_many :characters
+  has_many :adventure_logs
 
   enum role: %w(default admin)
 end
