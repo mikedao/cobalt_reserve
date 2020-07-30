@@ -20,6 +20,9 @@ RSpec.feature 'Character updating' do
         click_button 'Edit Character'
       end
 
+      expect(page).to have_select 'Species', selected: @character.species #, options: Character.species
+      expect(page).to have_select 'Class', selected: @character.character_class #, options: Character.classes
+
       fill_in :character_name, with: 'Cormyn'
       select 'Human', from: :character_species
       select 'Hunter', from: :character_character_class
@@ -78,7 +81,7 @@ RSpec.feature 'Character updating' do
       expect(page).to have_content("Character class can't be blank")
       expect(page).to have_content('Character class is too short (minimum is 4 characters)')
       expect(page).to have_content("Species can't be blank")
-      expect(page).to have_content('Species is too short (minimum is 4 characters)')
+      expect(page).to have_content('Species is too short (minimum is 3 characters)')
     end
 
     it 'does not succeed if a user tries to edit a character that is not theirs' do
