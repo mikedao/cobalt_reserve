@@ -9,4 +9,8 @@ class User < ApplicationRecord
   has_many :adventure_logs
 
   enum role: %w(default admin)
+
+  def active_campaign_character
+    characters.where(campaign: Campaign.current, active: true)
+  end
 end

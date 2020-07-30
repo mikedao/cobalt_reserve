@@ -52,4 +52,16 @@ RSpec.describe User, type: :model do
       expect(user.default?).to be_truthy
     end
   end
+
+  describe 'methods' do
+    it '.active_campaign_character' do
+      campaign = create(:campaign)
+      user = create(:user)
+      inactive_character = create(:character, user: user, campaign: campaign, active: false)
+      active_character = create(:character, user: user, campaign: campaign, active: true)
+
+      expect(user.active_campaign_character).to eq(active_character)
+      expect(user.active_campaign_character).to_not eq(inactive_character)
+    end
+  end
 end
