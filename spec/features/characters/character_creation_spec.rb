@@ -81,7 +81,7 @@ RSpec.feature 'Character creation' do
       expect(page).to have_content("Character class can't be blank")
       expect(page).to have_content('Character class is too short (minimum is 4 characters)')
       expect(page).to have_content("Species can't be blank")
-      expect(page).to have_content('Species is too short (minimum is 4 characters)')
+      expect(page).to have_content('Species is too short (minimum is 3 characters)')
     end
 
     it 'fails when campaign is made inactive during the character creation' do
