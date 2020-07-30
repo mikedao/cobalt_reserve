@@ -8,9 +8,10 @@ class User < ApplicationRecord
   has_many :characters
   has_many :adventure_logs
 
-  enum role: %w(default admin)
+  enum role: %w[default admin]
 
   def active_campaign_character
-    characters.where(campaign: Campaign.current, active: true)
+    current_campaign =  Campaign.current
+    characters.where(campaign: current_campaign, active: true).first unless current_campaign.nil?
   end
 end
