@@ -52,4 +52,32 @@ RSpec.describe User, type: :model do
       expect(user.default?).to be_truthy
     end
   end
+
+  describe 'methods' do
+    describe '.active_campaign_character' do
+      before :each do
+        @campaign = create(:campaign)
+        @user = create(:user)
+        @inactive_character = create(:character, user: @user, campaign: @campaign, active: false)
+        @active_character = create(:character, user: @user, campaign: @campaign, active: true)
+      end
+      
+      it 'succeeds for happy path conditions' do
+        expect(@user.active_campaign_character).to eq(@active_character)
+        expect(@user.active_campaign_character).to_not eq(@inactive_character)
+      end
+
+      it 'returns nil if user has no active character for current campaign' do
+        @active_character.delete
+
+        expect(@user.active_campaign_character).to eq(nil)
+      end
+
+      it 'returns nil if there is no current campaign' do
+        @campaign.update(status: 'inactive')
+
+        expect(@user.active_campaign_character).to eq(nil)
+      end
+    end
+  end
 end
