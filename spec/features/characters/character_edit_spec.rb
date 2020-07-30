@@ -20,8 +20,8 @@ RSpec.feature 'Character updating' do
         click_button 'Edit Character'
       end
 
-      expect(page).to have_select 'Species', selected: @character.species #, options: Character.species
-      expect(page).to have_select 'Class', selected: @character.character_class #, options: Character.classes
+      expect(page).to have_select 'Species', selected: @character.species, options: Character.species
+      expect(page).to have_select 'Class', selected: @character.character_class, options: Character.classes
 
       fill_in :character_name, with: 'Cormyn'
       select 'Human', from: :character_species
