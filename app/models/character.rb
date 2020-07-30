@@ -10,7 +10,7 @@ class Character < ApplicationRecord
   validates :name, uniqueness: true, presence: true, length: { minimum: 2 }
   validates :dndbeyond_url, uniqueness: true, presence: true
   validates :character_class, presence: true, length: { minimum: 4 }
-  validates :species, presence: true, length: { minimum: 4 }
+  validates :species, presence: true, length: { minimum: 3 }
 
   # https://www.dndbeyond.com/classes
   def self.classes
