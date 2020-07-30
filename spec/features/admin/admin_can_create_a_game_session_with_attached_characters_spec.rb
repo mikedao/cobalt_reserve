@@ -26,6 +26,7 @@ RSpec.describe 'admin dashboard index', type: :feature do
         expect(page).to have_content(char1.name)
         expect(page).to have_content(char3.name)
         expect(page).to_not have_content(char2.name)
+        expect(page).to have_content(Date.today)
       end
     end
   end
