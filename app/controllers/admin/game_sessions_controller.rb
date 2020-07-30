@@ -6,7 +6,8 @@ class Admin::GameSessionsController < Admin::BaseController
   end
 
   def create
-    game_session = Campaign.current.game_sessions.create!(name: game_session_params[:name])
+    game_session = Campaign.current.game_sessions.create!(name: game_session_params[:name],
+                                                          date: Date.today)
 
     game_session_params[:characters].each do |character_id|
       GameSessionCharacter.create!(game_session_id: game_session.id,
