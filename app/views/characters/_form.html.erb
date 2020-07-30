@@ -22,12 +22,12 @@
   </div>
 
   <div class="field">
-    <%= f.label 'Species' %>
+    <%= f.label 'species', 'Species' %>
     <%= f.select 'species', options_for_select(@species, @character.species), {required: true} %>
   </div>
 
   <div class="field">
-    <%= f.label 'Class' %>
+    <%= f.label 'character_class', 'Class' %>
     <%= f.select 'character_class', options_for_select(@classes, @character.character_class), {required: true} %>
   </div>
 
