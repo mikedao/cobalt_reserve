@@ -31,6 +31,10 @@ class CharactersController < ApplicationController
 
     prep_form_data
     @character = current_user.characters.create(p)
+    if current_user.active_campaign_character.nil?
+      @character.active = true
+    end
+
     if @character.save
       redirect_to profile_path and return
     else

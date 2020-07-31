@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.feature 'Character updating' do
   before :each do
-    campaign = create(:campaign, status: 'active')
+    @campaign = create(:campaign, status: 'active')
     @user = create(:user)
-    @character = create(:character, user: @user, campaign: campaign, active: true)
+    @character = create(:character, user: @user, campaign: @campaign, active: true)
     @user2 = create(:user)
-    @character2 = create(:character, user: @user2, campaign: campaign, name: 'Not Cormyn', active: true)
+    @character2 = create(:character, user: @user2, campaign: @campaign, name: 'Not Cormyn', active: true)
   end
 
   describe 'happy path' do
@@ -40,6 +40,7 @@ RSpec.feature 'Character updating' do
         expect(page).to have_content('Active: true')
       end
     end
+
     it 'could allow a user to update a character from character index page too' do
       visit characters_path
 
