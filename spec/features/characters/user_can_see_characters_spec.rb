@@ -37,7 +37,7 @@ RSpec.describe 'character index', type: :feature do
           expect(page).to have_css('.card-body', count: 2)
         end
 
-        it "I click on a name and I am redirected to a the character's show page" do
+        it "I click on a name and I am redirected to the character's show page" do
           visit characters_path
           click_on @character_1.name
 
