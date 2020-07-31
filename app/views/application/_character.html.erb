@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-body" id="char-<%= character.id %>">
     <h5 class="card-title">
-      <%= character.name %>
+      <%= link_to character.name, character_path(character) %>
     </h5>
     <h6 class="card-subtitle mb-2 text-muted">
       <p><%= character.species %> <%= character.character_class %></p>
