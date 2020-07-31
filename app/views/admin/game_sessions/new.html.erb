@@ -4,7 +4,7 @@
   <%= form.label :name %>
   <%= form.text_field :name %>
 
-  <% current_campaign.characters.each do |character| %>
+  <% current_campaign.characters.active.each do |character| %>
     <p>
       <%= form.label 'character.name' %>
       <%= form.check_box 'characters', {:multiple => true}, character.id, nil%>
