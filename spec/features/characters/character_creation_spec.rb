@@ -32,9 +32,36 @@ RSpec.feature 'Character creation' do
 
         expect(current_path).to eq(profile_path)
         within "#char-#{ch.id}" do
+          expect(page).to have_content('Cormyn')
           expect(page).to have_content(ch.name)
           expect(page).to have_content("#{ch.species} #{ch.character_class}")
           expect(page).to have_content("Level: #{ch.level}")
+          expect(page).to have_content('Active: true')
+        end
+      end
+
+      it 'should allow them to make a new inactive character if one already exists for this campaign' do
+        ch1 = create(:character, user: @user, campaign: @campaign)
+        visit new_user_character_path(@user)
+
+        fill_in :character_name, with: 'Cormyn'
+        select 'Human', from: :character_species
+        select 'Hunter', from: :character_character_class
+        fill_in :character_level, with: 4
+        fill_in :character_dndbeyond_url, with: 'http://dndbeyond.com/1234'
+        click_button 'Create Character'
+
+        # db lookup for expectations below
+        ch = Character.last
+
+        expect(current_path).to eq(profile_path)
+        within "#char-#{ch1.id}" do
+          expect(page).to have_content(ch1.name)
+          expect(page).to have_content('Active: true')
+        end
+
+        within "#char-#{ch.id}" do
+          expect(page).to have_content(ch.name)
           expect(page).to have_content('Active: false')
         end
       end
@@ -46,6 +73,7 @@ RSpec.feature 'Character creation' do
 
         expect(page).to_not have_button('Create Character')
       end
+
       it 'should block creation from starting if no campaign exists' do
         @campaign.delete
         # reload profile path

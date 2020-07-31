@@ -31,6 +31,10 @@ class CharactersController < ApplicationController
 
     prep_form_data
     @character = current_user.characters.create(p)
+    if current_user.active_campaign_character.nil?
+      @character.active = true
+    end
+
     if @character.save
       redirect_to profile_path and return
     else
@@ -59,6 +63,19 @@ class CharactersController < ApplicationController
       @form_submission_url = user_character_path(@user, @character)
       render :edit and return
     end
+  end
+
+  def activate
+    character = Character.find(params[:id])
+    if character&.user != current_user
+      flash[:error] = 'The character you tried to activate is invalid'
+      redirect_to profile_path and return
+    end
+    @user = character.user
+    @user.characters.update(active: false)
+    character.update(active: true)
+    flash[:success] = "#{character.name} is now active!"
+    redirect_to profile_path and return
   end
 
   private

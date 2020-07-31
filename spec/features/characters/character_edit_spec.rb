@@ -2,11 +2,11 @@ require 'rails_helper'
 
 RSpec.feature 'Character updating' do
   before :each do
-    campaign = create(:campaign, status: 'active')
+    @campaign = create(:campaign, status: 'active')
     @user = create(:user)
-    @character = create(:character, user: @user, campaign: campaign, active: true)
+    @character = create(:character, user: @user, campaign: @campaign, active: true)
     @user2 = create(:user)
-    @character2 = create(:character, user: @user2, campaign: campaign, name: 'Not Cormyn', active: true)
+    @character2 = create(:character, user: @user2, campaign: @campaign, name: 'Not Cormyn', active: true)
   end
 
   describe 'happy path' do
@@ -40,6 +40,42 @@ RSpec.feature 'Character updating' do
         expect(page).to have_content('Active: true')
       end
     end
+
+    describe 'allows a user to toggle the active state on a character' do
+      it 'allows the user to make an inactive character active, making all other characters inactive' do
+        ch2 = create(:character, user: @user, campaign: @campaign, active: false)
+        visit profile_path
+
+        within "#char-#{@character.id}" do
+          expect(page).to have_content('Active: true')
+          expect(page).to_not have_button 'Make Active!'
+        end
+
+        within "#char-#{ch2.id}" do
+          expect(page).to have_content('Active: false')
+          click_button 'Make Active!'
+        end
+
+        expect(current_path).to eq(profile_path)
+        expect(page).to have_content("#{ch2.name} is now active!")
+
+        within "#char-#{@character.id}" do
+          expect(page).to have_content('Active: false')
+          expect(page).to have_button 'Make Active!'
+        end
+
+        within "#char-#{ch2.id}" do
+          expect(page).to have_content('Active: true')
+          expect(page).to_not have_button 'Make Active!'
+        end
+      end
+      it 'blocks users from activating a character belonging to another player' do
+        page.driver.put user_activate_character_path(@user, @character2)
+        visit profile_path
+        expect(page).to have_content('The character you tried to activate is invalid')
+      end
+    end
+
     it 'could allow a user to update a character from character index page too' do
       visit characters_path
 
