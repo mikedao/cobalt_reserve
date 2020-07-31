@@ -41,6 +41,41 @@ RSpec.feature 'Character updating' do
       end
     end
 
+    describe 'allows a user to toggle the active state on a character' do
+      it 'allows the user to make an inactive character active, making all other characters inactive' do
+        ch2 = create(:character, user: @user, campaign: @campaign, active: false)
+        visit profile_path
+
+        within "#char-#{@character.id}" do
+          expect(page).to have_content('Active: true')
+          expect(page).to_not have_button 'Make Active!'
+        end
+
+        within "#char-#{ch2.id}" do
+          expect(page).to have_content('Active: false')
+          click_button 'Make Active!'
+        end
+
+        expect(current_path).to eq(profile_path)
+        expect(page).to have_content("#{ch2.name} is now active!")
+
+        within "#char-#{@character.id}" do
+          expect(page).to have_content('Active: false')
+          expect(page).to have_button 'Make Active!'
+        end
+
+        within "#char-#{ch2.id}" do
+          expect(page).to have_content('Active: true')
+          expect(page).to_not have_button 'Make Active!'
+        end
+      end
+      it 'blocks users from activating a character belonging to another player' do
+        page.driver.put user_activate_character_path(@user, @character2)
+        visit profile_path
+        expect(page).to have_content('The character you tried to activate is invalid')
+      end
+    end
+
     it 'could allow a user to update a character from character index page too' do
       visit characters_path
 

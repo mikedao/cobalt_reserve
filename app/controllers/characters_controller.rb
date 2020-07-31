@@ -65,6 +65,19 @@ class CharactersController < ApplicationController
     end
   end
 
+  def activate
+    character = Character.find(params[:id])
+    if character&.user != current_user
+      flash[:error] = 'The character you tried to activate is invalid'
+      redirect_to profile_path and return
+    end
+    @user = character.user
+    @user.characters.update(active: false)
+    character.update(active: true)
+    flash[:success] = "#{character.name} is now active!"
+    redirect_to profile_path and return
+  end
+
   private
 
   def prep_form_data

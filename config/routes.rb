@@ -15,15 +15,16 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
 
-  resources :monsters, only: [:index, :show]
+  resources :monsters, only: %i[index show]
   resources :characters, only: [:index]
 
   resources :game_sessions, only: [:show] do
-    resources :adventure_logs, only: [:new, :create]
+    resources :adventure_logs, only: %i[new create]
   end
 
   get '/profile', to: 'users#show'
-  resources :users, only: [:new, :create] do
-    resources :characters, only: [:new, :create, :edit, :update]
+  resources :users, only: %i[new create] do
+    resources :characters, only: %i[new create edit update]
+    put '/character/:id/activate', to: 'characters#activate', as: :activate_character
   end
 end

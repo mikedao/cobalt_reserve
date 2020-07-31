@@ -9,7 +9,10 @@
     <p>Level: <%= character.level %></p>
     <p>Active: <%= character.active %></p>
     <% if current_user == character.user %>
-    <p><%= button_to 'Edit Character', edit_user_character_path(character.user, character.id), method: 'get', class: 'card-link' %></p>
+      <p><%= button_to 'Edit Character', edit_user_character_path(character.user, character.id), method: 'get', class: 'card-link' %></p>
+      <% unless character.active %>
+      <p><%= button_to 'Make Active!', user_activate_character_path(character.user, character.id), method: 'put', class: 'card-link' %></p>
+      <% end %>
     <% end %>
   </div>
 </div>
