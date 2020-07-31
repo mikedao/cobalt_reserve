@@ -12,6 +12,8 @@ class Character < ApplicationRecord
   validates :character_class, presence: true, length: { minimum: 4 }
   validates :species, presence: true, length: { minimum: 4 }
 
+  scope :active, -> { where active: true }
+
   # https://www.dndbeyond.com/classes
   def self.classes
     ['', 'Artificer', 'Barbarian', 'Bard', 'Blood Hunter', 'Cleric', 'Druid', 'Fighter', 'Monk', 'Paladin', 'Ranger',

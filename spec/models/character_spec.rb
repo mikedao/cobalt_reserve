@@ -88,6 +88,38 @@ RSpec.describe Character, type: :model do
     end
   end
 
+  describe 'scopes' do
+    it '.active' do
+      user = User.create(username: 'Taylor Swift', email: 't@swift.com', password: 'cardigan', status: 'active')
+      campaign = Campaign.create(name: 'Test Campaign', status: 'active')
+      char1 = Character.create(name:           'Melodia',
+                               character_class: 'Bard',
+                               level:           5,
+                               user:            user,
+                               campaign:        campaign,
+                               species:         'Human',
+                               dndbeyond_url:   '123',
+                               active:          true)
+      char2 = Character.create(name:           'Olivia',
+                               character_class: 'Druid',
+                               level:           3,
+                               user:            user,
+                               campaign:        campaign,
+                               species:         'Tabaxi',
+                               dndbeyond_url:   '456',
+                               active:          true)
+      char3 = Character.create(name:           'Meredith',
+                               character_class: 'Ranger',
+                               level:           6,
+                               user:            user,
+                               campaign:        campaign,
+                               species:         'Tabaxi',
+                               dndbeyond_url:   '789',
+                               active:          false)
+      expect(Character.active).to eq([char1, char2])
+    end
+  end
+
   describe 'class methods' do
     it '.classes' do
       classes = Character.classes
