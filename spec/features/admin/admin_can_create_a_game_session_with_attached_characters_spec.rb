@@ -8,6 +8,7 @@ RSpec.describe 'admin dashboard index', type: :feature do
         char1 = create(:character, campaign: campaign)
         char2 = create(:character, campaign: campaign)
         char3 = create(:character, campaign: campaign)
+        char4 = create(:inactive_character, campaign: campaign)
         user = create(:admin_user)
 
         login_as_user(user.username, user.password)
@@ -16,10 +17,14 @@ RSpec.describe 'admin dashboard index', type: :feature do
         click_on 'Create Session'
 
         expect(current_path).to eq(admin_game_sessions_new_path)
+        expect(page).to have_content(char1.name)
+        expect(page).to have_content(char2.name)
+        expect(page).to have_content(char3.name)
+        expect(page).not_to have_content(char4.name)
 
         fill_in 'Name', with: 'Super Great Fun'
-        check "game_session_characters_#{char1.id}"
-        check "game_session_characters_#{char3.id}"
+        check char1.name
+        check char3.name
         click_on 'Create Game Session'
 
         expect(page).to have_content('Super Great Fun')

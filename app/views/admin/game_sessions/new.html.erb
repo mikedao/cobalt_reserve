@@ -1,15 +1,19 @@
 <h1>Create Session</h1>
 
 <%= form_with url: '/admin/game_sessions', model: @game_session do |form| %>
-  <%= form.label :name %>
-  <%= form.text_field :name %>
+  <p>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </p>
 
-  <% current_campaign.characters.active.each do |character| %>
-    <p>
-      <%= form.label 'character.name' %>
-      <%= form.check_box 'characters', {:multiple => true}, character.id, nil%>
-    </p>
-  <% end %>
+  <h2>Select Characters</h2>
+  <p>
+    <% current_campaign.characters.active.each do |character| %>
+      <%= form.label "characters_#{character.id}", character.name %>
+      <%= form.check_box 'characters', {:multiple => true}, character.id, nil %>
+      </br>
+    <% end %>
+  </p>
 
   <%= form.submit 'Create Game Session' %>
 <% end %>
