@@ -23,19 +23,34 @@ RSpec.describe 'As a visitor', type: :feature do
 
       within "#char-#{@character_1.id}" do
         expect(page).to have_content(@character_1.name)
-        expect(page).to have_content("#{@character_1.species} #{@character_1.character_class}")
+        within '.ancestry' do
+          expect(page).to have_content(@character_1.build_ancestry)
+        end
+        within '.klass' do
+          expect(page).to have_content("Class: #{@character_1.klass}")
+        end
         expect(page).to have_content("Level: #{@character_1.level}")
         expect(page).to have_content("Active: #{@character_1.active}")
       end
       within "#char-#{@character_2.id}" do
         expect(page).to have_content(@character_2.name)
-        expect(page).to have_content("#{@character_2.species} #{@character_2.character_class}")
+        within '.ancestry' do
+          expect(page).to have_content(@character_2.build_ancestry)
+        end
+        within '.klass' do
+          expect(page).to have_content(@character_2.klass)
+        end
         expect(page).to have_content("Level: #{@character_2.level}")
         expect(page).to have_content("Active: #{@character_2.active}")
       end
       within "#char-#{@character_3.id}" do
         expect(page).to have_content(@character_3.name)
-        expect(page).to have_content("#{@character_3.species} #{@character_3.character_class}")
+        within '.ancestry' do
+          expect(page).to have_content(@character_3.build_ancestry)
+        end
+        within '.klass' do
+          expect(page).to have_content(@character_3.klass)
+        end
         expect(page).to have_content("Level: #{@character_3.level}")
         expect(page).to have_content("Active: #{@character_3.active}")
       end

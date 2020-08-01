@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_29_054326) do
+ActiveRecord::Schema.define(version: 2020_07_31_045240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,16 +34,21 @@ ActiveRecord::Schema.define(version: 2020_07_29_054326) do
 
   create_table "characters", force: :cascade do |t|
     t.string "name"
-    t.string "species"
     t.integer "level"
-    t.string "character_class"
+    t.string "klass"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "campaign_id", null: false
     t.bigint "user_id", null: false
     t.boolean "active", default: false
     t.string "dndbeyond_url"
+    t.bigint "ancestryone_id", null: false
+    t.bigint "ancestrytwo_id"
+    t.bigint "culture_id", null: false
+    t.index ["ancestryone_id"], name: "index_characters_on_ancestryone_id"
+    t.index ["ancestrytwo_id"], name: "index_characters_on_ancestrytwo_id"
     t.index ["campaign_id"], name: "index_characters_on_campaign_id"
+    t.index ["culture_id"], name: "index_characters_on_culture_id"
     t.index ["user_id"], name: "index_characters_on_user_id"
   end
 
@@ -104,6 +109,13 @@ ActiveRecord::Schema.define(version: 2020_07_29_054326) do
     t.string "additional_abilities"
     t.string "source"
     t.string "author"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "species", force: :cascade do |t|
+    t.string "name"
+    t.boolean "active", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

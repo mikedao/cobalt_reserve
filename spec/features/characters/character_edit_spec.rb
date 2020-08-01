@@ -7,6 +7,7 @@ RSpec.feature 'Character updating' do
     @character = create(:character, user: @user, campaign: @campaign, active: true)
     @user2 = create(:user)
     @character2 = create(:character, user: @user2, campaign: @campaign, name: 'Not Cormyn', active: true)
+    @species = Culture.order(:name)
   end
 
   describe 'happy path' do
@@ -20,12 +21,16 @@ RSpec.feature 'Character updating' do
         click_button 'Edit Character'
       end
 
-      expect(page).to have_select 'Species', selected: @character.species, options: Character.species
-      expect(page).to have_select 'Class', selected: @character.character_class, options: Character.classes
+      expect(page).to have_select 'Ancestry 1', selected: @character.ancestryone.name
+      expect(page).to have_select 'Ancestry 2', selected: @character.ancestrytwo.name
+      expect(page).to have_select 'Culture', selected: @character.culture.name
+      expect(page).to have_select 'Class', selected: @character.klass, options: Character.classes
 
       fill_in :character_name, with: 'Cormyn'
-      select 'Human', from: :character_species
-      select 'Hunter', from: :character_character_class
+      select 'Human', from: :character_ancestryone_id
+      select 'Gnome', from: :character_ancestrytwo_id
+      select 'Elf', from: :character_culture_id
+      select 'Hunter', from: :character_klass
       fill_in :character_level, with: 4
       click_button 'Update Character'
 
@@ -35,7 +40,12 @@ RSpec.feature 'Character updating' do
       expect(current_path).to eq(profile_path)
       within "#char-#{ch.id}" do
         expect(page).to have_content(ch.name)
-        expect(page).to have_content("#{ch.species} #{ch.character_class}")
+        within '.ancestry' do
+          expect(page).to have_content(ch.build_ancestry)
+        end
+        within '.klass' do
+          expect(page).to have_content("Class: #{ch.klass}")
+        end
         expect(page).to have_content("Level: #{ch.level}")
         expect(page).to have_content('Active: true')
       end
@@ -101,23 +111,18 @@ RSpec.feature 'Character updating' do
       visit edit_user_character_path(@user, @character)
 
       fill_in :character_name, with: ''
-      select '', from: :character_species
-      select '', from: :character_character_class
+      select '(None)', from: :character_ancestrytwo_id
       fill_in :character_level, with: ''
       fill_in :character_dndbeyond_url, with: ''
       click_button 'Update Character'
 
       expect(current_path).to eq(user_character_path(@user, @character))
-      expect(page).to have_content('9 errors prohibited this character from being saved')
+      expect(page).to have_content('5 errors prohibited this character from being saved')
+      expect(page).to have_content("Level can't be blank")
+      expect(page).to have_content('Level is not a number')
       expect(page).to have_content("Name can't be blank")
       expect(page).to have_content('Name is too short (minimum is 2 characters)')
       expect(page).to have_content("Dndbeyond url can't be blank")
-      expect(page).to have_content("Level can't be blank")
-      expect(page).to have_content('Level is not a number')
-      expect(page).to have_content("Character class can't be blank")
-      expect(page).to have_content('Character class is too short (minimum is 4 characters)')
-      expect(page).to have_content("Species can't be blank")
-      expect(page).to have_content('Species is too short (minimum is 3 characters)')
     end
 
     it 'does not succeed if a user tries to edit a character that is not theirs' do

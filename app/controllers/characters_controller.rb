@@ -87,12 +87,12 @@ class CharactersController < ApplicationController
   def prep_form_data
     @character = Character.new
     @user = current_user
+    @species = Culture.order(:name)
     @form_submission_url = user_characters_path(@user, @character)
-    @species = Character.species
     @classes = Character.classes
   end
 
   def character_params
-    params.require(:character).permit(:name, :level, :character_class, :species, :dndbeyond_url)
+    params.require(:character).permit(:name, :level, :klass, :ancestryone_id, :culture_id, :dndbeyond_url)
   end
 end

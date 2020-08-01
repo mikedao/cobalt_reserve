@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
-  
+
   <div class="field">
     <%= f.label :name %>
     <%= f.text_field :name, {required: true} %>
@@ -22,13 +22,21 @@
   </div>
 
   <div class="field">
-    <%= f.label 'species', 'Species' %>
-    <%= f.select 'species', options_for_select(@species, @character.species), {required: true} %>
+    <%= f.label 'ancestryone_id', 'Ancestry 1' %>
+    <%= f.collection_select :ancestryone_id, @species, :id, :name, prompt: true, required: true %>
+  </div>
+  <div class="field">
+    <%= f.label 'ancestrytwo_id', 'Ancestry 2 (optional)' %>
+    <%= f.collection_select :ancestrytwo_id, @species, :id, :name, prompt: true, include_blank: '(None)' %>
+  </div>
+  <div class="field">
+    <%= f.label 'culture_id', 'Culture' %>
+    <%= f.collection_select :culture_id, @species, :id, :name, prompt: true, required: true %>
   </div>
 
   <div class="field">
-    <%= f.label 'character_class', 'Class' %>
-    <%= f.select 'character_class', options_for_select(@classes, @character.character_class), {required: true} %>
+    <%= f.label 'klass', 'Class' %>
+    <%= f.select 'klass', options_for_select(@classes, @character.klass), prompt: true, required: true %>
   </div>
 
   <div class="field">

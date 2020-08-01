@@ -1,4 +1,9 @@
 require 'csv'
+
+Character.delete_all
+Campaign.delete_all
+Monster.delete_all
+
 Campaign.create(name: 'Turing West Marches', status: 'active')
 array = CSV.read('./data/monsters.csv', headers: true)
 
@@ -25,4 +30,14 @@ array.each do |row|
                  additional_abilities: row['Additional'],
                  source: row['Font'],
                  author: row['Author'])
+end
+
+# Species list from https://www.dndbeyond.com/races including Eberron and some other books, approved by Mike
+Ancestryone.delete_all
+['Aarakocra', 'Aasimar', 'Bugbear', 'Centaur', 'Changeling', 'Dragonborn', 'Dwarf', 'Elf', 'Feral Tiefling',
+ 'Firbolg', 'Genasi', 'Gith', 'Gnome', 'Goblin', 'Goliath', 'Grung', 'Half-Elf', 'Half-Orc', 'Halfling',
+ 'Hobgoblin', 'Human', 'Kalashatar', 'Kenku', 'Kobold', 'Leonin', 'Lizardfolk', 'Locathah', 'Loxodon',
+ 'Minotaur', 'Orc', 'Orc of Eberron', 'Orc of Exandria', 'Satyr', 'Shifter', 'Simic Hybrid', 'Tabaxi',
+ 'Tiefling', 'Tortle', 'Triton', 'Vedalken', 'Verdan', 'Warforged', 'Yuan-ti Pureblood'].each do |species|
+  Ancestryone.create(name: species, active: true)
 end

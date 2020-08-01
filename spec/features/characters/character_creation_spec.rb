@@ -21,8 +21,10 @@ RSpec.feature 'Character creation' do
         expect(current_path).to eq(new_user_character_path(@user))
 
         fill_in :character_name, with: 'Cormyn'
-        select 'Human', from: :character_species
-        select 'Hunter', from: :character_character_class
+        select 'Human', from: :character_ancestryone_id
+        select 'Gnome', from: :character_ancestrytwo_id
+        select 'Elf', from: :character_culture_id
+        select 'Hunter', from: :character_klass
         fill_in :character_level, with: 4
         fill_in :character_dndbeyond_url, with: 'http://dndbeyond.com/1234'
         click_button 'Create Character'
@@ -34,7 +36,12 @@ RSpec.feature 'Character creation' do
         within "#char-#{ch.id}" do
           expect(page).to have_content('Cormyn')
           expect(page).to have_content(ch.name)
-          expect(page).to have_content("#{ch.species} #{ch.character_class}")
+          within '.ancestry' do
+            expect(page).to have_content(ch.build_ancestry)
+          end
+          within '.klass' do
+            expect(page).to have_content(ch.klass)
+          end
           expect(page).to have_content("Level: #{ch.level}")
           expect(page).to have_content('Active: true')
         end
@@ -45,14 +52,16 @@ RSpec.feature 'Character creation' do
         visit new_user_character_path(@user)
 
         fill_in :character_name, with: 'Cormyn'
-        select 'Human', from: :character_species
-        select 'Hunter', from: :character_character_class
+        select 'Human', from: :character_ancestryone_id
+        select 'Gnome', from: :character_ancestrytwo_id
+        select 'Elf', from: :character_culture_id
+        select 'Hunter', from: :character_klass
         fill_in :character_level, with: 4
         fill_in :character_dndbeyond_url, with: 'http://dndbeyond.com/1234'
         click_button 'Create Character'
 
         # db lookup for expectations below
-        ch = Character.last
+        ch2 = Character.last
 
         expect(current_path).to eq(profile_path)
         within "#char-#{ch1.id}" do
@@ -60,8 +69,8 @@ RSpec.feature 'Character creation' do
           expect(page).to have_content('Active: true')
         end
 
-        within "#char-#{ch.id}" do
-          expect(page).to have_content(ch.name)
+        within "#char-#{ch2.id}" do
+          expect(page).to have_content(ch2.name)
           expect(page).to have_content('Active: false')
         end
       end
@@ -101,15 +110,15 @@ RSpec.feature 'Character creation' do
 
       expect(current_path).to eq(user_characters_path(@user))
       expect(page).to have_content('9 errors prohibited this character from being saved')
+      expect(page).to have_content('Ancestryone must exist')
+      expect(page).to have_content('Culture must exist')
+      expect(page).to have_content("Level can't be blank")
+      expect(page).to have_content('Level is not a number')
       expect(page).to have_content("Name can't be blank")
       expect(page).to have_content('Name is too short (minimum is 2 characters)')
       expect(page).to have_content("Dndbeyond url can't be blank")
-      expect(page).to have_content("Level can't be blank")
-      expect(page).to have_content('Level is not a number')
-      expect(page).to have_content("Character class can't be blank")
-      expect(page).to have_content('Character class is too short (minimum is 4 characters)')
-      expect(page).to have_content("Species can't be blank")
-      expect(page).to have_content('Species is too short (minimum is 3 characters)')
+      expect(page).to have_content("Klass can't be blank")
+      expect(page).to have_content('Klass is too short (minimum is 1 character)')
     end
 
     it 'fails when campaign is made inactive during the character creation' do
@@ -122,8 +131,10 @@ RSpec.feature 'Character creation' do
       @campaign.update!(status: 'inactive')
 
       fill_in :character_name, with: 'Cormyn'
-      select 'Human', from: :character_species
-      select 'Hunter', from: :character_character_class
+      select 'Human', from: :character_ancestryone_id
+      select 'Gnome', from: :character_ancestrytwo_id
+      select 'Elf', from: :character_culture_id
+      select 'Hunter', from: :character_klass
       fill_in :character_level, with: 4
       click_button 'Create Character'
 
@@ -141,8 +152,10 @@ RSpec.feature 'Character creation' do
       @campaign.delete
 
       fill_in :character_name, with: 'Cormyn'
-      select 'Human', from: :character_species
-      select 'Hunter', from: :character_character_class
+      select 'Human', from: :character_ancestryone_id
+      select 'Gnome', from: :character_ancestrytwo_id
+      select 'Elf', from: :character_culture_id
+      select 'Hunter', from: :character_klass
       fill_in :character_level, with: 4
       click_button 'Create Character'
 
