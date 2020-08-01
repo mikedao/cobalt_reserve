@@ -7,14 +7,16 @@ RSpec.describe Character, type: :model do
     it { should have_many :game_session_characters }
     it { should have_many(:game_sessions).through(:game_session_characters) }
     it { should have_many :item_characters }
+    it { should belong_to(:ancestryone) }
+    it { should belong_to(:ancestrytwo).optional }
+    it { should belong_to(:culture) }
     it { should have_many(:items).through(:item_characters) }
   end
 
   describe 'validations' do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:dndbeyond_url) }
-    it { should validate_presence_of :species }
-    it { should validate_presence_of :character_class }
+    it { should validate_presence_of :klass }
     it { should validate_presence_of :level }
     it { should validate_numericality_of(:level).only_integer }
 
@@ -26,7 +28,7 @@ RSpec.describe Character, type: :model do
           :character,
           user: @user,
           campaign: @campaign,
-          character_class: 'Bard',
+          klass: 'Bard',
           name: 'Taylor Swift',
           dndbeyond_url: 'http://dndbeyond.com/1234'
         )
@@ -39,7 +41,7 @@ RSpec.describe Character, type: :model do
             :character,
             user: @user,
             campaign: @campaign,
-            character_class: 'Bard',
+            klass: 'Bard',
             name: 'Taylor Swift',
             dndbeyond_url: 'http://dndbeyond.com/123456'
           )
@@ -60,16 +62,14 @@ RSpec.describe Character, type: :model do
 
       it 'validates that level is an integer between 1 and 20 because shoulda_matchers is being a jerk' do
         begin
-          @c3 = create(:character, user: @user, campaign: @campaign, name: 'foo', character_class: 'yeah',
-                       species: 'nope', dndbeyond_url: 'whatever', level: -1)
+          @c3 = create(:character, user: @user, campaign: @campaign, level: -1)
         rescue ActiveRecord::RecordInvalid => e
           expect(e.message).to eq('Validation failed: Level must be greater than 1')
         end
         expect(@c3).to be_a(NilClass)
 
         begin
-          @c3 = create(:character, user: @user, campaign: @campaign, name: 'foo', character_class: 'yeah',
-                       species: 'nope', dndbeyond_url: 'whatever', level: 21)
+          @c3 = create(:character, user: @user, campaign: @campaign, level: 21)
         rescue ActiveRecord::RecordInvalid => e
           expect(e.message).to eq('Validation failed: Level must be less than or equal to 20')
         end
@@ -80,43 +80,35 @@ RSpec.describe Character, type: :model do
 
   describe 'default properties' do
     it 'sets appropriate default values when creating a character' do
-      user = User.new(username: 'Taylor Swift', email: 't@swift.com', password: 'cardigan', status: 'active')
-      campaign = Campaign.new(name: 'Test Campaign', status: 'active')
-      char = Character.new(name: 'Melodia', character_class: 'Bard', level: 5, user: user, campaign: campaign)
+      user = create(:user)
+      campaign = create(:campaign)
+      char = create(:character, user: user, campaign: campaign)
 
-      expect(char.active).to eq(false)
+      expect(char.active).to eq(true)
     end
   end
 
   describe 'scopes' do
     it '.active' do
-      user = User.create(username: 'Taylor Swift', email: 't@swift.com', password: 'cardigan', status: 'active')
-      campaign = Campaign.create(name: 'Test Campaign', status: 'active')
-      char1 = Character.create(name:           'Melodia',
-                               character_class: 'Bard',
-                               level:           5,
-                               user:            user,
-                               campaign:        campaign,
-                               species:         'Human',
-                               dndbeyond_url:   '123',
-                               active:          true)
-      char2 = Character.create(name:           'Olivia',
-                               character_class: 'Druid',
-                               level:           3,
-                               user:            user,
-                               campaign:        campaign,
-                               species:         'Tabaxi',
-                               dndbeyond_url:   '456',
-                               active:          true)
-      char3 = Character.create(name:           'Meredith',
-                               character_class: 'Ranger',
-                               level:           6,
-                               user:            user,
-                               campaign:        campaign,
-                               species:         'Tabaxi',
-                               dndbeyond_url:   '789',
-                               active:          false)
+      user = create(:user)
+      campaign = create(:campaign)
+
+      char1 = create(:character, user: user, campaign: campaign)
+      char2 = create(:character, user: user, campaign: campaign)
+      char3 = create(:inactive_character, user: user, campaign: campaign)
       expect(Character.active).to eq([char1, char2])
+    end
+  end
+
+  describe 'instance methods' do
+    it '.build_ancestry' do
+      a1 = create(:ancestryone)
+      a2 = create(:ancestrytwo)
+      ch1 = create(:character, ancestryone: a1, ancestrytwo: nil)
+      ch2 = create(:character, ancestryone: a1, ancestrytwo: a2)
+
+      expect(ch1.build_ancestry). to eq(ch1.ancestryone.name)
+      expect(ch2.build_ancestry). to eq("#{ch2.ancestryone.name} / #{ch2.ancestrytwo.name}")
     end
   end
 
@@ -125,8 +117,11 @@ RSpec.describe Character, type: :model do
       classes = Character.classes
 
       expect(classes).to be_a(Array)
+      expect(classes).to_not include('')
+      expect(classes).to include('Artificer')
       expect(classes).to include('Barbarian')
       expect(classes).to include('Bard')
+      expect(classes).to include('Blood Hunter')
       expect(classes).to include('Cleric')
       expect(classes).to include('Druid')
       expect(classes).to include('Fighter')
@@ -137,58 +132,6 @@ RSpec.describe Character, type: :model do
       expect(classes).to include('Sorcerer')
       expect(classes).to include('Warlock')
       expect(classes).to include('Wizard')
-      expect(classes).to include('Artificer')
-      expect(classes).to include('Blood Hunter')
-    end
-
-    it '.species' do
-      species = Character.species
-
-      expect(species).to be_a(Array)
-      expect(species).to include('Dragonborn')
-      expect(species).to include('Dwarf')
-      expect(species).to include('Elf')
-      expect(species).to include('Gnome')
-      expect(species).to include('Half-Elf')
-      expect(species).to include('Halfling')
-      expect(species).to include('Half-Orc')
-      expect(species).to include('Human')
-      expect(species).to include('Tiefling')
-      expect(species).to include('Orc of Exandria')
-      expect(species).to include('Leonin')
-      expect(species).to include('Satyr')
-      expect(species).to include('Aarakocra')
-      expect(species).to include('Genasi')
-      expect(species).to include('Goliath')
-      expect(species).to include('Aasimar')
-      expect(species).to include('Bugbear')
-      expect(species).to include('Firbolg')
-      expect(species).to include('Goblin')
-      expect(species).to include('Hobgoblin')
-      expect(species).to include('Kenku')
-      expect(species).to include('Kobold')
-      expect(species).to include('Lizardfolk')
-      expect(species).to include('Orc')
-      expect(species).to include('Tabaxi')
-      expect(species).to include('Triton')
-      expect(species).to include('Yuan-ti Pureblood')
-      expect(species).to include('Feral Tiefling')
-      expect(species).to include('Tortle')
-      expect(species).to include('Changeling')
-      expect(species).to include('Kalashatar')
-      expect(species).to include('Orc of Eberron')
-      expect(species).to include('Shifter')
-      expect(species).to include('Warforged')
-      expect(species).to include('Gith')
-      expect(species).to include('Centaur')
-      expect(species).to include('Loxodon')
-      expect(species).to include('Minotaur')
-      expect(species).to include('Simic Hybrid')
-      expect(species).to include('Vedalken')
-      expect(species).to include('Verdan')
-      expect(species).to include('Locathah')
-      expect(species).to include('Grung')
     end
   end
-
 end

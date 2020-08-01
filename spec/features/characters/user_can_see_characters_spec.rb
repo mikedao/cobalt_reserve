@@ -21,12 +21,22 @@ RSpec.describe 'character index', type: :feature do
 
           within "#char-#{@character_1.id}" do
             expect(page).to have_content(@character_1.name)
-            expect(page).to have_content("#{@character_1.species} #{@character_1.character_class}")
+            within '.ancestry' do
+              expect(page).to have_content(@character_1.build_ancestry)
+            end
+            within '.klass' do
+              expect(page).to have_content("Class: #{@character_1.klass}")
+            end
             expect(page).to have_content("Level: #{@character_1.level}")
           end
           within "#char-#{@character_2.id}" do
             expect(page).to have_content(@character_2.name)
-            expect(page).to have_content("#{@character_2.species} #{@character_2.character_class}")
+            within '.ancestry' do
+              expect(page).to have_content(@character_2.build_ancestry)
+            end
+            within '.klass' do
+              expect(page).to have_content("Class: #{@character_2.klass}")
+            end
             expect(page).to have_content("Level: #{@character_2.level}")
           end
 

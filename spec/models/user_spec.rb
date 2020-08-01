@@ -58,10 +58,10 @@ RSpec.describe User, type: :model do
       before :each do
         @campaign = create(:campaign)
         @user = create(:user)
-        @inactive_character = create(:character, user: @user, campaign: @campaign, active: false)
-        @active_character = create(:character, user: @user, campaign: @campaign, active: true)
+        @inactive_character = create(:inactive_character, user: @user, campaign: @campaign)
+        @active_character = create(:character, user: @user, campaign: @campaign)
       end
-      
+
       it 'succeeds for happy path conditions' do
         expect(@user.active_campaign_character).to eq(@active_character)
         expect(@user.active_campaign_character).to_not eq(@inactive_character)

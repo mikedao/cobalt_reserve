@@ -76,6 +76,15 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  #
+  config.before :suite do
+    Culture.delete_all
+    Rails.application.load_seed
+    Campaign.delete_all
+  end
+  config.after :suite do
+    Culture.delete_all
+  end
 end
 
 def login_as_user(username, password)
