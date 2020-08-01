@@ -77,7 +77,7 @@ RSpec.describe Character, type: :model do
 
         c4 = create(:character, level: 1)
         c5 = create(:character, level: 20)
-        
+
         expect(c4).to be_a(Character)
         expect(c5).to be_a(Character)
       end
