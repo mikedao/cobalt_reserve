@@ -118,11 +118,11 @@ RSpec.feature 'Character updating' do
 
       expect(current_path).to eq(user_character_path(@user, @character))
       expect(page).to have_content('5 errors prohibited this character from being saved')
-      expect(page).to have_content("Level can't be blank")
-      expect(page).to have_content('Level is not a number')
+      expect(page).to have_content('Your character level must be set')
+      expect(page).to have_content('Your character level must be a number between 1 and 20')
       expect(page).to have_content("Name can't be blank")
-      expect(page).to have_content('Name is too short (minimum is 2 characters)')
-      expect(page).to have_content("Dndbeyond url can't be blank")
+      expect(page).to have_content('Name is too short, please enter at least 2 characters')
+      expect(page).to have_content('Your DND Beyond Character Sheet must be provided')
     end
 
     it 'does not succeed if a user tries to edit a character that is not theirs' do

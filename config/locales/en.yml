@@ -31,3 +31,31 @@
 
 en:
   hello: "Hello world"
+  activerecord:
+    attributes:
+      character:
+        level: "Your character level"
+        klass: "Your class"
+        ancestryone: "Your first ancestry"
+        ancestrytwo: "Your second ancestry"
+        culture: "Your cultural background"
+        dndbeyond_url: "Your DND Beyond Character Sheet"
+    errors:
+      models:
+        character:
+          attributes:
+            level:
+              required: "must be set"
+              blank: "must be set"
+              not_a_number: "must be a number between 1 and 20"
+            klass:
+              blank: "must be chosen"
+            ancestryone:
+              required: "must be chosen"
+            culture:
+              required: "must be chosen"
+            dndbeyond_url:
+              blank: "must be provided"
+            name:
+              required: "must be chosen"
+              too_short: "is too short, please enter at least 2 characters"

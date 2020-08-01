@@ -9,11 +9,18 @@ RSpec.describe 'character show', type: :feature do
 
           visit character_path(@character)
 
-          expect(page).to have_content(@character.name)
-          expect(page).to have_content(@character.species)
-          expect(page).to have_content(@character.character_class)
-          expect(page).to have_content(@character.level)
-          expect(page).to have_content('D&D Beyond')
+          within "#char-#{@character.id}" do
+            expect(page).to have_content(@character.name)
+            within '.ancestry' do
+              expect(page).to have_content(@character.build_ancestry)
+            end
+            within '.klass' do
+              expect(page).to have_content("Class: #{@character.klass}")
+            end
+            expect(page).to have_content("Level: #{@character.level}")
+          end
+
+          expect(page).to have_link('D&D Beyond Character Sheet')
         end
       end
     end
