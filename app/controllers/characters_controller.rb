@@ -42,6 +42,10 @@ class CharactersController < ApplicationController
     end
   end
 
+  def show
+    @character = Character.find(params[:id])
+  end
+
   def update
     character = Character.find(params[:id])
     if character&.user != current_user
