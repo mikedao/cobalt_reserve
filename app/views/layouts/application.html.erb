@@ -21,6 +21,9 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
+          <% if current_admin? %>
+            <li class="nav-item"><%= link_to 'Admin Dashboard', admin_dashboard_path, class: 'nav-link' %></li>
+          <% end %>
           <% if current_user %>
             <li class="nav-item"><%= link_to 'Profile', profile_path, class: 'nav-link' %></li>
             <li class="nav-item"><%= link_to 'Log Out', logout_path, method: 'delete', class: 'nav-link' %></li>
