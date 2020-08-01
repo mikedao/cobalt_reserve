@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :character do
     name { "#{Faker::Games::WorldOfWarcraft.hero} #{Faker::Number.number(digits: 3)}" }
     klass { Character.classes.drop(1).sample }
-    level { Faker::Number.between(from: 1, to: 19).to_i+1 }
+    level { Faker::Number.between(from: 1, to: 20).to_i }
     dndbeyond_url { "https://dndbeyond/#{Faker::Number.within(range: 100000..999999)}"}
     active { true }
 

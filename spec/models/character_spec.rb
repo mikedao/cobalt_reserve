@@ -62,9 +62,9 @@ RSpec.describe Character, type: :model do
 
       it 'validates that level is an integer between 1 and 20 because shoulda_matchers is being a jerk' do
         begin
-          @c3 = create(:character, user: @user, campaign: @campaign, level: -1)
+          @c3 = create(:character, user: @user, campaign: @campaign, level: 0)
         rescue ActiveRecord::RecordInvalid => e
-          expect(e.message).to eq('Validation failed: Your character level must be greater than 1')
+          expect(e.message).to eq('Validation failed: Your character level must be greater than or equal to 1')
         end
         expect(@c3).to be_a(NilClass)
 
@@ -74,6 +74,12 @@ RSpec.describe Character, type: :model do
           expect(e.message).to eq('Validation failed: Your character level must be less than or equal to 20')
         end
         expect(@c3).to be_a(NilClass)
+
+        c4 = create(:character, level: 1)
+        c5 = create(:character, level: 20)
+        
+        expect(c4).to be_a(Character)
+        expect(c5).to be_a(Character)
       end
     end
   end
