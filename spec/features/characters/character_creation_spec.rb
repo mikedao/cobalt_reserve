@@ -109,16 +109,15 @@ RSpec.feature 'Character creation' do
       click_button 'Create Character'
 
       expect(current_path).to eq(user_characters_path(@user))
-      expect(page).to have_content('9 errors prohibited this character from being saved')
-      expect(page).to have_content('Ancestryone must exist')
-      expect(page).to have_content('Culture must exist')
-      expect(page).to have_content("Level can't be blank")
-      expect(page).to have_content('Level is not a number')
+      expect(page).to have_content('8 errors prohibited this character from being saved')
+      expect(page).to have_content('Your first ancestry must be chosen')
+      expect(page).to have_content('Your cultural background must be chosen')
+      expect(page).to have_content('Your character level must be a number between 1 and 20')
+      expect(page).to have_content('Your character level must be set')
       expect(page).to have_content("Name can't be blank")
-      expect(page).to have_content('Name is too short (minimum is 2 characters)')
-      expect(page).to have_content("Dndbeyond url can't be blank")
-      expect(page).to have_content("Klass can't be blank")
-      expect(page).to have_content('Klass is too short (minimum is 1 character)')
+      expect(page).to have_content('Name is too short, please enter at least 2 characters')
+      expect(page).to have_content('Your DND Beyond Character Sheet must be provided')
+      expect(page).to have_content('Your class must be chosen')
     end
 
     it 'fails when campaign is made inactive during the character creation' do

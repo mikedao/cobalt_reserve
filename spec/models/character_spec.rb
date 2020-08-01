@@ -55,7 +55,7 @@ RSpec.describe Character, type: :model do
         begin
           @c3 = create(:character, user: @user, campaign: @campaign, dndbeyond_url: 'http://dndbeyond.com/1234')
         rescue ActiveRecord::RecordInvalid => e
-          expect(e.message).to eq('Validation failed: Dndbeyond url has already been taken')
+          expect(e.message).to eq('Validation failed: Your DND Beyond Character Sheet has already been taken')
         end
         expect(@c3).to be_a(NilClass)
       end
@@ -64,14 +64,14 @@ RSpec.describe Character, type: :model do
         begin
           @c3 = create(:character, user: @user, campaign: @campaign, level: -1)
         rescue ActiveRecord::RecordInvalid => e
-          expect(e.message).to eq('Validation failed: Level must be greater than 1')
+          expect(e.message).to eq('Validation failed: Your character level must be greater than 1')
         end
         expect(@c3).to be_a(NilClass)
 
         begin
           @c3 = create(:character, user: @user, campaign: @campaign, level: 21)
         rescue ActiveRecord::RecordInvalid => e
-          expect(e.message).to eq('Validation failed: Level must be less than or equal to 20')
+          expect(e.message).to eq('Validation failed: Your character level must be less than or equal to 20')
         end
         expect(@c3).to be_a(NilClass)
       end

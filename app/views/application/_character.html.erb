@@ -16,5 +16,6 @@
       <p><%= button_to 'Make Active!', user_activate_character_path(character.user, character.id), method: 'put', class: 'card-link' %></p>
       <% end %>
     <% end %>
+    <p><%= link_to 'D&D Beyond Character Sheet', character.dndbeyond_url %></p>
   </div>
 </div>

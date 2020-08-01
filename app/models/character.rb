@@ -13,7 +13,7 @@ class Character < ApplicationRecord
   validates :level, presence: true, numericality: { only_integer: true, greater_than: 1, less_than_or_equal_to: 20 }
   validates :name, uniqueness: true, presence: true, length: { minimum: 2 }
   validates :dndbeyond_url, uniqueness: true, presence: true
-  validates :klass, presence: true, length: { minimum: 1 }
+  validates :klass, presence: true
 
   scope :active, -> { where active: true }
 
