@@ -25,9 +25,9 @@ RSpec.describe 'adventure log creation', type: :feature do
   context 'as a default user' do
     before do
       user = User.create(username:  'regular user',
-                          password:  'password',
-                          email:     'user@example.com',
-                          role:      0)
+                         password:  'password',
+                         email:     'user@example.com',
+                         role:      0)
       @character = create(:character, campaign: @campaign, user: user)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
     end
