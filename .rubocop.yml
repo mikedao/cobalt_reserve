@@ -28,3 +28,6 @@ Style/Documentation:
 
 Style/ClassAndModuleChildren:
   Enabled: false
+
+Style/RegexpLiteral:
+  EnforcedStyle: slashes
