@@ -11,6 +11,7 @@ RSpec.describe Character, type: :model do
     it { should belong_to(:ancestrytwo).optional }
     it { should belong_to(:culture) }
     it { should have_many(:items).through(:item_characters) }
+    it { should have_many :adventure_logs }
   end
 
   describe 'validations' do

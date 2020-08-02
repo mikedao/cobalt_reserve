@@ -6,12 +6,43 @@
 <ul>
   <% @game_session.characters.each do |character| %>
     <li> <%= character.name %> </li>
-
   <% end %>
 </ul>
 
-<%= link_to 'Create New Adventure Log', "/game_sessions/#{@game_session.id}/adventure_logs/new" %>
+<h3>Adventure Logs</h3>
 
-<% @game_session.adventure_logs.each do |adventure_log| %>
-  <p><%= adventure_log.content %></p>
+<% if current_user &&
+   @game_session.characters.include?(current_user.active_campaign_character) %>
+  <p>
+    <%= link_to 'Create New Adventure Log',
+                "/game_sessions/#{@game_session.id}/adventure_logs/new" %>
+  </p>
+<% elsif current_user %>
+  <p id="non-participating-user-message">
+    (Only users with active participating characters can create adventure logs.)
+  </p>
+<% else %>
+  <p id="visitor-message">
+    (Log in <%= link_to 'with a password', login_path %> or 
+    <%= link_to 'using passwordless login', passwordless_login_path %>
+    to create a new adventure log.)
+  </p>
+<% end %>
+
+<% if @game_session.adventure_logs.empty? %>
+  <p id="no-logs-message">
+    There aren't any adventure logs yet, but they'll appear here.
+  </p>
+<% else %>
+  <section id="adventure-logs">
+    <% @game_session.adventure_logs.each do |adventure_log| %>
+      <p class="adventure-log" id="adventure-log-<%= adventure_log.id %>">
+        <%= adventure_log.content %>
+        <cite class="adventure-log-citation">
+          By <%= adventure_log.character.name %>,
+          <%= adventure_log.created_at.strftime("%D, %r") %>
+        </cite>
+      </p>
+    <% end %>
+  </section>
 <% end %>
