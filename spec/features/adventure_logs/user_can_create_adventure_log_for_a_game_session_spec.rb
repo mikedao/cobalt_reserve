@@ -61,7 +61,7 @@ RSpec.describe 'adventure log creation', type: :feature do
       end
     end
 
-    context 'when I visit a game session I don't have an active character in' do
+    context "when I visit a game session I don't have an active character in" do
       it 'I cannot create a log for that session but see message why' do
         visit game_session_path(@game_session)
 
