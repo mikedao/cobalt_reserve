@@ -7,7 +7,7 @@ class AdventureLogsController < ApplicationController
   def create
     AdventureLog.create(content: content,
                         game_session_id: game_session_id,
-                        user: current_user)
+                        character: current_user.active_campaign_character)
     redirect_to game_session_path(game_session_id)
   end
 
