@@ -26,7 +26,7 @@
       <p class="adventure-log" id="adventure-log-<%= adventure_log.id %>">
         <%= adventure_log.content %>
         <cite class="adventure-log-citation">
-          By <%= adventure_log.user.active_campaign_character.name %>,
+          By <%= adventure_log.character.name %>,
           <%= adventure_log.created_at.strftime("%D, %r") %>
         </cite>
       </p>
