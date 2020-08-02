@@ -5,6 +5,7 @@ class Character < ApplicationRecord
   has_many :game_sessions, through: :game_session_characters
   has_many :item_characters
   has_many :items, through: :item_characters
+  has_many :adventure_logs
 
   belongs_to :ancestryone
   belongs_to :ancestrytwo, optional: true
