@@ -25,12 +25,12 @@ RSpec.describe 'adventure log creation', type: :feature do
 
         expect(current_path).to eq(game_session_path(game_session))
         within '#adventure-logs' do
-          within ".adventure-log:first-of-type" do
+          within '.adventure-log:first-of-type' do
             expect(page).to have_content('Things happened')
           end
-          within ".adventure-log-citation" do
+          within '.adventure-log-citation' do
             expect(page).to have_content "By #{character.name}"
-            expect(page).to have_content /\d\d\/\d\d\/\d\d, \d\d:\d\d:\d\d [AP]{1}M/
+            expect(page).to have_content(/\d\d\/\d\d\/\d\d, \d\d:\d\d:\d\d [AP]{1}M/)
           end
         end
       end
