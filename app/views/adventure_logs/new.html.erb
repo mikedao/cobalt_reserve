@@ -1,6 +1,6 @@
 <h1>Create Adventure Log</h1>
 
-<%= form_with model: [@game_session, @adventure_log] do |form| %>
+<%= form_with model: [@game_session, @adventure_log], local: true do |form| %>
   <%= form.label :content %>
   <%= form.text_area :content %>
 
