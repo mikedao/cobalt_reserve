@@ -1,0 +1,10 @@
+<div class="card">
+  <div class="card-body" id="game_session_-<%= game_session.id %>">
+    <h5 class="card-title">
+      <%= link_to game_session.name, game_session_path(game_session) %>
+    </h5>
+    <h6 class="card-subtitle mb-2 text-muted">
+      <p class="ancestry">Date: <%= game_session.date.strftime("%D") %></p>
+    </h6> 
+  </div>
+</div>
