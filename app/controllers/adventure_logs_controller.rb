@@ -14,7 +14,7 @@ class AdventureLogsController < ApplicationController
     else
       flash[:error] = adventure_log.errors.full_messages.join(', ')
       redirect_back fallback_location: new_game_session_adventure_log_path(game_session_id)
-    end 
+    end
   end
 
   private
