@@ -19,11 +19,11 @@ class SessionsController < ApplicationController
   end
 
   def passwordless_new
-    @users = User.select(:id, :username).where.not(status: 'inactive').order(:username)
+    @users = User.select(:id, :username).where.not(active: false).order(:username)
   end
 
   def passwordless_create
-    user = User.where(id: params['user-select']).where.not(status: 'inactive').first
+    user = User.where(id: params['user-select']).where.not(active: false).first
     if !user.nil?
       user.update!(login_uuid: SecureRandom.uuid, login_timestamp: DateTime.now)
       AuthenticationMailer.with(user: user).send_login_email.deliver_now

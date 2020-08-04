@@ -8,13 +8,12 @@ RSpec.describe 'Logging In', type: :feature do
       username: 'funbucket13',
       password: 'test',
       email: 'bucket@example.com',
-      status: 'active'
     )
     @inactive_user = User.create(
       username: 'sadbucket42',
       password: 'test',
       email: 'sadbucket@example.com',
-      status: 'inactive'
+      active: false
     )
   end
 
@@ -142,7 +141,7 @@ RSpec.describe 'Logging In', type: :feature do
       end
 
       it 'fails if user is deactivated between trying to login and clicking the auth link' do
-        @user.update!(status: 'inactive')
+        @user.update!(active: false)
 
         visit passwordless_return_path(@fake_uuid)
 

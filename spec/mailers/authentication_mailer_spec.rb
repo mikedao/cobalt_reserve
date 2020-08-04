@@ -9,7 +9,6 @@ RSpec.describe AuthenticationMailer, type: :mailer do
       username: 'funbucket13',
       password: 'test',
       email: 'bucket@example.com',
-      status: 'active'
     )
 
     email = AuthenticationMailer.with(user: user).send_login_email
