@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   resources :monsters, only: %i[index show]
   resources :characters, only: %i[index show]
 
-  resources :game_sessions, only: [:show] do
+  resources :game_sessions, only: %i[index show] do
     resources :adventure_logs, only: %i[new create]
   end
 
