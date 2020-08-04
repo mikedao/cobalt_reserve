@@ -1,6 +1,6 @@
 AllCops:
   Exclude:
-    - '/db/**/*.rb'
+    - 'db/**/*.rb'
 
 Style/FrozenStringLiteralComment:
   Enabled: false
