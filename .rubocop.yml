@@ -31,3 +31,6 @@ Style/ClassAndModuleChildren:
 
 Style/RegexpLiteral:
   EnforcedStyle: slashes
+
+Style/AndOr:
+  EnforcedStyle: conditionals

@@ -5,10 +5,16 @@ class AdventureLogsController < ApplicationController
   end
 
   def create
-    AdventureLog.create(content: content,
-                        game_session_id: game_session_id,
-                        character: current_user.active_campaign_character)
-    redirect_to game_session_path(game_session_id)
+    adventure_log = AdventureLog.new(content: content,
+                                     game_session_id: game_session_id,
+                                     character: current_user.active_campaign_character)
+    if adventure_log.save
+      flash[:success] = 'Your adventure log was created.'
+      redirect_to game_session_path(game_session_id) and return
+    else
+      flash[:error] = adventure_log.errors.full_messages.join(', ')
+      redirect_back fallback_location: new_game_session_adventure_log_path(game_session_id)
+    end
   end
 
   private
