@@ -1,9 +1,9 @@
 <h1>Create Session</h1>
 
-<%= form_with url: '/admin/game_sessions', model: @game_session do |form| %>
+<%= form_with url: '/admin/game_sessions', model: @game_session, local: true do |form| %>
   <p>
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, required: true %>
   </p>
 
   <h2>Select Characters</h2>
