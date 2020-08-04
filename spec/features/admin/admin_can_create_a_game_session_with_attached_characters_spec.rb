@@ -10,7 +10,7 @@ RSpec.describe 'admin dashboard index', type: :feature do
         @char3 = create(:character, campaign: campaign)
         @char4 = create(:inactive_character, campaign: campaign)
         user = create(:admin_user)
-    
+
         login_as_user(user.username, user.password)
       end
 
