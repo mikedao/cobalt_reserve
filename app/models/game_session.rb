@@ -3,4 +3,6 @@ class GameSession < ApplicationRecord
   has_many :game_session_characters
   has_many :adventure_logs
   has_many :characters, through: :game_session_characters
+
+  validates_presence_of :name
 end

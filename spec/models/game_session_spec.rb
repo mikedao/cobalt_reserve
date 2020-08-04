@@ -7,4 +7,8 @@ RSpec.describe GameSession, type: :model do
     it { should have_many :adventure_logs }
     it { should have_many(:characters).through(:game_session_characters) }
   end
+
+  describe 'validations' do
+    it { should validate_presence_of :name }
+  end
 end
