@@ -8,6 +8,9 @@ Style/FrozenStringLiteralComment:
 Layout/TrailingEmptyLines:
   Enabled: false
 
+Layout/TrailingBlankLines:
+  Enabled: false
+
 Style/StringLiterals:
   EnforcedStyle: single_quotes
 
