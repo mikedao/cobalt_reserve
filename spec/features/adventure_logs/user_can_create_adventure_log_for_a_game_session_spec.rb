@@ -49,6 +49,7 @@ RSpec.describe 'adventure log creation', type: :feature do
         click_on 'Create Adventure Log'
 
         expect(current_path).to eq(game_session_path(@game_session))
+        expect(page).to have_content 'Your adventure log was created.'
         within '#adventure-logs' do
           within '.adventure-log:first-of-type' do
             expect(page).to have_content('Things happened')
@@ -58,6 +59,15 @@ RSpec.describe 'adventure log creation', type: :feature do
             expect(page).to have_content(/\d\d\/\d\d\/\d\d, \d\d:\d\d:\d\d [AP]{1}M/)
           end
         end
+      end
+
+      it 'I cannot create a blank adventure log' do
+        visit game_session_path(@game_session)
+        click_link 'Create New Adventure Log'
+        click_on 'Create Adventure Log'
+
+        expect(current_path).to eq(new_game_session_adventure_log_path(@game_session))
+        expect(page).to have_content 'Content is too short (minimum is 1 character)'
       end
     end
 
