@@ -1,5 +1,9 @@
 <%= render partial: "character", locals: { character: @character } %>
 
+<% if current_user == @character.user || current_admin? %>
+  <p><b>Foundry Key:</b> <%= @character.foundry_key %></p>
+<% end %>
+
 <h2>Backstory</h2>
 
 <p>Age: <%= @character.age %> </p>
