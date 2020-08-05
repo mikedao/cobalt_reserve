@@ -5,7 +5,7 @@
 <h3> Participating Characters </h3>
 <ul>
   <% @game_session.characters.each do |character| %>
-    <li> <%= character.name %> </li>
+    <li> <%= link_to character.name, character_path(character) %> </li>
   <% end %>
 </ul>
 
@@ -23,7 +23,7 @@
   </p>
 <% else %>
   <p id="visitor-message">
-    (Log in <%= link_to 'with a password', login_path %> or 
+    (Log in <%= link_to 'with a password', login_path %> or
     <%= link_to 'using passwordless login', passwordless_login_path %>
     to create a new adventure log.)
   </p>
