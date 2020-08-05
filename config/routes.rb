@@ -30,5 +30,4 @@ Rails.application.routes.draw do
     resources :characters, only: %i[new create edit update]
     put '/character/:id/activate', to: 'characters#activate', as: :activate_character
   end
-
 end

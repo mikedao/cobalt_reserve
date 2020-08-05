@@ -1,5 +1,4 @@
 class BackstoryController < ApplicationController
-
   def edit
     redirect_to root_path unless current_user
     @character = Character.find(params[:id])
@@ -23,5 +22,4 @@ class BackstoryController < ApplicationController
                   :role,
                   :additional_information)
   end
-
 end
