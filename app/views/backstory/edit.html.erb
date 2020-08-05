@@ -1,0 +1,22 @@
+<h1>Edit Backstory</h1>
+
+<%= form_with model: @character, url: backstory_update_path(@character) do |form| %>
+  <p><%= form.label :age, "Age (In Years):" %><br>
+  <%= form.text_field :age %></p>
+  <p><%= form.label :early_life, "Where was your character born? Where were you raised? By who? Your character’s actions and influence may be a product of their childhood. Is your character local? Do these places bring back memories? Or, is the path they walk not from these parts?" %><br>
+  <%= form.text_area :early_life %></p>
+  <p><%= form.label :moral_code, "What is your character’s moral code? Are they a natural do-gooder? Or, does their sense of warped morality come from a sordid background? A character’s alignment will heavily influence their actions, be sure to outline why they arrived at their moral code." %><br>
+  <%= form.text_area :moral_code %></p>
+  <p><%= form.label :personality, "Does your character have any personality quirks? Do you get hiccups every time something surprises you? Or, do you have compulsively share ‘fun facts’ about everything, that are usually wrong? Personality quirks brings a character to life." %><br>
+  <%= form.text_area :personality %></p>
+  <p><%= form.label :fears, "Is there anything that your character fears? Hero, champion or winner. We all have fears! Knowing your character’s fears will influence how they navigate through their quests." %><br>
+  <%= form.text_area :fears%></p>
+  <p><%= form.label :role, "How does your character view their role as an adventurer? A means to an end or something they does proudly?Thinking about how your character functions in a group is an important aspect of role-playing." %><br>
+  <%= form.text_area :role %></p>
+  <p><%= form.label :additional_information, "How does your character view their role as an adventurer? A means to an end or something they does proudly?Thinking about how your character functions in a group is an important aspect of role-playing." %><br>
+  <%= form.text_area :additional_information %></p>
+  <br>
+
+
+  <%= submit_tag "Update Backstory" %>
+<% end %>

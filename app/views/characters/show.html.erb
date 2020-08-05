@@ -1,1 +1,25 @@
 <%= render partial: "character", locals: { character: @character } %>
+
+<h2>Backstory</h2>
+
+<p>Age: <%= @character.age %> </p>
+
+<p>Early Life:<p>
+<p><%= @character.early_life %></p>
+
+
+<p>Moral Code:<p>
+<p><%= @character.moral_code %></p>
+
+<p>Personality: <p>
+<p><%= @character.personality %></p>
+
+<p>Fears:<p>
+<p><%= @character.fears %></p>
+
+<p>Role:<p>
+<p><%= @character.role %></p>
+
+<p>Additional Information:<p>
+<p><%= @character.additional_information %></p>
+
