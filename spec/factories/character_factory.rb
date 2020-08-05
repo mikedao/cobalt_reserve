@@ -7,6 +7,7 @@ FactoryBot.define do
     level { Faker::Number.between(from: 1, to: 20).to_i }
     dndbeyond_url { "https://dndbeyond/#{Faker::Number.within(range: 100000..999999)}"}
     active { true }
+    foundry_key { Faker::JapaneseMedia::SwordArtOnline.game_name }
 
     ancestryone
     ancestrytwo
