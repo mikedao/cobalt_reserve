@@ -18,6 +18,9 @@ Rails.application.routes.draw do
   resources :monsters, only: %i[index show]
   resources :characters, only: %i[index show]
 
+  get '/characters/:id/backstory/edit', to: 'backstory#edit', as: :backstory_edit
+  patch '/characters/:id/backstory', to: 'backstory#update', as: :backstory_update
+
   resources :game_sessions, only: %i[index show] do
     resources :adventure_logs, only: %i[new create]
   end

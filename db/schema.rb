@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_04_015429) do
+ActiveRecord::Schema.define(version: 2020_08_05_015715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,13 @@ ActiveRecord::Schema.define(version: 2020_08_04_015429) do
     t.bigint "ancestryone_id", null: false
     t.bigint "ancestrytwo_id"
     t.bigint "culture_id", null: false
+    t.string "age"
+    t.text "early_life"
+    t.text "moral_code"
+    t.text "personality"
+    t.text "fears"
+    t.text "role"
+    t.text "additional_information"
     t.index ["ancestryone_id"], name: "index_characters_on_ancestryone_id"
     t.index ["ancestrytwo_id"], name: "index_characters_on_ancestrytwo_id"
     t.index ["campaign_id"], name: "index_characters_on_campaign_id"
