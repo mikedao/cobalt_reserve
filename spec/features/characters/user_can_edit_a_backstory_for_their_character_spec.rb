@@ -67,5 +67,15 @@ RSpec.describe 'Character Backstory', type: :feature do
 
       expect(page).to_not have_selector(:link_or_button, 'Edit Backstory')
     end
+
+    it 'cannot access a backstory edit page' do
+      campaign = create(:campaign, status: 'active')
+      user = create(:user)
+      character = create(:character, user: user, campaign: campaign, active: true)
+
+      visit backstory_edit_path(character)
+
+      expect(current_path).to eq(root_path)
+    end
   end
 end
