@@ -41,7 +41,7 @@ RSpec.describe 'Character Backstory', type: :feature do
     expect(page).to have_content('more')
   end
 
-  it 'cannot create a backstory for a character that it is not logged in as' do
+  it 'cannot create a backstory for a character that it does not own' do
     campaign = create(:campaign, status: 'active')
     user = create(:user)
     character = create(:character, user: user, campaign: campaign, active: true)
@@ -49,6 +49,8 @@ RSpec.describe 'Character Backstory', type: :feature do
     character_2 = create(:character, user: user_2, campaign: campaign, active: true)
 
     login_as_user(user_2.username, user_2.password)
+
+    visit character_path(character)
 
     expect(page).to_not have_selector(:link_or_button, 'Edit Backstory')
 
