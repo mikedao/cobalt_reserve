@@ -24,7 +24,11 @@ RSpec.describe 'home page has a link to see all world news items' do
       world_news_1 = create(:world_news, campaign: campaign)
       world_news_2 = create(:world_news, campaign: campaign)
 
-      visit world_news_path(world_news_1)
+      visit world_news_index_path
+
+      within("#news-#{world_news_1.id}") do
+        click_link 'Details'
+      end
 
       expect(page).to have_content(world_news_1.title)
       expect(page).to have_content(world_news_1.body)
