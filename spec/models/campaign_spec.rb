@@ -4,6 +4,7 @@ RSpec.describe Campaign, type: :model do
   describe 'relationships' do
     it { should have_many :characters }
     it { should have_many :game_sessions }
+    it { should have_many :world_news }
   end
 
   describe 'class methods' do
