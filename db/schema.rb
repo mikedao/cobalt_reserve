@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_05_033434) do
+ActiveRecord::Schema.define(version: 2020_08_06_040144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -143,6 +143,16 @@ ActiveRecord::Schema.define(version: 2020_08_05_033434) do
     t.index ["login_uuid"], name: "index_users_on_login_uuid"
   end
 
+  create_table "world_news", force: :cascade do |t|
+    t.string "date"
+    t.string "title"
+    t.text "body"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "campaign_id", null: false
+    t.index ["campaign_id"], name: "index_world_news_on_campaign_id"
+  end
+
   add_foreign_key "adventure_logs", "characters"
   add_foreign_key "adventure_logs", "game_sessions"
   add_foreign_key "characters", "campaigns"
@@ -152,4 +162,5 @@ ActiveRecord::Schema.define(version: 2020_08_05_033434) do
   add_foreign_key "game_sessions", "campaigns"
   add_foreign_key "item_characters", "characters"
   add_foreign_key "item_characters", "items"
+  add_foreign_key "world_news", "campaigns"
 end

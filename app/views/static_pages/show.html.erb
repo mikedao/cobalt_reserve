@@ -11,3 +11,14 @@
     <%= link_to 'Game Session Index', game_sessions_path %>
   </li>
 </ul>
+
+<section id="world-news">
+  <% if current_campaign && !current_campaign.world_news.empty? %>
+
+    <p><%= current_campaign.world_news.last.title %></p>
+    <p><%= current_campaign.world_news.last.date %></p>
+    <p><%= current_campaign.world_news.last.body %></p>
+
+  <% end %>
+</section>
+
