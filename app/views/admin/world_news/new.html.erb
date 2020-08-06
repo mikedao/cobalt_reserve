@@ -1,0 +1,14 @@
+<h1>Create World News</h1>
+
+<%= form_with model: @world_news, url: admin_world_news_index_path do |form| %>
+  <%= form.label :title %>
+  <%= form.text_field :title %>
+
+  <%= form.label :date %>
+  <%= form.text_field :date %>
+
+  <%= form.label :body %>
+  <%= form.text_area :body %>
+
+  <%= submit_tag 'Create World News' %>
+<% end %>
