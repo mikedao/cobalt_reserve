@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     get '/dashboard', to: 'dashboard#show'
     get '/game_sessions/new', to: 'game_sessions#new'
     post '/game_sessions', to: 'game_sessions#create'
-    get '/foundry_key', to:  'foundry_key#index'
+    get '/foundry_key', to: 'foundry_key#index'
     get '/foundry_key/:id/edit', to: 'foundry_key#edit', as: :edit_foundry_key
     patch '/foundry_key/:id', to: 'foundry_key#update', as: :update_foundry_key
   end
