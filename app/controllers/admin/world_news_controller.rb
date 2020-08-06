@@ -32,7 +32,6 @@ class Admin::WorldNewsController < Admin::BaseController
     redirect_to admin_world_news_path(params[:id])
   end
 
-
   private
 
     def world_news_params
