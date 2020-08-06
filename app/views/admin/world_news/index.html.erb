@@ -1,5 +1,7 @@
 <h1>World News Index</h1>
 
 <% @world_news.each do |news| %>
-  <p> <%= news.date %> - <%= news.title %></p>
+  <p id="world-news-<%= news.id %>"> <%= news.date %> - <%= news.title %> -
+<%= link_to 'Details', admin_world_news_path(news) %>
+  </p>
 <% end %>

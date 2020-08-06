@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     get '/foundry_key', to: 'foundry_key#index'
     get '/foundry_key/:id/edit', to: 'foundry_key#edit', as: :edit_foundry_key
     patch '/foundry_key/:id', to: 'foundry_key#update', as: :update_foundry_key
-    resources :world_news, only: %i[new create index]
+    resources :world_news
   end
 
   get '/passwordless-login', to: 'sessions#passwordless_new', as: :passwordless_login
