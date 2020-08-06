@@ -9,9 +9,6 @@ RSpec.describe 'World News appears on root page', type: :feature do
 
       visit root_path
 
-      save_and_open_page
-      binding.pry
-      expect(page).to_not have_content(world_news_1.date)
       expect(page).to_not have_content(world_news_1.body)
       expect(page).to_not have_content(world_news_1.title)
 
