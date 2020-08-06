@@ -1,0 +1,8 @@
+<h1>World News Archive </h1>
+
+<% @world_news.each do |news| %>
+  <p>
+  <%= news.date %> - <%= news.title %> -
+  <%= link_to 'Details', world_news_path(news) %>
+  </p>
+<% end %>
