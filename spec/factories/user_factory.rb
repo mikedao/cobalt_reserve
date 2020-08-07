@@ -6,7 +6,7 @@ FactoryBot.define do
   end
 
   factory :user do
-    username { Faker::Games::Witcher.character.delete(' ') + Faker::Number.number.to_s }
+    username { Faker::Games::Witcher.character.delete(' ') + Faker::Number.hexadecimal(digits: 4) }
     email
     password { 'password' }
     role { 0 }
