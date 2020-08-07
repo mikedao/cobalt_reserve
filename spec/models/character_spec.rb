@@ -103,7 +103,10 @@ RSpec.describe Character, type: :model do
       char1 = create(:character, user: user, campaign: campaign)
       char2 = create(:character, user: user, campaign: campaign)
       char3 = create(:inactive_character, user: user, campaign: campaign)
-      expect(Character.active).to eq([char1, char2])
+      result = Character.active
+      expect(result.first).to eq(char1)
+      expect(result.last).to eq(char2)
+      expect(result.count).to eq(2)
     end
   end
 

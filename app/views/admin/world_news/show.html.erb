@@ -1,0 +1,13 @@
+<h1><%= @world_news.title %></h1>
+
+<p><%= @world_news.date %></p>
+
+<p><%= @world_news.body %></p>
+
+<p>
+<%= button_to 'Delete', admin_world_news_path(@world_news), method: :delete %>
+<%= button_to 'Edit', edit_admin_world_news_path(@world_news), method: :get%>
+
+</p>
+
+

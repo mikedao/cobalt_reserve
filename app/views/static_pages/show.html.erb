@@ -15,10 +15,11 @@
 <section id="world-news">
   <% if current_campaign && !current_campaign.world_news.empty? %>
 
-    <p><%= current_campaign.world_news.last.title %></p>
-    <p><%= current_campaign.world_news.last.date %></p>
-    <p><%= current_campaign.world_news.last.body %></p>
+    <p><%= current_campaign.world_news.most_recently_created.title %></p>
+    <p><%= current_campaign.world_news.most_recently_created.date %></p>
+    <p><%= current_campaign.world_news.most_recently_created.body %></p>
 
+    <p><%= link_to 'World News Archive', world_news_index_path %></p>
   <% end %>
 </section>
 

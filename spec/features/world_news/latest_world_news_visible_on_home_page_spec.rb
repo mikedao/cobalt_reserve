@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Wwrld News appears on root page', type: :feature do
+RSpec.describe 'World News appears on root page', type: :feature do
   context 'as a visitor' do
     it 'shows latest world news on home page' do
       campaign = create(:campaign)
@@ -9,7 +9,6 @@ RSpec.describe 'Wwrld News appears on root page', type: :feature do
 
       visit root_path
 
-      expect(page).to_not have_content(world_news_1.date)
       expect(page).to_not have_content(world_news_1.body)
       expect(page).to_not have_content(world_news_1.title)
 
