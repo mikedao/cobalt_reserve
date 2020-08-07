@@ -2,7 +2,7 @@ require 'faker'
 
 FactoryBot.define do
   factory :monster do
-    name { Faker::Games::Pokemon.unique.name }
+    name { Faker::Games::Pokemon.name + Faker::Number.hexadecimal(digits: 4) }
     size { %w[Tiny Small Medium Large Giant].sample }
     monster_type { Faker::Games::DnD.species }
     alignment { Faker::Games::DnD.alignment }
