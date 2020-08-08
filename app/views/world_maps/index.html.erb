@@ -1,0 +1,11 @@
+<h1>World Map History</h1>
+
+<ul>
+<% @world_maps.each_with_index do |map, index| %>
+
+  <p id="map-<%= index %>">
+  <%= map.created_at.strftime("%A, %B %e %Y") %> -
+  <%= link_to 'High Res Version', map.high_res %> -
+  <%= link_to 'Low Res Version', map.low_res %>
+  </p>
+<% end %>

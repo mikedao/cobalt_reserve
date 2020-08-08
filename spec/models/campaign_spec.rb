@@ -5,6 +5,7 @@ RSpec.describe Campaign, type: :model do
     it { should have_many :characters }
     it { should have_many :game_sessions }
     it { should have_many :world_news }
+    it { should have_many :world_maps }
   end
 
   describe 'class methods' do
@@ -17,6 +18,28 @@ RSpec.describe Campaign, type: :model do
       campaign3 = Campaign.create(name: 'Third', status: 'active')
 
       expect(Campaign.current).to eq(campaign2)
+    end
+  end
+
+  describe 'instance methods' do
+    it '#latest_low_res' do
+      campaign = create(:campaign)
+
+      map1 = create(:world_map, campaign: campaign)
+      map2 = create(:world_map, campaign: campaign)
+      map3 = create(:world_map, campaign: campaign)
+
+      expect(campaign.latest_low_res).to eq(map3.low_res)
+    end
+
+    it '#latest_high_res' do
+      campaign = create(:campaign)
+
+      map1 = create(:world_map, campaign: campaign)
+      map2 = create(:world_map, campaign: campaign)
+      map3 = create(:world_map, campaign: campaign)
+
+      expect(campaign.latest_high_res).to eq(map3.high_res)
     end
   end
 end

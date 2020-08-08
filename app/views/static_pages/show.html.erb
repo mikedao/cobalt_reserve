@@ -12,6 +12,15 @@
   </li>
 </ul>
 
+<section id="world-map">
+  <% if current_campaign && !current_campaign.world_maps.empty? %>
+    <p><%= image_tag current_campaign.latest_low_res %></p>
+    <center><%= link_to 'High Res Version', current_campaign.latest_high_res %></center>
+    <center><p><%= link_to 'Map History', world_maps_path%></p></center>
+  <% end %>
+</section>
+
+
 <section id="world-news">
   <% if current_campaign && !current_campaign.world_news.empty? %>
 
