@@ -14,7 +14,8 @@
 
 <section id="world-map">
   <% if current_campaign && !current_campaign.world_maps.empty? %>
-    <%= image_tag current_campaign.latest_low_res %>
+    <p><%= image_tag current_campaign.latest_low_res %></p>
+    <center><%= link_to 'High Res Version', current_campaign.latest_high_res %></center>
   <% end %>
 </section>
 
