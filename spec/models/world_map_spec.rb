@@ -16,5 +16,18 @@ RSpec.describe WorldMap, type: :model do
       expect(WorldMap.latest_map).to_not eq(map2)
       expect(WorldMap.latest_map).to_not eq(map1)
     end
+
+    it '.ordered' do
+      campaign = create(:campaign)
+      map1 = create(:world_map, campaign: campaign)
+      map2 = create(:world_map, campaign: campaign)
+      map3 = create(:world_map, campaign: campaign)
+
+      result = WorldMap.ordered
+
+      expect(result.first).to eq(map3)
+      expect(result[1]).to eq(map2)
+      expect(result.last).to eq(map1)
+    end
   end
 end
