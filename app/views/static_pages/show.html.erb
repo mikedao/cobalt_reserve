@@ -12,6 +12,13 @@
   </li>
 </ul>
 
+<section id="world-map">
+  <% if current_campaign && !current_campaign.world_maps.empty? %>
+    <%= image_tag current_campaign.latest_low_res %>
+  <% end %>
+</section>
+
+
 <section id="world-news">
   <% if current_campaign && !current_campaign.world_news.empty? %>
 
