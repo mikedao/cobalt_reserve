@@ -62,6 +62,39 @@ RSpec.describe 'Best Adventure Log', type: :feature do
           end
         end
 
+        it 'I see the button text next to the best log changed' do
+          within "#adventure-log-#{@log_2.id}" do
+            expect(page).to have_button 'Unmark as Best'
+            expect(page).not_to have_button 'Mark as Best'
+          end
+        end
+
+        context 'when I click the button to unmark as best' do
+          before do
+            find('#best-adventure-log').click_on 'Unmark as Best'
+          end
+
+          it 'I remain on the game session show page' do
+            expect(current_path).to eq game_session_path(@game_session)
+          end
+
+          it 'the page no longer has a best adventure log designated' do
+            expect(page).not_to have_selector '#best-adventure-log'
+          end
+
+          it 'the adventure logs return to being ordered chronologically' do
+            expect(page.body.index(@log_1.content)).to be < page.body.index(@log_2.content)
+            expect(page.body.index(@log_2.content)).to be < page.body.index(@log_3.content)
+          end
+          
+          it 'the button text changes back to mark as best' do
+            within "#adventure-log-#{@log_2.id}" do
+              expect(page).not_to have_button 'Unmark as Best'
+              expect(page).to have_button 'Mark as Best'
+            end
+          end
+        end
+
         context 'when I click the button next to another log' do
           before do
             within "#adventure-log-#{@log_3.id}" do
