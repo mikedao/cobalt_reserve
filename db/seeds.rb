@@ -1,8 +1,12 @@
 require 'csv'
 
+AdventureLog.delete_all
+GameSessionCharacter.delete_all
+GameSession.delete_all
 Character.delete_all
 Campaign.delete_all
 Monster.delete_all
+User.delete_all
 
 Campaign.create(name: 'Turing West Marches', status: 'active')
 array = CSV.read('./data/monsters.csv', headers: true)
