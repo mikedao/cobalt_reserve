@@ -1,0 +1,5 @@
+<%= form_with model: @campaign, url: admin_campaign_path(@campaign), local: true do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+  <%= form.submit 'Update Campaign' %>
+<% end %>
