@@ -19,3 +19,23 @@
 .navbar {
     margin-bottom: 50px;
 }
+
+#best-log-tag {
+    background-color: dimgray;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+#best-adventure-log {
+    background-color: lightgray;
+    border-radius: 5px;
+    padding: 10px;
+    padding-bottom: 1px;
+    margin-bottom: 10px;
+}
+
+.adventure-log-citation {
+    display: block;
+    margin-top: 5px;
+}
