@@ -15,8 +15,6 @@ Rails.application.routes.draw do
     resources :campaigns
   end
 
-
-
   get '/passwordless-login', to: 'sessions#passwordless_new', as: :passwordless_login
   post '/passwordless-login', to: 'sessions#passwordless_create', as: :passwordless_login_post
   get '/auth/:login_uuid', to: 'sessions#passwordless_return', as: :passwordless_return

@@ -32,6 +32,7 @@ class Admin::CampaignsController < Admin::BaseController
   end
 
   private
+
     def campaign_params
       params.require(:campaign).permit(:name)
     end
