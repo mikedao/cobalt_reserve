@@ -36,35 +36,16 @@
 <% else %>
   <% if @game_session.best_adventure_log %>
     <section id="best-adventure-log">
-      <article class="adventure-log" id="adventure-log-<%= @game_session.best_adventure_log.id %>">
-        <%= image_tag 'medal.svg', size: '20x40', alt: 'Medal Symbol' %>
-        <%= @game_session.best_adventure_log.content %>
-        <cite class="adventure-log-citation">
-          By <%= @game_session.best_adventure_log.character.name %>,
-          <%= @game_session.best_adventure_log.created_at.strftime("%D, %r") %>
-        </cite>
-        <% if current_admin? %>
-          <%= button_to 'Unmark as Best',
-              game_session_adventure_log_path(@game_session, @game_session.best_adventure_log),
-              method: :patch %>
-        <% end %>
-      </article>
+      <p>
+        <%= image_tag 'medal.svg', size: '20x40', alt: 'Medal Symbol', id: 'best-log-icon' %>
+        <span id='best-log-tag'>Best Log</span>
+      </p>
+      <%= render 'log', mark_or_unmark: 'Unmark', adventure_log: @game_session.best_adventure_log %>
     </section>
   <% end %>
   <section id="adventure-logs">
     <% @game_session.adventure_logs.not_best.each do |adventure_log| %>
-      <article class="adventure-log" id="adventure-log-<%= adventure_log.id %>">
-        <%= adventure_log.content %>
-        <cite class="adventure-log-citation">
-          By <%= adventure_log.character.name %>,
-          <%= adventure_log.created_at.strftime("%D, %r") %>
-        </cite>
-        <% if current_admin? %>
-          <%= button_to 'Mark as Best',
-              game_session_adventure_log_path(@game_session, adventure_log),
-              method: :patch %>
-        <% end %>
-      </article>
+      <%= render 'log', mark_or_unmark: 'Mark', adventure_log: adventure_log %>
     <% end %>
   </section>
 <% end %>
