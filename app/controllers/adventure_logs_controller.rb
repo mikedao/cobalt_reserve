@@ -18,8 +18,13 @@ class AdventureLogsController < ApplicationController
   end
 
   def update
+    previous_best = GameSession.find(game_session_id).best_adventure_log
+    if previous_best && previous_best.id != adventure_log_id
+      previous_best.update(best: false)
+    end
     adventure_log = AdventureLog.find(adventure_log_id)
     adventure_log.toggle(:best)
+    adventure_log.save
     redirect_to game_session_path(game_session_id)
   end
 
@@ -30,7 +35,7 @@ class AdventureLogsController < ApplicationController
   end
 
   def adventure_log_id
-    params[:id]
+    params[:id].to_i
   end
 
   def content
