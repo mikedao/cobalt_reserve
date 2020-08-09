@@ -1,6 +1,6 @@
 <h1>Create World Map</h1>
 
-<%= form_with model: @world_map, url: '/admin/world_maps' do |form| %>
+<%= form_with model: @world_map, url: '/admin/world_maps', local: true do |form| %>
   <p><%= form.label :low_res %></p>
   <p><%= form.text_field :low_res %></p>
   <p><%= form.label :high_res %></p>
