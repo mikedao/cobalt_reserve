@@ -127,4 +127,24 @@ RSpec.describe 'Admin Campaign Management', type: :feature do
       end
     end
   end
+
+  context 'as a visitor' do
+    it 'cannot access campaign management' do
+      visit admin_campaigns_path
+
+      expect(current_path).to eq(root_path)
+    end
+  end
+
+  context 'as a default user' do
+    it 'cannot access campaign management' do
+      user = create(:user)
+
+      login_as_user(user.username, user.password)
+
+      visit admin_campaigns_path
+
+      expect(current_path).to eq(root_path)
+    end
+  end
 end
