@@ -1,6 +1,6 @@
 <h1>Edit World News</h1>
 
-<%= form_with model: @world_news, url: admin_world_news_path(@world_news) do |form| %>
+<%= form_with model: @world_news, url: admin_world_news_path(@world_news), local: true do |form| %>
   <%= form.label :title %>
   <%= form.text_field :title %>
 
