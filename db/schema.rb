@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_08_181917) do
+ActiveRecord::Schema.define(version: 2020_08_09_053400) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2020_08_08_181917) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "game_session_id", null: false
     t.bigint "character_id", null: false
+    t.boolean "best", default: false
     t.index ["character_id"], name: "index_adventure_logs_on_character_id"
     t.index ["game_session_id"], name: "index_adventure_logs_on_game_session_id"
   end
