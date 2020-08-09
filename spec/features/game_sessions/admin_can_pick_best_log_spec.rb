@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Best Adventure Log', type: :feature do
-  before do
+  before(:context) do
     @campaign = create(:campaign)
     @game_session = GameSession.create(name:      "Shelob's Lair",
                                        campaign:  @campaign)
@@ -11,6 +11,9 @@ RSpec.describe 'Best Adventure Log', type: :feature do
     @log_1 = create(:adventure_log, character: @character_1, game_session: @game_session)
     @log_2 = create(:adventure_log, character: @character_2, game_session: @game_session)
     @log_3 = create(:adventure_log, character: @character_1, game_session: @game_session)
+    LOG_1_SECTION = "adventure-log-#{@log_1.id}"
+    LOG_2_SECTION = "adventure-log-#{@log_2.id}"
+    LOG_3_SECTION = "adventure-log-#{@log_3.id}"
   end
 
   context 'as a logged-in admin' do
@@ -29,8 +32,8 @@ RSpec.describe 'Best Adventure Log', type: :feature do
       end
 
       it 'I see the logs ordered chronologically by creation' do
-        expect(page.body.index(@log_1.content)).to be < page.body.index(@log_2.content)
-        expect(page.body.index(@log_2.content)).to be < page.body.index(@log_3.content)
+        expect(page.body.index(LOG_1_SECTION)).to be < page.body.index(LOG_2_SECTION)
+        expect(page.body.index(LOG_2_SECTION)).to be < page.body.index(LOG_3_SECTION)
       end
 
       it 'I see a button next to each adventure log to mark it best' do
@@ -54,8 +57,8 @@ RSpec.describe 'Best Adventure Log', type: :feature do
 
         it 'I can see the best adventure log moved to top spot with a logo' do
           expect(page).to have_content @log_2.content, count: 1
-          expect(page.body.index(@log_2.content)).to be < page.body.index(@log_1.content)
-          expect(page.body.index(@log_1.content)).to be < page.body.index(@log_3.content)
+          expect(page.body.index(LOG_2_SECTION)).to be < page.body.index(LOG_1_SECTION)
+          expect(page.body.index(LOG_1_SECTION)).to be < page.body.index(LOG_3_SECTION)
           within '#best-adventure-log' do
             expect(page).to have_selector "#adventure-log-#{@log_2.id}"
             expect(page).to have_selector 'img', alt: 'Medal Symbol'
@@ -63,7 +66,7 @@ RSpec.describe 'Best Adventure Log', type: :feature do
         end
 
         it 'I see the button text next to the best log changed' do
-          within "#adventure-log-#{@log_2.id}" do
+          within '#' + LOG_2_SECTION do
             expect(page).to have_button 'Unmark as Best'
             expect(page).not_to have_button 'Mark as Best'
           end
@@ -83,12 +86,12 @@ RSpec.describe 'Best Adventure Log', type: :feature do
           end
 
           it 'the adventure logs return to being ordered chronologically' do
-            expect(page.body.index(@log_1.content)).to be < page.body.index(@log_2.content)
-            expect(page.body.index(@log_2.content)).to be < page.body.index(@log_3.content)
+            expect(page.body.index(LOG_1_SECTION)).to be < page.body.index(LOG_2_SECTION)
+            expect(page.body.index(LOG_2_SECTION)).to be < page.body.index(LOG_3_SECTION)
           end
           
           it 'the button text changes back to mark as best' do
-            within "#adventure-log-#{@log_2.id}" do
+            within '#' + LOG_2_SECTION do
               expect(page).not_to have_button 'Unmark as Best'
               expect(page).to have_button 'Mark as Best'
             end
@@ -97,21 +100,21 @@ RSpec.describe 'Best Adventure Log', type: :feature do
 
         context 'when I click the button next to another log' do
           before do
-            within "#adventure-log-#{@log_3.id}" do
+            within '#' + LOG_3_SECTION do
               click_on 'Mark as Best'
             end
           end
 
           it 'that log is now in the best log spot' do
             within '#best-adventure-log' do
-              expect(page).to have_selector "#adventure-log-#{@log_3.id}"
-              expect(page).not_to have_selector "#adventure-log-#{@log_2.id}"
+              expect(page).to have_selector LOG_3_SECTION
+              expect(page).not_to have_selector LOG_2_SECTION
             end
           end
 
           it 'the previous best log is back in reverse chronological order' do
-            expect(page.body.index(@log_3.content)).to be < page.body.index(@log_1.content)
-            expect(page.body.index(@log_1.content)).to be < page.body.index(@log_2.content)
+            expect(page.body.index(LOG_3_SECTION)).to be < page.body.index(LOG_1_SECTION)
+            expect(page.body.index(LOG_1_SECTION)).to be < page.body.index(LOG_2_SECTION)
           end
         end
       end
@@ -135,10 +138,10 @@ RSpec.describe 'Best Adventure Log', type: :feature do
       end
 
       it 'I can see the best adventure log displayed first with a logo' do
-        expect(page.body.index(@log_2.content)).to be < page.body.index(@log_1.content)
-        expect(page.body.index(@log_1.content)).to be < page.body.index(@log_3.content)
+        expect(page.body.index(LOG_2_SECTION)).to be < page.body.index(LOG_1_SECTION)
+        expect(page.body.index(LOG_1_SECTION)).to be < page.body.index(LOG_3_SECTION)
         within '#best-adventure-log' do
-          expect(page).to have_selector "#adventure-log-#{@log_2.id}"
+          expect(page).to have_selector '#' + LOG_2_SECTION
           expect(page).to have_selector 'img', alt: 'Medal Symbol'
         end
       end
@@ -157,10 +160,10 @@ RSpec.describe 'Best Adventure Log', type: :feature do
       end
 
       it 'I can see the best adventure log displayed first with a logo' do
-        expect(page.body.index(@log_2.content)).to be < page.body.index(@log_1.content)
-        expect(page.body.index(@log_1.content)).to be < page.body.index(@log_3.content)
+        expect(page.body.index(LOG_2_SECTION)).to be < page.body.index(LOG_1_SECTION)
+        expect(page.body.index(LOG_1_SECTION)).to be < page.body.index(LOG_3_SECTION)
         within '#best-adventure-log' do
-          expect(page).to have_selector "#adventure-log-#{@log_2.id}"
+          expect(page).to have_selector '#' + LOG_2_SECTION
           expect(page).to have_selector 'img', alt: 'Medal Symbol'
         end
       end
