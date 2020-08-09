@@ -17,10 +17,20 @@ class AdventureLogsController < ApplicationController
     end
   end
 
+  def update
+    adventure_log = AdventureLog.find(adventure_log_id)
+    adventure_log.toggle(:best)
+    redirect_to game_session_path(game_session_id)
+  end
+
   private
 
   def game_session_id
     params[:game_session_id]
+  end
+
+  def adventure_log_id
+    params[:id]
   end
 
   def content

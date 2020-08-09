@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   patch '/characters/:id/backstory', to: 'backstory#update', as: :backstory_update
 
   resources :game_sessions, only: %i[index show] do
-    resources :adventure_logs, only: %i[new create]
+    resources :adventure_logs, only: %i[new create update]
   end
 
   get '/profile', to: 'users#show'
