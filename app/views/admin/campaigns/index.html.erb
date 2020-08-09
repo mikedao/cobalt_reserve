@@ -1,0 +1,12 @@
+<h1>Campaign Managment</h1>
+
+<h2>Campaigns</h2>
+
+<% @campaigns.each do |campaign| %>
+  <p id="campaign-<%= campaign.id %>">
+  <%= link_to campaign.name, admin_campaign_path(campaign) %> -
+  <%= link_to 'Edit', edit_admin_campaign_path(campaign) %>
+  </p>
+<% end %>
+
+<p><%= link_to 'Create New Campaign', new_admin_campaign_path %></p>

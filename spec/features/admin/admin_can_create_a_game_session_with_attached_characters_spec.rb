@@ -17,7 +17,7 @@ RSpec.describe 'admin dashboard index', type: :feature do
       it 'lets me create a session' do
         visit admin_dashboard_path
 
-        click_on 'Create Session'
+        click_on 'Create Game Session'
 
         expect(current_path).to eq(admin_game_sessions_new_path)
         expect(page).to have_content(@char1.name)
@@ -41,7 +41,7 @@ RSpec.describe 'admin dashboard index', type: :feature do
       it 'does not let me add an inactive character to a session' do
         visit admin_dashboard_path
 
-        click_on 'Create Session'
+        click_on 'Create Game Session'
 
         expect(current_path).to eq(admin_game_sessions_new_path)
         expect(page).to_not have_content(@char4.name)
@@ -50,7 +50,7 @@ RSpec.describe 'admin dashboard index', type: :feature do
       it 'shows me an error message if no characters selected' do
         visit admin_dashboard_path
 
-        click_on 'Create Session'
+        click_on 'Create Game Session'
         fill_in 'Name', with: 'There and Back Again'
         click_on 'Create Game Session'
 
@@ -61,7 +61,7 @@ RSpec.describe 'admin dashboard index', type: :feature do
       it 'does not allow me to submit if no name is entered' do
         visit admin_dashboard_path
 
-        click_on 'Create Session'
+        click_on 'Create Game Session'
         check @char1.name
         click_on 'Create Game Session'
 

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     get '/foundry_key/:id/edit', to: 'foundry_key#edit', as: :edit_foundry_key
     patch '/foundry_key/:id', to: 'foundry_key#update', as: :update_foundry_key
     resources :world_news
+    resources :campaigns
   end
 
   get '/passwordless-login', to: 'sessions#passwordless_new', as: :passwordless_login
