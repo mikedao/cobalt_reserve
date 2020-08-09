@@ -3,4 +3,6 @@ class AdventureLog < ApplicationRecord
   belongs_to :game_session
 
   validates_length_of :content, minimum: 1
+
+  scope :not_best, -> { where best: false }
 end
