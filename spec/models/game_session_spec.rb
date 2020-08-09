@@ -13,7 +13,7 @@ RSpec.describe GameSession, type: :model do
   end
 
   describe 'methods' do
-    describe 'class methods' do
+    describe 'instance methods' do
       describe 'best_adventure_log' do
         it 'returns adventure log marked best or nil if none present' do
           game_session_1 = create(:game_session)
