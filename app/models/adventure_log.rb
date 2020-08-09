@@ -4,5 +4,6 @@ class AdventureLog < ApplicationRecord
 
   validates_length_of :content, minimum: 1
 
+  default_scope { order :created_at }
   scope :not_best, -> { where best: false }
 end
