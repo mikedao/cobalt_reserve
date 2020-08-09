@@ -36,13 +36,16 @@
 <% else %>
   <section id="adventure-logs">
     <% @game_session.adventure_logs.each do |adventure_log| %>
-      <p class="adventure-log" id="adventure-log-<%= adventure_log.id %>">
+      <article class="adventure-log" id="adventure-log-<%= adventure_log.id %>">
         <%= adventure_log.content %>
         <cite class="adventure-log-citation">
           By <%= adventure_log.character.name %>,
           <%= adventure_log.created_at.strftime("%D, %r") %>
         </cite>
-      </p>
+        <% if current_admin? %>
+          <%= button_to 'Mark as Best', method: :post %>
+        <% end %>
+      </article>
     <% end %>
   </section>
 <% end %>
