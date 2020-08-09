@@ -5,7 +5,10 @@
 <% @campaigns.each do |campaign| %>
   <p id="campaign-<%= campaign.id %>">
   <%= link_to campaign.name, admin_campaign_path(campaign) %> -
-  <%= link_to 'Edit', edit_admin_campaign_path(campaign) %>
+  <%= link_to 'Edit', edit_admin_campaign_path(campaign) %> -
+  <% unless current_campaign == campaign %>
+    <%= link_to 'Make Active', "/admin/campaigns/#{campaign.id}/status", method: :patch %>
+  <% end %>
   </p>
 <% end %>
 

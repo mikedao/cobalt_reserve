@@ -98,5 +98,33 @@ RSpec.describe 'Admin Campaign Management', type: :feature do
       expect(page).to have_content(inactive_campaign.name)
       expect(page).to_not have_content(name)
     end
+
+    it 'can make a campaign as active, making the previous campaign inactive' do
+      campaign = create(:campaign)
+      inactive_campaign = create(:inactive_campaign)
+      admin = create(:admin_user)
+
+      login_as_user(admin.username, admin.password)
+
+      visit admin_campaigns_path
+
+      within("#campaign-#{campaign.id}") do
+        expect(page).to_not have_link('Make Active')
+      end
+
+      within("#campaign-#{inactive_campaign.id}") do
+        click_on 'Make Active'
+      end
+
+      expect(current_path).to eq(admin_campaigns_path)
+
+      within("#campaign-#{campaign.id}") do
+        expect(page).to have_link('Make Active')
+      end
+
+      within("#campaign-#{inactive_campaign.id}") do
+        expect(page).to_not have_link('Make Active')
+      end
+    end
   end
 end
