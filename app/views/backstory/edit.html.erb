@@ -1,6 +1,6 @@
 <h1>Edit Backstory</h1>
 
-<%= form_with model: @character, url: backstory_update_path(@character) do |form| %>
+<%= form_with model: @character, url: backstory_update_path(@character), local: true do |form| %>
   <p><%= form.label :age, "Age (In Years):" %><br>
   <%= form.text_field :age %></p>
   <p><%= form.label :early_life, "Where was your character born? Where were you raised? By who? Your character’s actions and influence may be a product of their childhood. Is your character local? Do these places bring back memories? Or, is the path they walk not from these parts?" %><br>

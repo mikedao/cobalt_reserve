@@ -1,7 +1,7 @@
 Editing Foundry Key For: <%= @character.name %>
 <br>
 
-<%= form_with model: @character, url: admin_update_foundry_key_path(@character) do |form| %>
+<%= form_with model: @character, url: admin_update_foundry_key_path(@character), local: true do |form| %>
   <%= form.label :foundry_key, "Foundry Key:" %>
   <%= form.text_field :foundry_key %>
 
