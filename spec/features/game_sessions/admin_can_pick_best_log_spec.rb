@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Best Adventure Log', type: :feature do
-  before(:context) do
+  before do
     @campaign = create(:campaign)
     @game_session = create(:game_session, campaign:  @campaign)
     @character_1 = create(:character)
