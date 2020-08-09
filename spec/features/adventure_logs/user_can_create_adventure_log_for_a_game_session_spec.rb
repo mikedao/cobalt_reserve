@@ -55,7 +55,7 @@ RSpec.describe 'adventure log creation', type: :feature do
             expect(page).to have_content('Things happened')
           end
           within '.adventure-log-citation' do
-            expect(page).to have_content "#{@character.name}"
+            expect(page).to have_content @character.name
             expect(page).to have_content(/\d\d\/\d\d\/\d\d, \d\d:\d\d:\d\d [AP]{1}M/)
           end
         end

@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Best Adventure Log', type: :feature do
   before do
     @campaign = create(:campaign)
-    @game_session = create(:game_session, campaign:  @campaign)
+    @game_session = create(:game_session, campaign: @campaign)
     @character_1 = create(:character)
     @character_2 = create(:character)
     @game_session.characters << [@character_1, @character_2]
@@ -83,7 +83,7 @@ RSpec.describe 'Best Adventure Log', type: :feature do
             expect(page.body.index(section_name(@log_1))).to be < page.body.index(section_name(@log_2))
             expect(page.body.index(section_name(@log_2))).to be < page.body.index(section_name(@log_3))
           end
-          
+
           it 'the button text changes back to mark as best' do
             within section_id(@log_2) do
               expect(page).not_to have_button 'Unmark as Best'
