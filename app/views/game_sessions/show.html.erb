@@ -34,8 +34,24 @@
     There aren't any adventure logs yet, but they'll appear here.
   </p>
 <% else %>
+  <% if @game_session.best_adventure_log %>
+    <section id="best=adventure-log">
+      <article class="adventure-log" id="adventure-log-<%= @game_session.best_adventure_log.id %>">
+          <%= @game_session.best_adventure_log.content %>
+          <cite class="adventure-log-citation">
+            By <%= @game_session.best_adventure_log.character.name %>,
+            <%= @game_session.best_adventure_log.created_at.strftime("%D, %r") %>
+          </cite>
+          <% if current_admin? %>
+            <%= button_to 'Unmark as Best',
+                game_session_adventure_log_path(@game_session, @game_session.best_adventure_log),
+                method: :patch %>
+          <% end %>
+        </article>
+    </section>
+  <% end %>
   <section id="adventure-logs">
-    <% @game_session.adventure_logs.each do |adventure_log| %>
+    <% @game_session.adventure_logs.not_best.each do |adventure_log| %>
       <article class="adventure-log" id="adventure-log-<%= adventure_log.id %>">
         <%= adventure_log.content %>
         <cite class="adventure-log-citation">
@@ -43,7 +59,9 @@
           <%= adventure_log.created_at.strftime("%D, %r") %>
         </cite>
         <% if current_admin? %>
-          <%= button_to 'Mark as Best', method: :post %>
+          <%= button_to 'Mark as Best',
+              game_session_adventure_log_path(@game_session, adventure_log),
+              method: :patch %>
         <% end %>
       </article>
     <% end %>
