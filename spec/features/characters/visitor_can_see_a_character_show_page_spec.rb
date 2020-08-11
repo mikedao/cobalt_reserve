@@ -51,15 +51,15 @@ RSpec.describe 'character show', type: :feature do
 
           visit character_path(character_1)
 
-          expect(page).to have_content 'Adventure Logs Marked Best: 2'
+          expect(page).to have_content 'Times Awarded Best Adventure Log: 2'
 
           visit character_path(character_2)
 
-          expect(page).to have_content 'Adventure Logs Marked Best: 0'
+          expect(page).to have_content 'Times Awarded Best Adventure Log: 0'
 
           visit character_path(character_3)
 
-          expect(page).to have_content 'Adventure Logs Marked Best: 1'
+          expect(page).to have_content 'Times Awarded Best Adventure Log: 1'
         end
       end
     end
