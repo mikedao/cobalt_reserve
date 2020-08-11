@@ -39,15 +39,15 @@ RSpec.describe 'character show', type: :feature do
           game_session_2.characters << [character_1, character_2, character_3]
           game_session_3 = create(:game_session, campaign: campaign)
           game_session_3.characters << [character_1, character_2, character_3]
-          log_1 = create(:adventure_log, character: character_1, game_session: game_session_1, best: true)
-          log_2 = create(:adventure_log, character: character_2, game_session: game_session_1)
-          log_3 = create(:adventure_log, character: character_3, game_session: game_session_1)
-          log_4 = create(:adventure_log, character: character_1, game_session: game_session_2)
-          log_5 = create(:adventure_log, character: character_2, game_session: game_session_2)
-          log_6 = create(:adventure_log, character: character_3, game_session: game_session_2, best: true)
-          log_7 = create(:adventure_log, character: character_1, game_session: game_session_3, best: true)
-          log_8 = create(:adventure_log, character: character_2, game_session: game_session_3)
-          log_9 = create(:adventure_log, character: character_3, game_session: game_session_3)
+          create(:adventure_log, character: character_1, game_session: game_session_1, best: true)
+          create(:adventure_log, character: character_2, game_session: game_session_1)
+          create(:adventure_log, character: character_3, game_session: game_session_1)
+          create(:adventure_log, character: character_1, game_session: game_session_2)
+          create(:adventure_log, character: character_2, game_session: game_session_2)
+          create(:adventure_log, character: character_3, game_session: game_session_2, best: true)
+          create(:adventure_log, character: character_1, game_session: game_session_3, best: true)
+          create(:adventure_log, character: character_2, game_session: game_session_3)
+          create(:adventure_log, character: character_3, game_session: game_session_3)
 
           visit character_path(character_1)
 
