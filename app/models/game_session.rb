@@ -5,4 +5,8 @@ class GameSession < ApplicationRecord
   has_many :characters, through: :game_session_characters
 
   validates_presence_of :name
+
+  def best_adventure_log
+    adventure_logs.find_by(best: true)
+  end
 end

@@ -26,6 +26,10 @@ class Character < ApplicationRecord
     ancestries.join(' / ')
   end
 
+  def total_best_logs
+    adventure_logs.where(best: true).count
+  end
+
   # https://www.dndbeyond.com/classes
   def self.classes
     ['Artificer', 'Barbarian', 'Bard', 'Blood Hunter', 'Cleric', 'Druid', 'Fighter', 'Monk', 'Paladin', 'Ranger',

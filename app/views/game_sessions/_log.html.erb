@@ -1,0 +1,14 @@
+<article class="adventure-log" id="adventure-log-<%= adventure_log.id %>">
+  <p>
+    <%= adventure_log.content %>
+    <cite class="adventure-log-citation">
+      —<%= adventure_log.character.name %>,
+      <%= adventure_log.created_at.strftime("%D, %r") %>
+    </cite>
+    <% if current_admin? %>
+      <%= button_to "#{mark_or_unmark} as Best",
+          game_session_adventure_log_path(@game_session, adventure_log),
+          method: :patch %>
+    <% end %>
+  </p>
+</article>

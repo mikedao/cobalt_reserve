@@ -34,6 +34,11 @@ RSpec.describe 'game session index', type: :feature do
   end
 
   context 'as a logged-in admin user' do
+    before do
+      admin = create(:admin_user)
+      login_as_user(admin.username, admin.password)
+    end
+
     it 'I see a link on the homepage which takes me to game session index' do
       validate_game_session_link
     end
