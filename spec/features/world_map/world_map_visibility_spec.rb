@@ -36,7 +36,7 @@ RSpec.describe 'low res world map appears on home page', type: :feature do
       expect(current_path).to eq(world_maps_path)
 
       within('#map-0') do
-        expect(page).to have_content(world_map3.created_at.strftime("%A, %B %e %Y"))
+        expect(page).to have_content(world_map3.created_at.strftime('%A, %B %e %Y'))
         expect(page).to have_link('High Res Version', href: 'https://i.imgur.com/zPIS6Ig.jpg')
         expect(page).to have_link('Low Res Version', href: 'https://i.imgur.com/rBxkv0D.jpg')
       end
