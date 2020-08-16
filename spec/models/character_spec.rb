@@ -101,7 +101,6 @@ RSpec.describe Character, type: :model do
       expect(character.status).to eq('dead')
       expect(character.alive?).to be(false)
     end
-
   end
 
   describe 'default properties' do
@@ -131,8 +130,8 @@ RSpec.describe Character, type: :model do
     it '.dead' do
       campaign = create(:campaign)
       user = create(:user)
-      dead_1 = create(:dead_character, user: user)
-      dead_2 = create(:dead_character, user: user)
+      dead_1 = create(:dead_character, user: user, campaign: campaign)
+      dead_2 = create(:dead_character, user: user, campaign: campaign)
       alive = create(:character, user: user)
 
       result = Character.dead
