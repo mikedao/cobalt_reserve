@@ -16,6 +16,11 @@ FactoryBot.define do
     user
   end
 
+  factory :dead_character, parent: :character do
+    active { false }
+    status { 1 }
+  end
+
   factory :inactive_character, parent: :character do
     active { false }
   end

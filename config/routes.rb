@@ -41,4 +41,6 @@ Rails.application.routes.draw do
 
   resources :world_news, only: %i[index show]
   resources :world_maps, only: %i[index]
+
+  get '/hall-of-heroes', to: 'heroes#index'
 end

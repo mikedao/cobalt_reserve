@@ -15,4 +15,8 @@ class Campaign < ApplicationRecord
   def latest_high_res
     world_maps.latest_map.high_res
   end
+
+  def heroes
+    characters.dead
+  end
 end
