@@ -1,0 +1,6 @@
+<h1> User Management </h1>
+
+<% @users.each do |user| %>
+  <p><%= user.id %> - <%= user.username %> - <%= user.first_name %> - <%= user.last_name %> - <%= user.email %></p>
+<% end %>
+
