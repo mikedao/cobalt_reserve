@@ -85,6 +85,24 @@ RSpec.describe Character, type: :model do
     end
   end
 
+  describe 'roles' do
+    it 'starts out as alive' do
+      user = create(:user)
+      character = create(:character, user: user)
+
+      expect(character.status).to eq('alive')
+      expect(character.alive?).to be_truthy
+    end
+
+    it 'we can have a dead character' do
+      user = create(:user)
+      character = create(:dead_character, user: user)
+
+      expect(character.status).to eq('dead')
+      expect(character.alive?).to be(false)
+    end
+  end
+
   describe 'default properties' do
     it 'sets appropriate default values when creating a character' do
       user = create(:user)
@@ -106,6 +124,20 @@ RSpec.describe Character, type: :model do
       result = Character.active
       expect(result.first).to eq(char1)
       expect(result.last).to eq(char2)
+      expect(result.count).to eq(2)
+    end
+
+    it '.dead' do
+      campaign = create(:campaign)
+      user = create(:user)
+      dead_1 = create(:dead_character, user: user, campaign: campaign)
+      dead_2 = create(:dead_character, user: user, campaign: campaign)
+      alive = create(:character, user: user)
+
+      result = Character.dead
+      expect(result).to include(dead_1)
+      expect(result).to include(dead_2)
+      expect(result).to_not include(alive)
       expect(result.count).to eq(2)
     end
   end

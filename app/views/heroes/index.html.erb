@@ -1,0 +1,12 @@
+<center>
+  <h1>Hall of Heroes</h1>
+
+  <section id='dead-heroes'>
+    <% if current_campaign %>
+      <% @heroes.each do |hero| %>
+        <p><%= hero.name %></p>
+      <% end %>
+    <% end %>
+  </section>
+</center>
+

@@ -19,6 +19,9 @@ class Character < ApplicationRecord
   validates :klass, presence: true
 
   scope :active, -> { where active: true }
+  scope :dead, -> { where status: 2 }
+
+  enum status: %w[alive dead]
 
   def build_ancestry
     ancestries = [ancestryone.name]

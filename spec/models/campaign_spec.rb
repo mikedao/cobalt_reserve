@@ -41,5 +41,17 @@ RSpec.describe Campaign, type: :model do
 
       expect(campaign.latest_high_res).to eq(map3.high_res)
     end
+
+    it '#heroes' do
+      campaign = create(:campaign)
+      user = create(:user)
+      dead_1 = create(:dead_character, user: user, campaign: campaign)
+      dead_2 = create(:dead_character, user: user, campaign: campaign)
+      alive = create(:character, user: user)
+
+      expect(campaign.heroes).to include(dead_1)
+      expect(campaign.heroes).to include(dead_2)
+      expect(campaign.heroes).to_not include(alive)
+    end
   end
 end
