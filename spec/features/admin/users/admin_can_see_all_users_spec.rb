@@ -12,7 +12,6 @@ RSpec.describe 'admin user index page' do
       login_as_user(admin.username, admin.password)
 
       visit admin_users_path
-      save_and_open_page
 
       expect(page).to have_content(user_1.id)
       expect(page).to have_content(user_1.username)
@@ -31,6 +30,29 @@ RSpec.describe 'admin user index page' do
       expect(page).to have_content(user_3.first_name)
       expect(page).to have_content(user_3.last_name)
       expect(page).to have_content(user_3.email)
+    end
+  end
+
+  context 'as a user' do
+    it 'does not let me access user management' do
+      create(:campaign)
+      user = create(:user)
+
+      login_as_user(user.username, user.password)
+
+      visit admin_users_path
+
+      expect(current_path).to eq(root_path)
+    end
+  end
+
+  context 'as a visitor' do
+    it 'does not let me access user management' do
+      create(:campaign)
+
+      visit admin_users_path
+
+      expect(current_path).to eq(root_path)
     end
   end
 end

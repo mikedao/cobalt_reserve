@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     patch '/campaigns/:id/status', to: 'campaign_status#update'
     resources :world_news
     resources :campaigns
-    resources :users, only: %i[index]
+    resources :users, only: %i[index show]
   end
 
   get '/passwordless-login', to: 'sessions#passwordless_new', as: :passwordless_login
