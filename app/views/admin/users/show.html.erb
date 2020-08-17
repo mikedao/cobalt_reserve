@@ -1,0 +1,15 @@
+<h1>User Details</h1>
+
+<p>ID: <%= @user.id %></p>
+<p>Username: <%= @user.username %></p>
+<p>First Name: <%= @user.first_name %></p>
+<p>Last Name: <%= @user.last_name %></p>
+<p>Email: <%= @user.email %></p>
+
+<p>
+<% if @user.active %>
+  <%= button_to 'Disable User', admin_user_status_path(@user), method: :patch, class: 'btn btn-danger' %>
+<% else %>
+  <%= button_to 'Enable User', admin_user_status_path(@user), method: :patch, class: 'btn btn-success' %>
+<% end %>
+</p>
