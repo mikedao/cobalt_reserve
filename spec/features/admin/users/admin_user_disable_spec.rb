@@ -57,8 +57,6 @@ RSpec.describe 'admin user disable', type: :feature do
         expect(page).to_not have_content('Inactive')
         click_on 'Details'
       end
-
-
     end
   end
 end
