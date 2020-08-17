@@ -52,7 +52,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'methods' do
+  describe 'class methods' do
     describe '.active_campaign_character' do
       before :each do
         @campaign = create(:campaign)
@@ -77,6 +77,18 @@ RSpec.describe User, type: :model do
 
         expect(@user.active_campaign_character).to eq(nil)
       end
+    end
+  end
+
+  describe 'instance methods' do
+    it '#status' do
+      user = create(:user)
+
+      expect(user.status).to eq('Active')
+
+      user = create(:user, active: false)
+
+      expect(user.status).to eq('Inactive')
     end
   end
 end

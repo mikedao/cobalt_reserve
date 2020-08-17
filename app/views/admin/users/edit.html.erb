@@ -1,0 +1,10 @@
+<%= form_with model: @user, url: admin_user_path(@user), local: true do |form| %>
+  <p> <%= form.label :first_name %>
+<%= form.text_field :first_name %> </p>
+  <p><%= form.label :last_name %>
+<%= form.text_field :last_name %></p>
+  <p><%= form.label :email %>
+<%= form.text_field :email %></p>
+  <p><%= form.submit 'Update User', class: 'btn btn-primary' %></p>
+<% end %>
+

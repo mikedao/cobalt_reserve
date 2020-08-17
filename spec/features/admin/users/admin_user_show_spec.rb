@@ -12,7 +12,7 @@ RSpec.describe 'admin user show page', type: :feature do
 
       visit admin_users_path
 
-      within "#user-#{user_1.id}" do
+      within("#user-#{user_1.id}")  do
         click_on 'Details'
       end
 

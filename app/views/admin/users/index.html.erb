@@ -8,6 +8,7 @@
       <th scope="col">First Name</th>
       <th scope="col">Last Name</th>
       <th scope="col">Email</th>
+      <th scope="col">Status</th>
       <th scope="col">Actions</th>
     </tr>
   </thead>
@@ -20,8 +21,10 @@
         <td><%= user.first_name %></td>
         <td><%= user.last_name %></td>
         <td><%= user.email %></td>
+        <td><%= user.status %></td>
         <td>
           <%= button_to 'Details', admin_user_path(user), method: :get, class: 'btn btn-primary btn-sm' %>
+          <%= button_to 'Edit', edit_admin_user_path(user), method: :get, class: 'btn btn-info btn-sm' %>
         </td>
       </tr>
     <% end %>
