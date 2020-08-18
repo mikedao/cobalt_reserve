@@ -25,12 +25,12 @@ RSpec.describe AuthenticationMailer, type: :mailer do
     html_body = email.html_part.body.to_s
 
     expect(plaintext_body).to have_content("Hail, #{user.username}. The Cobalt Reserve awaits your return.")
-    expect(plaintext_body).to have_content("http://cobalt-reserve.com/auth/#{fake_uuid}")
+    expect(plaintext_body).to have_content("http://cobalt-reserve.herokuapp.com/auth/#{fake_uuid}")
     expect(plaintext_body).to have_content('This link expires in 10 minutes.')
 
     expect(html_body).to have_content("Hail, #{user.username}. The Cobalt Reserve awaits your return.")
     expect(html_body).to have_content('Click here to log in to the Cobalt Reserve.')
-    expect(html_body).to have_selector(:css, "a[href=\"http://cobalt-reserve.com/auth/#{fake_uuid}\"]")
+    expect(html_body).to have_selector(:css, "a[href=\"http://cobalt-reserve.herokuapp.com/auth/#{fake_uuid}\"]")
     expect(html_body).to have_content('This link expires in 10 minutes.')
 
     # how many actual emails were caught by Rails 6 test environment?

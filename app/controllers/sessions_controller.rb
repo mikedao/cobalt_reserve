@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by(username: params[:username])
-    if user&.authenticate(params[:password])
+    if user&.authenticate(params[:password]) && user.active?
       session[:user_id] = user.id
       flash[:success] = "Welcome, #{user.username}!"
       if user.admin?
@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
         redirect_to profile_path
       end
     else
-      flash[:error] = 'Sorry, your credentials are bad.'
+      flash[:error] = 'Unable to log in.'
       render :new
     end
   end
