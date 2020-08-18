@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
         redirect_to profile_path
       end
     else
-      flash[:error] = 'Sorry, your credentials are bad.'
+      flash[:error] = 'Unable to log in.'
       render :new
     end
   end
