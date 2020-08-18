@@ -49,7 +49,7 @@ RSpec.describe 'Logging In', type: :feature do
         click_button 'Log In'
 
         expect(current_path).to eq(login_path)
-        expect(page).to have_content('Sorry, your credentials are bad.')
+        expect(page).to have_content('Unable to log in.')
       end
       it 'cannot log in with blank credentials' do
         visit root_path
@@ -59,7 +59,7 @@ RSpec.describe 'Logging In', type: :feature do
         click_button 'Log In'
 
         expect(current_path).to eq(login_path)
-        expect(page).to have_content('Sorry, your credentials are bad.')
+        expect(page).to have_content('Unable to log in.')
       end
 
       describe 'with no users in the system' do
@@ -81,7 +81,7 @@ RSpec.describe 'Logging In', type: :feature do
 
           expect(current_path).to eq(login_path)
 
-          expect(page).to have_content('Sorry, your credentials are bad.')
+          expect(page).to have_content('Unable to log in.')
         end
       end
     end

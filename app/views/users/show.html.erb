@@ -7,3 +7,6 @@
 <% end %>
 
 <%= render(partial: "character", collection: @character_list) || render(partial: "empty_list") %>
+<p>
+  <%= button_to 'Disable Account', status_path(current_user), method: :patch, class: 'btn btn-danger', data: { confirm: 'Are you sure? This will log you out and deactivate your account.' } %>
+</p>

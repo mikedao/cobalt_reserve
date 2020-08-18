@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     resources :characters, only: %i[new create edit update]
     put '/character/:id/activate', to: 'characters#activate', as: :activate_character
   end
+  patch '/status/:id', to: 'status#update', as: :status
 
   resources :world_news, only: %i[index show]
   resources :world_maps, only: %i[index]
