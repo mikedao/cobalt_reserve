@@ -1,4 +1,12 @@
-<h1><% if current_campaign %><%= current_campaign.name %><% else %>Welcome to the Cobalt Reserve!<% end %></h1>
+<h1 class="campaign-name text-center">
+  <center>
+  <% if current_campaign %>
+    <%= current_campaign.name %>
+  <% else %>
+    Welcome to the Cobalt Reserve!
+  <% end %>
+  </center>
+</h1>
 
 <ul>
   <li>
