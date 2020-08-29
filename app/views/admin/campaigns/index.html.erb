@@ -2,6 +2,7 @@
 
 <h2>Campaigns</h2>
 
+<section id="campaign-list">
 <% @campaigns.each do |campaign| %>
   <p id="campaign-<%= campaign.id %>">
   <%= link_to campaign.name, admin_campaign_path(campaign) %> -
@@ -11,5 +12,6 @@
   <% end %>
   </p>
 <% end %>
+</section>
 
 <p><%= link_to 'Create New Campaign', new_admin_campaign_path %></p>

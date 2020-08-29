@@ -14,7 +14,15 @@
   <body style="background-color:#f6e7ce;">
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-dark" style="background-color:#0e545b;">
-        <a class="navbar-brand text-light" href="/">Cobalt Reserve</a>
+        <a class="navbar-brand text-light" href="/">
+          <% if current_campaign %>
+            <%= current_campaign.name %>
+          <% else %>
+            Cobalt Reserve
+          <% end %>
+        </a>
+
+
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>

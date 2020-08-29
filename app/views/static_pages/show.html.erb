@@ -1,33 +1,14 @@
-<div class="container h1 text-center">
-  <% if current_campaign %>
-    <%= current_campaign.name %>
-  <% else %>
-    Welcome to the Cobalt Reserve!
-  <% end %>
-</div>
-
-<ul>
-  <li>
-    <%= link_to 'Monster Database', monsters_path %>
-  </li>
-  <li>
-    <%= link_to 'Character Index', characters_path %>
-  </li>
-  <li>
-    <%= link_to 'Game Session Index', game_sessions_path %>
-  </li>
-</ul>
 
 <section id="world-map">
-  <div class="container">
+  <div class="jumbotron jumbotron-fluid" style="background-color:#f6e7ce;">
     <% if current_campaign && !current_campaign.world_maps.empty? %>
-      <p><%= image_tag current_campaign.latest_low_res, class: "rounded mx-auto d-block" %></p>
+      <p><%= image_tag current_campaign.latest_low_res, class: "rounded mx-auto d-block img-fluid" %></p>
+      <div class="d-flex justify-content-center">
+        <%= link_to 'High Res Version', current_campaign.latest_high_res, class: "btn btn-primary mr-1" %>
+        <%= link_to 'Map History', world_maps_path, class: "btn btn-secondary mr-1" %>
+      </div>
+    <% end %>
   </div>
-  <div class="container">
-    <center><p><%= link_to 'High Res Version', current_campaign.latest_high_res, class: "btn btn-primary" %></p></center>
-    <center><p><%= link_to 'Map History', world_maps_path, class: "btn btn-secondary" %></p></center>
-  </div>
-<% end %>
 </section>
 
 
@@ -40,5 +21,19 @@
 
     <p><%= link_to 'World News Archive', world_news_index_path %></p>
   <% end %>
+</section>
+
+<section id="navigation">
+  <ul>
+    <li>
+      <%= link_to 'Monster Database', monsters_path %>
+    </li>
+    <li>
+      <%= link_to 'Character Index', characters_path %>
+    </li>
+    <li>
+      <%= link_to 'Game Session Index', game_sessions_path %>
+    </li>
+  </ul>
 </section>
 
