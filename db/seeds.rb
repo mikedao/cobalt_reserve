@@ -4,11 +4,14 @@ AdventureLog.delete_all
 GameSessionCharacter.delete_all
 GameSession.delete_all
 Character.delete_all
+WorldMap.delete_all
 Campaign.delete_all
 Monster.delete_all
 User.delete_all
 
-Campaign.create(name: 'Turing West Marches', status: 'active')
+campaign = Campaign.create(name: 'Turing West Marches', status: 'active')
+campaign.world_maps.create(low_res: "https://i.imgur.com/rBxkv0D.jpg",
+                           high_res: "https://i.imgur.com/zPIS6Ig.jpg")
 array = CSV.read('./data/monsters.csv', headers: true)
 
 array.each do |row|
@@ -43,5 +46,5 @@ Ancestryone.delete_all
  'Hobgoblin', 'Human', 'Kalashatar', 'Kenku', 'Kobold', 'Leonin', 'Lizardfolk', 'Locathah', 'Loxodon',
  'Minotaur', 'Orc', 'Orc of Eberron', 'Orc of Exandria', 'Satyr', 'Shifter', 'Simic Hybrid', 'Tabaxi',
  'Tiefling', 'Tortle', 'Triton', 'Vedalken', 'Verdan', 'Warforged', 'Yuan-ti Pureblood'].each do |species|
-  Ancestryone.create(name: species, active: true)
-end
+   Ancestryone.create(name: species, active: true)
+ end
