@@ -48,7 +48,7 @@ end
 def validate_game_session_link
   visit '/'
 
-  click_link 'Game Session Index'
+  click_link 'Game Sessions'
 
   expect(current_path).to eq '/game_sessions'
 end
