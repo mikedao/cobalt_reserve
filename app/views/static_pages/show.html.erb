@@ -47,6 +47,8 @@
           <p class="h6 text-muted"><%= current_campaign.world_news.most_recently_created.date %></p>
           <p><%= simple_format(current_campaign.world_news.most_recently_created.body) %></p>
 
+        <% else %>
+          <em>No news is good news, right?</em>
         <% end %>
       </div>
       <div class="col-sm-2">
