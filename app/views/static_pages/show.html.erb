@@ -2,15 +2,14 @@
 <section id="world-map">
   <div class="jumbotron jumbotron-fluid" style="background-color:#f6e7ce;">
     <% if current_campaign && !current_campaign.world_maps.empty? %>
-      <p><%= image_tag current_campaign.latest_low_res, class: "rounded mx-auto d-block img-fluid" %></p>
+      <p><%= image_tag current_campaign.latest_low_res, class: "rounded mx-auto d-block img-fluid shadow-lg" %></p>
       <div class="d-flex justify-content-center">
-        <%= link_to 'High Res Version', current_campaign.latest_high_res, class: "btn btn-primary mr-1" %>
-        <%= link_to 'Map History', world_maps_path, class: "btn btn-secondary mr-1" %>
+        <%= link_to 'High Res Version', current_campaign.latest_high_res, class: "btn-sm btn-primary m-1 shadow" %>
+        <%= link_to 'Map History', world_maps_path, class: "btn-sm btn-secondary m-1 shadow" %>
       </div>
     <% end %>
   </div>
 </section>
-
 
 <section id="world-news">
   <% if current_campaign && !current_campaign.world_news.empty? %>
