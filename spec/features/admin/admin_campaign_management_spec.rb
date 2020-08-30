@@ -91,7 +91,9 @@ RSpec.describe 'Admin Campaign Management', type: :feature do
       expect(page).to have_content(campaign.name)
       expect(page).to have_content(inactive_campaign.name)
 
-      click_on campaign.name
+      within '#campaign-list' do
+        click_on campaign.name
+      end
       click_on 'Delete Campaign'
 
       expect(current_path).to eq(admin_campaigns_path)

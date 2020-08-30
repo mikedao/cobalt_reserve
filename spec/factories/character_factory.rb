@@ -8,7 +8,7 @@ FactoryBot.define do
     dndbeyond_url { "https://dndbeyond/#{Faker::Number.within(range: 100000..999999)}"}
     active { true }
     foundry_key { Faker::JapaneseMedia::SwordArtOnline.game_name }
-
+    status { 0 }
     ancestryone
     ancestrytwo
     culture

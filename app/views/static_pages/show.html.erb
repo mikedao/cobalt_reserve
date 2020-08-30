@@ -1,34 +1,61 @@
-<h1><% if current_campaign %><%= current_campaign.name %><% else %>Welcome to the Cobalt Reserve!<% end %></h1>
-
-<ul>
-  <li>
-    <%= link_to 'Monster Database', monsters_path %>
-  </li>
-  <li>
-    <%= link_to 'Character Index', characters_path %>
-  </li>
-  <li>
-    <%= link_to 'Game Session Index', game_sessions_path %>
-  </li>
-</ul>
 
 <section id="world-map">
-  <% if current_campaign && !current_campaign.world_maps.empty? %>
-    <p><%= image_tag current_campaign.latest_low_res %></p>
-    <center><%= link_to 'High Res Version', current_campaign.latest_high_res %></center>
-    <center><p><%= link_to 'Map History', world_maps_path%></p></center>
-  <% end %>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <p class="h2"> World Map</p>
+      </div>
+    </div>
+    <div class="row">
+      <% if current_campaign && !current_campaign.world_maps.empty? %>
+        <div class="col-sm-10">
+          <%= image_tag current_campaign.latest_low_res, class: "rounded mx-auto d-block img-fluid shadow-lg" %>
+        </div>
+        <div class="col-sm-2">
+          <div class="row">
+            <%= link_to 'High Res Version', current_campaign.latest_high_res, class: "btn btn-primary m-1 shadow btn-block" %>
+          </div>
+          <div class="row">
+            <%= link_to 'Map History', world_maps_path, class: "btn btn-secondary m-1 shadow btn-block" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </section>
 
+<div class="container">
+  <br>
+  <br>
+  <hr>
+  <br>
+  <br>
+</div>
 
 <section id="world-news">
-  <% if current_campaign && !current_campaign.world_news.empty? %>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <p class="h2">World News</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-10 mr-10">
+        <% if current_campaign && !current_campaign.world_news.empty? %>
 
-    <p><%= current_campaign.world_news.most_recently_created.title %></p>
-    <p><%= current_campaign.world_news.most_recently_created.date %></p>
-    <p><%= current_campaign.world_news.most_recently_created.body %></p>
+          <p class="h5"><%= current_campaign.world_news.most_recently_created.title %></p>
+          <p class="h6 text-muted"><%= current_campaign.world_news.most_recently_created.date %></p>
+          <p><%= simple_format(current_campaign.world_news.most_recently_created.body) %></p>
 
-    <p><%= link_to 'World News Archive', world_news_index_path %></p>
-  <% end %>
+        <% end %>
+      </div>
+      <div class="col-sm-2">
+        <div class="row">
+          <%= link_to 'World News Archive', world_news_index_path, class: "btn btn-primary m-1 shadow btn-block" %>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
+
 

@@ -79,6 +79,7 @@ RSpec.configure do |config|
   config.before :suite do
     Culture.delete_all
     Rails.application.load_seed
+    WorldMap.delete_all
     Campaign.delete_all
   end
   config.after :suite do

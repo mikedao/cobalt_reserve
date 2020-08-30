@@ -54,7 +54,7 @@ ActiveRecord::Schema.define(version: 2020_08_16_194007) do
     t.text "role"
     t.text "additional_information"
     t.string "foundry_key"
-    t.integer "status", default: 0
+    t.integer "status"
     t.index ["ancestryone_id"], name: "index_characters_on_ancestryone_id"
     t.index ["ancestrytwo_id"], name: "index_characters_on_ancestrytwo_id"
     t.index ["campaign_id"], name: "index_characters_on_campaign_id"

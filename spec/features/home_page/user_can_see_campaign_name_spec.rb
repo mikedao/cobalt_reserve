@@ -4,7 +4,7 @@ RSpec.describe 'home page', type: :feature do
   context 'as a visitor' do
     it 'shows a welcome message on the home page if there are no active campaigns' do
       visit root_path
-      expect(page).to have_content('Welcome to the Cobalt Reserve')
+      expect(page).to have_content('Cobalt Reserve')
     end
 
     it 'can see an active campaign name on the home page if one exists' do
@@ -16,7 +16,7 @@ RSpec.describe 'home page', type: :feature do
 
     it 'can see a link which navigates to character index' do
       visit root_path
-      click_link('Character Index')
+      click_link('Characters')
 
       expect(current_path).to eq(characters_path)
     end

@@ -2,7 +2,7 @@ class Campaign < ApplicationRecord
   has_many :characters
   has_many :game_sessions
   has_many :world_news
-  has_many :world_maps
+  has_many :world_maps, dependent: :delete_all
 
   def self.current
     find_by(status: 'active')
