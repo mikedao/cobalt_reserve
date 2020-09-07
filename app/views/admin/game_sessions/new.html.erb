@@ -1,19 +1,28 @@
-<h1>Create Session</h1>
+<div class="container">
+  <div class="row">
+    <div class="col d-flex justify-content-center">
+      <p class="h2">Create Session</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col d-flex justify-content-center">
+      <%= form_with url: '/admin/game_sessions', model: @game_session, local: true do |form| %>
+        <p>
+          <%= form.label :name, 'Name:' %>
+          <%= form.text_field :name, required: true, class: 'form-control' %>
+          <br>
+        <% current_campaign.characters.active.each do |character| %>
+          <%= form.check_box 'characters', {:multiple => true, :class => 'checkbox'}, character.id, nil %>
+          <%= form.label "characters_#{character.id}", character.name %>
+          </br>
+        <% end %>
+        <%= form.submit 'Create Game Session', class: 'btn btn-primary btn-block' %>
+      <% end %>
+    </div>
+  </div>
+</div>
 
-<%= form_with url: '/admin/game_sessions', model: @game_session, local: true do |form| %>
-  <p>
-    <%= form.label :name %>
-    <%= form.text_field :name, required: true %>
-  </p>
 
-  <h2>Select Characters</h2>
-  <p>
-    <% current_campaign.characters.active.each do |character| %>
-      <%= form.label "characters_#{character.id}", character.name %>
-      <%= form.check_box 'characters', {:multiple => true}, character.id, nil %>
-      </br>
-    <% end %>
-  </p>
 
-  <%= form.submit 'Create Game Session' %>
-<% end %>
+
+
