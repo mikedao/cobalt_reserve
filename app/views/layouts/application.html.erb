@@ -22,7 +22,6 @@
           <% end %>
         </a>
 
-
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -37,6 +36,7 @@
               <li class="nav-item"><%= link_to 'MonsterDB', monsters_path, class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to 'Characters', characters_path, class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to 'Game Sessions', game_sessions_path, class: 'nav-link' %></li>
+              <li class="nav-item"><%= link_to 'Play', 'http://play.turingwestmarches.com', class: 'nav-link' %></li>
               <li class="nav-item"><%= link_to 'Log Out', logout_path, method: 'delete', class: 'nav-link' %></li>
             <% else %>
               <li class="nav-item"><%= link_to 'Register', new_user_path, class: 'nav-link' %></li>
