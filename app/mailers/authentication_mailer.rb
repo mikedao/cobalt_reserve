@@ -8,7 +8,7 @@ class AuthenticationMailer < ApplicationMailer
     @user.update(login_uuid: @uuid, login_timestamp: t + 10.minutes)
     mail(
       to: @user.email,
-      subject: "Action Required: #{@user.username}, the Cobalt Reserve awaits your return!"
+      subject: "Action Required: #{@user.username}, Turing West Marches awaits your return!"
     )
   end
 end

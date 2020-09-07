@@ -17,20 +17,20 @@ RSpec.describe AuthenticationMailer, type: :mailer do
       email.deliver_now
     end
 
-    assert_equal ['no-reply@cobalt-reserve.com'], email.from
+    assert_equal ['no-reply@turingwestmarches.com'], email.from
     assert_equal ['bucket@example.com'], email.to
-    assert_equal "Action Required: #{user.username}, the Cobalt Reserve awaits your return!", email.subject
+    assert_equal "Action Required: #{user.username}, Turing West Marches awaits your return!", email.subject
 
     plaintext_body = email.text_part.body.to_s
     html_body = email.html_part.body.to_s
 
-    expect(plaintext_body).to have_content("Hail, #{user.username}. The Cobalt Reserve awaits your return.")
-    expect(plaintext_body).to have_content("http://cobalt-reserve.herokuapp.com/auth/#{fake_uuid}")
+    expect(plaintext_body).to have_content("Hail, #{user.username}. Turing West Marches awaits your return.")
+    expect(plaintext_body).to have_content("http://turingwestmarches.com/auth/#{fake_uuid}")
     expect(plaintext_body).to have_content('This link expires in 10 minutes.')
 
-    expect(html_body).to have_content("Hail, #{user.username}. The Cobalt Reserve awaits your return.")
-    expect(html_body).to have_content('Click here to log in to the Cobalt Reserve.')
-    expect(html_body).to have_selector(:css, "a[href=\"http://cobalt-reserve.herokuapp.com/auth/#{fake_uuid}\"]")
+    expect(html_body).to have_content("Hail, #{user.username}. Turing West Marches awaits your return.")
+    expect(html_body).to have_content('Click here to log in to Turing West Marches.')
+    expect(html_body).to have_selector(:css, "a[href=\"http://turingwestmarches.com/auth/#{fake_uuid}\"]")
     expect(html_body).to have_content('This link expires in 10 minutes.')
 
     # how many actual emails were caught by Rails 6 test environment?
