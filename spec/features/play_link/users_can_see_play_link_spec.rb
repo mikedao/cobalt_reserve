@@ -10,7 +10,7 @@ RSpec.describe 'play link', type: :feature do
 
       visit root_path
 
-      within(".navbar") do
+      within('.navbar') do
         expect(page).to have_link('Play')
       end
     end
@@ -25,8 +25,8 @@ RSpec.describe 'play link', type: :feature do
 
       visit root_path
 
-      within(".navbar") do
-        expect(page).to_not have_link('play')
+      within('.navbar') do
+        expect(page).to_not have_link('Play')
       end
     end
   end
