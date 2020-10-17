@@ -23,7 +23,7 @@ RSpec.describe 'character index', type: :feature do
             within '.card-header' do
               expect(page).to have_link(@character_1.name)
               expect(page).to have_content("Level #{@character_1.level} #{@character_1.klass}")
-              expect(page).to have_content("Active Campaign Character")
+              expect(page).to have_content('Active Campaign Character')
             end
             within '.ancestry' do
               expect(page).to have_content(@character_1.build_ancestry)
@@ -34,7 +34,7 @@ RSpec.describe 'character index', type: :feature do
             within '.card-header' do
               expect(page).to have_link(@character_2.name)
               expect(page).to have_content("Level #{@character_2.level} #{@character_2.klass}")
-              expect(page).to have_content("Active Campaign Character")
+              expect(page).to have_content('Active Campaign Character')
             end
             within '.ancestry' do
               expect(page).to have_content(@character_2.build_ancestry)

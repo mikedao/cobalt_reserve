@@ -26,7 +26,7 @@ RSpec.describe 'As a visitor', type: :feature do
         within '.card-header' do
           expect(page).to have_link(@character_1.name)
           expect(page).to have_content("Level #{@character_1.level} #{@character_1.klass}")
-          expect(page).to have_content("Active Campaign Character")
+          expect(page).to have_content('Active Campaign Character')
           expect(page).to_not have_button('Make Active!')
         end
         within '.ancestry' do
@@ -38,7 +38,7 @@ RSpec.describe 'As a visitor', type: :feature do
         within '.card-header' do
           expect(page).to have_link(@character_2.name)
           expect(page).to have_content("Level #{@character_2.level} #{@character_2.klass}")
-          expect(page).to have_content("Active Campaign Character")
+          expect(page).to have_content('Active Campaign Character')
           expect(page).to_not have_button('Make Active!')
         end
         within '.ancestry' do
@@ -49,7 +49,7 @@ RSpec.describe 'As a visitor', type: :feature do
       within "#char-#{@character_3.id}" do
         expect(page).to have_link(@character_3.name)
         expect(page).to have_content("Level #{@character_3.level} #{@character_3.klass}")
-        expect(page).to_not have_content("Active Campaign Character")
+        expect(page).to_not have_content('Active Campaign Character')
         expect(page).to have_button('Make Active!')
         within '.ancestry' do
           expect(page).to have_content(@character_3.build_ancestry)

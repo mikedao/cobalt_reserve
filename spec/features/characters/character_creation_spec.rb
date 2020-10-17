@@ -34,11 +34,10 @@ RSpec.feature 'Character creation' do
 
         expect(current_path).to eq(profile_path)
         within "#char-#{ch.id}" do
-
           within '.card-header' do
             expect(page).to have_link(ch.name)
             expect(page).to have_content("Level #{ch.level} #{ch.klass}")
-            expect(page).to have_content("Active Campaign Character")
+            expect(page).to have_content('Active Campaign Character')
           end
           within '.ancestry' do
             expect(page).to have_content(ch.build_ancestry)
@@ -65,13 +64,13 @@ RSpec.feature 'Character creation' do
         expect(current_path).to eq(profile_path)
         within "#char-#{ch1.id}" do
           within '.card-header' do
-            expect(page).to have_content("Active Campaign Character")
+            expect(page).to have_content('Active Campaign Character')
           end
         end
 
         within "#char-#{ch2.id}" do
           within '.card-header' do
-            expect(page).to have_button("Make Active")
+            expect(page).to have_button('Make Active')
           end
         end
       end

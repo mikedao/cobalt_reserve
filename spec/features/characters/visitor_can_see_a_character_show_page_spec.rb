@@ -15,7 +15,7 @@ RSpec.describe 'character show', type: :feature do
             within '.card-header' do
               expect(page).to have_link(@character.name)
               expect(page).to have_content("Level #{@character.level} #{@character.klass}")
-              expect(page).to have_content("Active Campaign Character")
+              expect(page).to have_content('Active Campaign Character')
             end
 
             within '.ancestry' do

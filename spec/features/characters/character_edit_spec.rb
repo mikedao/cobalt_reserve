@@ -43,7 +43,7 @@ RSpec.feature 'Character updating' do
         within '.card-header' do
           expect(page).to have_link(ch.name)
           expect(page).to have_content("Level #{ch.level} #{ch.klass}")
-          expect(page).to have_content("Active Campaign Character")
+          expect(page).to have_content('Active Campaign Character')
         end
         within '.ancestry' do
           expect(page).to have_content(ch.build_ancestry)
