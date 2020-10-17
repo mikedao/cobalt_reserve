@@ -20,24 +20,25 @@ RSpec.describe 'character index', type: :feature do
           visit characters_path
 
           within "#char-#{@character_1.id}" do
-            expect(page).to have_content(@character_1.name)
+            within '.card-header' do
+              expect(page).to have_link(@character_1.name)
+              expect(page).to have_content("Level #{@character_1.level} #{@character_1.klass}")
+              expect(page).to have_content("Active Campaign Character")
+            end
             within '.ancestry' do
               expect(page).to have_content(@character_1.build_ancestry)
             end
-            within '.klass' do
-              expect(page).to have_content("Class: #{@character_1.klass}")
-            end
-            expect(page).to have_content("Level: #{@character_1.level}")
           end
+
           within "#char-#{@character_2.id}" do
-            expect(page).to have_content(@character_2.name)
+            within '.card-header' do
+              expect(page).to have_link(@character_2.name)
+              expect(page).to have_content("Level #{@character_2.level} #{@character_2.klass}")
+              expect(page).to have_content("Active Campaign Character")
+            end
             within '.ancestry' do
               expect(page).to have_content(@character_2.build_ancestry)
             end
-            within '.klass' do
-              expect(page).to have_content("Class: #{@character_2.klass}")
-            end
-            expect(page).to have_content("Level: #{@character_2.level}")
           end
 
           expect(page).not_to have_content(@character_3.name)

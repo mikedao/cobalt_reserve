@@ -12,17 +12,15 @@ RSpec.describe 'character show', type: :feature do
 
         it "I see the character's attributes" do
           within "#char-#{@character.id}" do
-            expect(page).to have_content(@character.name)
+            within '.card-header' do
+              expect(page).to have_link(@character.name)
+              expect(page).to have_content("Level #{@character.level} #{@character.klass}")
+              expect(page).to have_content("Active Campaign Character")
+            end
 
             within '.ancestry' do
               expect(page).to have_content(@character.build_ancestry)
             end
-
-            within '.klass' do
-              expect(page).to have_content("Class: #{@character.klass}")
-            end
-
-            expect(page).to have_content("Level: #{@character.level}")
           end
 
           expect(page).to have_link('D&D Beyond Character Sheet')

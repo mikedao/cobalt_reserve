@@ -15,9 +15,10 @@ RSpec.feature 'Character updating' do
       login_as_user(@user.username, @user.password)
       visit profile_path
     end
+
     it 'allows a user to update a character' do
       within "#char-#{@character.id}" do
-        expect(page).to have_content('Active: true')
+        expect(page).to have_content('Active Campaign Character')
         click_button 'Edit Character'
       end
 
@@ -39,15 +40,17 @@ RSpec.feature 'Character updating' do
 
       expect(current_path).to eq(profile_path)
       within "#char-#{ch.id}" do
-        expect(page).to have_content(ch.name)
+        within '.card-header' do
+          expect(page).to have_link(ch.name)
+          expect(page).to have_content("Level #{ch.level} #{ch.klass}")
+          expect(page).to have_content("Active Campaign Character")
+        end
         within '.ancestry' do
           expect(page).to have_content(ch.build_ancestry)
         end
-        within '.klass' do
-          expect(page).to have_content("Class: #{ch.klass}")
+        within '.culture' do
+          expect(page).to have_content(ch.culture.name)
         end
-        expect(page).to have_content("Level: #{ch.level}")
-        expect(page).to have_content('Active: true')
       end
     end
 
@@ -57,12 +60,11 @@ RSpec.feature 'Character updating' do
         visit profile_path
 
         within "#char-#{@character.id}" do
-          expect(page).to have_content('Active: true')
+          expect(page).to have_content('Active Campaign Character')
           expect(page).to_not have_button 'Make Active!'
         end
 
         within "#char-#{ch2.id}" do
-          expect(page).to have_content('Active: false')
           click_button 'Make Active!'
         end
 
@@ -70,15 +72,15 @@ RSpec.feature 'Character updating' do
         expect(page).to have_content("#{ch2.name} is now active!")
 
         within "#char-#{@character.id}" do
-          expect(page).to have_content('Active: false')
           expect(page).to have_button 'Make Active!'
         end
 
         within "#char-#{ch2.id}" do
-          expect(page).to have_content('Active: true')
+          expect(page).to have_content('Active Campaign Character')
           expect(page).to_not have_button 'Make Active!'
         end
       end
+
       it 'blocks users from activating a character belonging to another player' do
         page.driver.put user_activate_character_path(@user, @character2)
         visit profile_path
@@ -90,7 +92,7 @@ RSpec.feature 'Character updating' do
       visit characters_path
 
       within "#char-#{@character.id}" do
-        expect(page).to have_content('Active: true')
+        expect(page).to have_content('Active Campaign Character')
         expect(page).to have_button 'Edit Character'
       end
 

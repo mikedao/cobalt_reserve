@@ -44,3 +44,43 @@
     color: #3b1a14;
 }
 
+#main {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.character-card {
+    margin: 10px;
+    width: 300px;
+    float: left;
+    border: solid 1px #555;
+    background-color: #eed;
+    box-shadow:  0 0 10px  rgba(0,0,0,0.6);
+    -moz-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
+    -webkit-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
+    -o-box-shadow: 0 0 10px  rgba(0,0,0,0.6);
+    border-radius:15px;
+}
+
+.character-card .card-header a {
+    font-size:16pt;
+}
+
+.character-card .character-active-true {
+    background-color: bisque;
+    border-top-left-radius:15px;
+    border-top-right-radius:15px;
+}
+.character-card .character-active-false {
+    background-color: silver;
+    border-top-left-radius:15px;
+    border-top-right-radius:15px;
+}
+
+.field-25  {
+    width: 25%;
+}
+.field-50  {
+    width: 50%;
+}
