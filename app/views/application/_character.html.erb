@@ -1,21 +1,21 @@
-<div class="card">
-  <div class="card-body" id="char-<%= character.id %>">
-    <h5 class="card-title">
-      <%= link_to character.name, character_path(character) %>
-    </h5>
+<div class="card character-card character-active-<%= character.active %>" id="char-<%= character.id %>">
+  <div class="card-header character-active-<%= character.active %>">
+    <%= link_to character.name, character_path(character) %>
+    <p>Level <%= character.level %> <%= character.klass %></p>
+    <% if character.active %>
+      <p><strong>Active Campaign Character</strong></p>
+    <% else %>
+      <p><%= button_to 'Make Active!', user_activate_character_path(character.user, character.id), method: 'put', class: 'card-link' %></p>
+    <% end %>
+  </div>
+  <div class="card-body">
     <h6 class="card-subtitle mb-2 text-muted">
       <p class="ancestry">Ancestry: <%= character.build_ancestry %></p>
       <p class="culture">Culture: <%= character.culture.name %></p>
-      <p class="klass">Class: <%= character.klass %></p>
     </h6>
-    <p>Level: <%= character.level %></p>
-    <p>Active: <%= character.active %></p>
     <% if current_user == character.user %>
       <p><%= button_to 'Edit Character', edit_user_character_path(character.user, character.id), method: 'get', class: 'card-link' %></p>
       <p><%= button_to 'Edit Backstory', backstory_edit_path(character), method: 'get' %></p>
-      <% unless character.active %>
-      <p><%= button_to 'Make Active!', user_activate_character_path(character.user, character.id), method: 'put', class: 'card-link' %></p>
-      <% end %>
     <% end %>
     <p><%= link_to 'D&D Beyond Character Sheet', character.dndbeyond_url %></p>
   </div>

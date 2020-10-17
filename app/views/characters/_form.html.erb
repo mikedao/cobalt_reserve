@@ -2,7 +2,7 @@
 <%= form_for [@user, @character], url: @form_submission_url do |f| %>
   <% if @character.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@character.errors.count, "error") %> prohibited this character from being saved:</h2>
+      <h4><%= pluralize(@character.errors.count, "error") %> prohibited this character from being saved:</h4>
 
       <ul>
         <% @character.errors.full_messages.each do |message| %>
@@ -12,41 +12,42 @@
     </div>
   <% end %>
 
-      <div class="field">
-        <%= f.label :name, 'Name:' %>
+      <div class="field field-50">
+        <%= f.label :name, 'Name: (required)' %>
         <%= f.text_field :name, {required: true, class: 'form-control'} %>
       </div>
 
-      <div class="field">
-        <%= f.label :dndbeyond_url, 'DND Beyond URL:' %>
+      <div class="field field-50">
+        <%= f.label :dndbeyond_url, 'DND Beyond URL:  (required)' %>
         <%= f.url_field :dndbeyond_url, {required: true, class: 'form-control'} %>
       </div>
 
-      <div class="field">
-        <%= f.label 'ancestryone_id', 'Ancestry 1:' %>
+      <div class="field field-50">
+        <%= f.label 'ancestryone_id', 'Ancestry 1: (required)' %>
         <%= f.collection_select :ancestryone_id, @species, :id, :name, prompt: true, required: true, class: 'form-control' %>
       </div>
 
-      <div class="field">
+      <div class="field field-50">
         <%= f.label 'ancestrytwo_id', 'Ancestry 2 (optional):' %>
         <%= f.collection_select :ancestrytwo_id, @species, :id, :name, prompt: true, include_blank: '(None)', class: 'form-control' %>
       </div>
-      <div class="field">
-        <%= f.label 'culture_id', 'Culture:' %>
+
+      <div class="field field-50">
+        <%= f.label 'culture_id', 'Culture: (required)' %>
         <%= f.collection_select :culture_id, @species, :id, :name, prompt: true, required: true, class: 'form-control' %>
       </div>
 
-      <div class="field">
-        <%= f.label 'klass', 'Class:' %>
+      <div class="field field-50">
+        <%= f.label 'klass', 'Class: (required)' %>
         <%= f.select 'klass', options_for_select(@classes, @character.klass), prompt: true, required: true, class: 'form-control' %>
       </div>
 
-      <div class="field">
-        <%= f.label :level, 'Level:' %>
+      <div class="field field-25">
+        <%= f.label :level, 'Level: (1-20, required)' %>
         <%= f.number_field :level, {required: true, min: 1, max: 20, step: 1, class: 'form-control'} %>
       </div>
 
-      <div class="field">
+      <div class="field field-25">
         <%= f.submit text, class: 'btn btn-primary btn-block mt-2' %>
       </div>
     <% end %>
