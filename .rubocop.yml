@@ -12,7 +12,7 @@ Layout/TrailingBlankLines:
   Enabled: false
 
 Style/StringLiterals:
-  EnforcedStyle: single_quotes
+  EnforcedStyle: double_quotes
 
 Metrics/LineLength:
   Max: 120
